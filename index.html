@@ -1,1 +1,593 @@
-test
+<!doctype html>
+<html lang="it" dir="ltr" data-theme="dark" data-language="it">
+<head>
+  <!--
+    Index / Landing page (GitHub Pages-ready)
+    - Keep CSS/JS external for future multi-page expansion.
+    - All code comments in English, as requested.
+  -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Home | Emanuele Passarelli · Artigiano del Ritratto</title>
+  <meta name="description" content="Ritratto Unico: una sessione dedicata con tecniche fotografiche antiche e banco ottico. Italia nel Grande Formato: un progetto in viaggio tra set realistici e ritratti su pellicola.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b0c0f" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
+  <link rel="canonical" href="https://emanuelepassarelli.it/">
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Emanuele Passarelli · Artigiano del Ritratto">
+  <meta property="og:title" content="Emanuele Passarelli · Artigiano del Ritratto">
+  <meta property="og:description" content="Ritratto Unico e Italia nel Grande Formato: ritratti analogici, set realistici, stampa e opera finita.">
+  <meta property="og:url" content="https://emanuelepassarelli.it/">
+  <!-- TODO: Replace with a real social share image once available -->
+  <meta property="og:image" content="assets/img/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Google Fonts (remote, no local downloads) -->
+  <!-- Headings: Fraunces (expressive) | Body: Inter (neutral) -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@200..900&display=swap" rel="stylesheet">
+
+  <!-- Base CSS (shared across pages) -->
+  <link rel="stylesheet" href="assets/css/site.css">
+
+  <!-- Minimal critical CSS so the page remains readable if CSS fails to load -->
+  <style>
+    :root { color-scheme: dark light; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0b0c0f; color:#f2f2f2; }
+    a { color: inherit; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .skip-link { position:absolute; left:-9999px; top:0; padding:.75rem 1rem; background:#111; border:1px solid #333; border-radius:.75rem; z-index:9999; }
+    .skip-link:focus { left: .75rem; top: .75rem; }
+  </style>
+
+  <!-- External JS libraries (loaded from CDN, only if needed) -->
+  <!-- Note: actual usage/initialization happens in assets/js/site.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Shared JS (site-wide) -->
+  <script defer src="assets/js/site.js"></script>
+
+  <!-- Structured data (prioritize Italian; include English as secondary in the same graph) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://emanuelepassarelli.it/#website",
+        "url": "https://emanuelepassarelli.it/",
+        "name": "Emanuele Passarelli · Artigiano del Ritratto",
+        "inLanguage": "it-IT"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://emanuelepassarelli.it/#webpage",
+        "url": "https://emanuelepassarelli.it/",
+        "name": "Home | Emanuele Passarelli · Artigiano del Ritratto",
+        "isPartOf": { "@id": "https://emanuelepassarelli.it/#website" },
+        "inLanguage": "it-IT",
+        "about": { "@id": "https://emanuelepassarelli.it/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://emanuelepassarelli.it/#person",
+        "name": "Emanuele Passarelli",
+        "jobTitle": [
+          { "@value": "Fotografo", "@language": "it" },
+          { "@value": "Portrait Photographer", "@language": "en" }
+        ],
+        "url": "https://emanuelepassarelli.it/"
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Vai al contenuto</a>
+
+  <header class="site-header" data-component="header">
+    <div class="wrap header__wrap">
+      <a class="brand" href="/" aria-label="Torna alla home">
+        <span class="brand__mark" aria-hidden="true">EP</span>
+        <span class="brand__text">
+          <span class="brand__name">Emanuele Passarelli</span>
+          <span class="brand__tagline" data-i18n="tagline">
+            <span lang="it">Artigiano del Ritratto</span>
+            <span lang="en">Portrait Artisan</span>
+          </span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Navigazione principale">
+        <a class="nav__link" href="#ritratto">Ritratto</a>
+        <a class="nav__link" href="#progetto">Progetto</a>
+        <a class="nav__link" href="#portfolio">Portfolio</a>
+        <a class="nav__link" href="#bio">Bio</a>
+        <a class="nav__link" href="#contatti">Contatti</a>
+      </nav>
+
+      <div class="controls" aria-label="Controlli sito">
+        <!-- Language switcher: keeps Italian as default. -->
+        <div class="segmented" role="group" aria-label="Lingua">
+          <button class="segmented__btn is-active" type="button" data-action="set-language" data-language="it" aria-pressed="true">IT</button>
+          <button class="segmented__btn" type="button" data-action="set-language" data-language="en" aria-pressed="false">EN</button>
+        </div>
+
+        <!-- Theme switcher: dark/light -->
+        <button class="icon-btn" type="button" data-action="toggle-theme" aria-label="Cambia tema (dark/light)">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" fill="currentColor"></path>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+          </svg>
+        </button>
+
+        <!-- Mobile nav toggle (implemented via JS/CSS) -->
+        <button class="icon-btn nav-toggle" type="button" data-action="toggle-nav" aria-label="Apri menu">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" aria-label="Introduzione" data-component="hero">
+      <div class="wrap hero__wrap">
+        <div class="hero__copy">
+          <p class="kicker" data-i18n="hero_kicker">
+            <span lang="it">Ritratto analogico, set realistici, stampa come opera.</span>
+            <span lang="en">Analog portraiture, realistic sets, print as an artwork.</span>
+          </p>
+
+          <h1 class="hero__title">
+            <span class="hero__titleLine" data-i18n="hero_title_1">
+              <span lang="it">Ritratto Unico.</span>
+              <span lang="en">A singular portrait.</span>
+            </span>
+            <span class="hero__titleLine hero__titleLine--muted" data-i18n="hero_title_2">
+              <span lang="it">La fotografia come testimonianza.</span>
+              <span lang="en">Photography as testimony.</span>
+            </span>
+          </h1>
+
+          <p class="lead" data-i18n="hero_lead">
+            <span lang="it">Avere un proprio ritratto stampato è la testimonianza di chi siamo, ti verrà dedicata una sessione fotografica per poter lasciare una traccia di te.</span>
+            <span lang="en">A printed portrait is a testimony of who we are. You’ll be dedicated a session to leave a trace of yourself.</span>
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#contatti" data-i18n="hero_cta_primary">
+              <span lang="it">Prenota un ritratto</span>
+              <span lang="en">Book a portrait</span>
+            </a>
+            <a class="btn btn--ghost" href="#progetto" data-i18n="hero_cta_secondary">
+              <span lang="it">Scopri il progetto</span>
+              <span lang="en">Explore the project</span>
+            </a>
+          </div>
+
+          <div class="hero__meta" role="list">
+            <div class="chip" role="listitem" data-i18n="chip_1">
+              <span lang="it">Banco ottico</span>
+              <span lang="en">Large format camera</span>
+            </div>
+            <div class="chip" role="listitem" data-i18n="chip_2">
+              <span lang="it">Set scenografici</span>
+              <span lang="en">Cinematic sets</span>
+            </div>
+            <div class="chip" role="listitem" data-i18n="chip_3">
+              <span lang="it">Stampa fine art</span>
+              <span lang="en">Fine art print</span>
+            </div>
+          </div>
+        </div>
+
+        <!--
+          Instead of a background video, we present an interactive "video portal" card.
+          Technical choice: YouTube iframe (as requested), lazy-mounted via JS for better UX.
+        -->
+        <div class="hero__media" data-component="video-portal">
+          <div class="videoPortal" data-video="youtube" data-youtube-id="nSSJRcRtqpo" data-start="8" data-end="27">
+            <div class="videoPortal__frame" aria-label="Video di presentazione: Italia nel Grande Formato">
+              <!-- Animated placeholder (shown until iframe reports ready/playing) -->
+              <div class="mediaPlaceholder" aria-hidden="true">
+                <div class="mediaPlaceholder__shimmer"></div>
+                <div class="mediaPlaceholder__badge" data-i18n="video_loading">
+                  <span lang="it">Caricamento video…</span>
+                  <span lang="en">Loading video…</span>
+                </div>
+              </div>
+
+              <!-- The iframe is inserted/mounted by JS into this container -->
+              <div class="videoPortal__mount" data-video-mount></div>
+
+              <!-- Innovative "tap-to-start" overlay (keeps minimal, but feels premium) -->
+              <button class="videoPortal__start" type="button" data-action="start-video" aria-label="Avvia video">
+                <span class="videoPortal__pulse" aria-hidden="true"></span>
+                <span class="videoPortal__label" data-i18n="video_cta">
+                  <span lang="it">Guarda</span>
+                  <span lang="en">Watch</span>
+                </span>
+                <span class="videoPortal__hint" aria-hidden="true">⟶</span>
+              </button>
+            </div>
+
+            <p class="micro" data-i18n="video_caption">
+              <span lang="it">Italia nel Grande Formato · Presentazione Progetto</span>
+              <span lang="en">Italia nel Grande Formato · Project presentation</span>
+            </p>
+
+            <noscript>
+              <p>
+                <a href="https://youtu.be/nSSJRcRtqpo" rel="noopener">Apri il video su YouTube</a>
+              </p>
+            </noscript>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RITRATTO UNICO -->
+    <section id="ritratto" class="section section--ritratto" aria-label="Ritratto Unico">
+      <div class="wrap">
+        <header class="section__header">
+          <h2 class="h2">Ritratto Unico</h2>
+          <p class="section__sub" data-i18n="ritratto_sub">
+            <span lang="it">Un processo in quattro passaggi, pensato per trasformare la sessione in un’esperienza e la stampa in un’opera.</span>
+            <span lang="en">A four-step process that turns a session into an experience, and a print into an artwork.</span>
+          </p>
+        </header>
+
+        <div class="grid grid--cards" data-component="feature-cards">
+          <article class="card">
+            <h3 class="h3">Diventa un’opera d’arte</h3>
+            <p class="p">
+              Avere un proprio ritratto stampato è la testimonianza di chi siamo, ti verrà dedicata una sessione fotografica per poter lasciare una traccia di te.
+            </p>
+            <p class="p" lang="en">
+              A printed portrait becomes a testimony of who we are. You’ll be dedicated a session to leave a trace of yourself.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3 class="h3">Produzione in grande formato</h3>
+            <p class="p">
+              Sarai l’unico soggetto fotografato con una macchina analogica a banchi ottici, uno strumento che permette di ottenere un’immagine estremamente nitida e dettagliata.
+            </p>
+            <p class="p" lang="en">
+              You’ll be photographed with a large-format analog camera, a tool that delivers extremely sharp and detailed images.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3 class="h3">Set realistico</h3>
+            <p class="p">
+              Sarai immerso in un set fotografico realistico, grazie ad una collezione di oggetti rari recuperati durante gli anni nella fotografia pubblicitaria.
+            </p>
+            <p class="p" lang="en">
+              You’ll be immersed in a realistic set, built from a collection of rare objects gathered over years in advertising photography.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3 class="h3">Opera finita</h3>
+            <p class="p">
+              Il ritratto sarà stampato su una stampa Fine Art con colori accurati e dettagli definiti, per rendere eterna la vostra esperienza.
+            </p>
+            <p class="p" lang="en">
+              The portrait is printed as a Fine Art print with accurate colors and defined details, preserving the experience over time.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECT -->
+    <section id="progetto" class="section section--project" aria-label="Italia nel Grande Formato">
+      <div class="wrap">
+        <div class="split" data-component="project-split">
+          <div class="split__copy">
+            <h2 class="h2">Italia nel Grande Formato</h2>
+
+            <p class="p">
+              Il progetto “Italia nel Grande Formato” è un’idea cominciata nel 2010, che prende forma con una roulotte d’epoca degli anni ‘50 trasformata in studio fotografico itinerante.
+            </p>
+            <p class="p">
+              Il progetto consiste nel ritrarre persone in giro per l’Italia, allestendo un set realistico nella roulotte, utilizzando pellicole analogiche e un antico banco ottico.
+            </p>
+            <p class="p">
+              I “Ritratti Passarelliani” sono opere ispirate alla fotografia di moda degli anni 90, periodo in cui l’attenzione non era ancora rivolta a smartphone e social media, e le persone vivevano momenti autentici e significativi.
+            </p>
+
+            <div class="callout" role="note">
+              <p class="callout__title">L’obiettivo</p>
+              <p class="callout__text">
+                Realizzare immagini che abbiano una forte impronta narrativa, intime ma epiche, con un’estetica pulita e senza tempo.
+              </p>
+            </div>
+
+            <div class="actions">
+              <!-- TODO: Replace href with your future /progetti/ page (folder index.html structure) -->
+              <a class="btn btn--primary" href="progetti/index.html" data-i18n="project_cta">
+                <span lang="it">Vedi i progetti</span>
+                <span lang="en">View projects</span>
+              </a>
+              <a class="btn btn--ghost" href="#portfolio" data-i18n="project_cta2">
+                <span lang="it">Guarda il portfolio</span>
+                <span lang="en">See the portfolio</span>
+              </a>
+            </div>
+
+            <!-- Secondary (English) copy: kept in <details> for SEO-friendly accessibility -->
+            <details class="translation" data-component="translation">
+              <summary>English translation</summary>
+              <div lang="en">
+                <p class="p">
+                  “Italia nel Grande Formato” started as an idea in 2010 and took shape with a 1950s vintage caravan turned into a traveling photo studio.
+                </p>
+                <p class="p">
+                  The project portrays people across Italy, building a realistic set inside the caravan, using analog film and an antique large-format camera.
+                </p>
+                <p class="p">
+                  “Ritratti Passarelliani” draw inspiration from 1990s fashion photography, when attention wasn’t yet captured by smartphones and social media, and people experienced more authentic moments.
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <div class="split__media">
+            <!--
+              Image placeholder strategy:
+              - We do NOT set src immediately to avoid broken-image icons.
+              - Real paths go into data-src and are progressively loaded by JS (IntersectionObserver).
+              - If an image is missing, the placeholder remains and no broken icon is shown.
+            -->
+            <figure class="media" data-component="smart-media">
+              <div class="media__ph" aria-hidden="true">
+                <div class="media__phShimmer"></div>
+              </div>
+              <!-- TODO: Replace data-src with your real image path -->
+              <img class="media__img" alt="Ritratto in grande formato su set realistico" width="1400" height="1050"
+                   data-src="assets/img/project-01.jpg" decoding="async" loading="lazy">
+              <figcaption class="micro" data-i18n="project_img_caption">
+                <span lang="it">Anteprima progetto · immagine di esempio</span>
+                <span lang="en">Project preview · example image</span>
+              </figcaption>
+            </figure>
+
+            <figure class="media media--tall" data-component="smart-media">
+              <div class="media__ph" aria-hidden="true">
+                <div class="media__phShimmer"></div>
+              </div>
+              <!-- TODO: Replace data-src with your real image path -->
+              <img class="media__img" alt="Dettaglio stampa fine art" width="1200" height="1600"
+                   data-src="assets/img/project-02.jpg" decoding="async" loading="lazy">
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="section section--portfolio" aria-label="Portfolio">
+      <div class="wrap">
+        <header class="section__header">
+          <h2 class="h2">Portfolio</h2>
+          <p class="section__sub" data-i18n="portfolio_sub">
+            <span lang="it">Una selezione di immagini. Le foto reali verranno inserite successivamente: qui vedi la struttura pronta e responsive.</span>
+            <span lang="en">A selection of images. Real photos will be added later: this is a responsive-ready structure.</span>
+          </p>
+        </header>
+
+        <div class="masonry" data-component="masonry">
+          <!-- Repeatable tiles (add/remove freely). -->
+          <figure class="tile" data-component="smart-media">
+            <div class="tile__ph" aria-hidden="true"></div>
+            <img class="tile__img" alt="Ritratto in studio itinerante" width="1600" height="1200" data-src="assets/img/portfolio-01.jpg" loading="lazy" decoding="async">
+          </figure>
+          <figure class="tile tile--tall" data-component="smart-media">
+            <div class="tile__ph" aria-hidden="true"></div>
+            <img class="tile__img" alt="Ritratto su banco ottico" width="1200" height="1600" data-src="assets/img/portfolio-02.jpg" loading="lazy" decoding="async">
+          </figure>
+          <figure class="tile" data-component="smart-media">
+            <div class="tile__ph" aria-hidden="true"></div>
+            <img class="tile__img" alt="Dettaglio luce e set" width="1600" height="1200" data-src="assets/img/portfolio-03.jpg" loading="lazy" decoding="async">
+          </figure>
+          <figure class="tile tile--wide" data-component="smart-media">
+            <div class="tile__ph" aria-hidden="true"></div>
+            <img class="tile__img" alt="Ritratto ambientato" width="2000" height="1200" data-src="assets/img/portfolio-04.jpg" loading="lazy" decoding="async">
+          </figure>
+          <figure class="tile" data-component="smart-media">
+            <div class="tile__ph" aria-hidden="true"></div>
+            <img class="tile__img" alt="Stampa fine art" width="1600" height="1200" data-src="assets/img/portfolio-05.jpg" loading="lazy" decoding="async">
+          </figure>
+          <figure class="tile tile--tall" data-component="smart-media">
+            <div class="tile__ph" aria-hidden="true"></div>
+            <img class="tile__img" alt="Ritratto in luce naturale" width="1200" height="1600" data-src="assets/img/portfolio-06.jpg" loading="lazy" decoding="async">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="section section--stats" aria-label="Numeri del progetto">
+      <div class="wrap">
+        <div class="stats" data-component="stats">
+          <div class="stat">
+            <p class="stat__value" data-count="200">200+</p>
+            <p class="stat__label">Passarelliani</p>
+          </div>
+          <div class="stat">
+            <p class="stat__value" data-count="8">8</p>
+            <p class="stat__label">Compleanni</p>
+          </div>
+          <div class="stat">
+            <p class="stat__value" data-count="5000">5000+</p>
+            <p class="stat__label">Chilometri percorsi</p>
+          </div>
+          <div class="stat">
+            <p class="stat__value" data-count="17">17</p>
+            <p class="stat__label">Regioni visitate</p>
+          </div>
+        </div>
+
+        <details class="translation translation--compact">
+          <summary>English (stats)</summary>
+          <div lang="en">
+            <ul class="micro" style="margin: .75rem 0 0; padding-left: 1.1rem;">
+              <li>200+ portraits (“Passarelliani”)</li>
+              <li>8 birthdays on the road</li>
+              <li>5000+ kilometers traveled</li>
+              <li>17 regions visited</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- BIO -->
+    <section id="bio" class="section section--bio" aria-label="Biografia">
+      <div class="wrap">
+        <div class="bio" data-component="bio">
+          <div class="bio__copy">
+            <h2 class="h2">Biografia</h2>
+
+            <p class="p">
+              Inizio il mio percorso con la fotografia da autodidatta all’età di ventun anni. Esordisco con “Solitudo”, un progetto fotografico che mi porta a collaborare con diverse gallerie italiane ed europee, tra cui l’Espace Art Gallery di Bruxelles.
+            </p>
+            <p class="p">
+              Nel 2016 fondo a Roma il “Mattatoio Ritratti Passarelliani”, una società di fotografia pubblicitaria, Wedding e Reportage. Nel 2019 pubblico il libro “Mattatoio”, che racchiude in immagini il dietro le quinte della mia carriera.
+            </p>
+            <p class="p">
+              Nel 2021 realizzo i primi ritratti fine art, ispirati alla grande letteratura del passato. Queste opere sono state esposte in Italia e in Cina e mi hanno portato a ricevere riconoscimenti internazionali.
+            </p>
+
+            <details class="translation" data-component="translation">
+              <summary>English translation</summary>
+              <div lang="en">
+                <p class="p">
+                  I started my journey in photography as a self-taught artist at twenty-one. I debuted with “Solitudo”, a project that led me to collaborate with several Italian and European galleries, including Espace Art Gallery in Brussels.
+                </p>
+                <p class="p">
+                  In 2016 I founded “Mattatoio Ritratti Passarelliani” in Rome, a company focused on advertising photography, weddings and reportage. In 2019 I published the book “Mattatoio”, collecting behind-the-scenes images of my career.
+                </p>
+                <p class="p">
+                  In 2021 I created my first fine-art portraits, inspired by great literature of the past. These works were exhibited in Italy and China and led to international recognition.
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <div class="bio__media">
+            <figure class="media media--tall" data-component="smart-media">
+              <div class="media__ph" aria-hidden="true">
+                <div class="media__phShimmer"></div>
+              </div>
+              <!-- TODO: Replace with a portrait of Emanuele -->
+              <img class="media__img" alt="Ritratto dell’autore" width="1200" height="1600"
+                   data-src="assets/img/emanuele-portrait.jpg" decoding="async" loading="lazy">
+            </figure>
+
+            <div class="bio__badges" role="list" aria-label="Punti chiave">
+              <div class="badge" role="listitem">
+                <p class="badge__t">Analog</p>
+                <p class="badge__s">Large format</p>
+              </div>
+              <div class="badge" role="listitem">
+                <p class="badge__t">Set</p>
+                <p class="badge__s">Realistic props</p>
+              </div>
+              <div class="badge" role="listitem">
+                <p class="badge__t">Print</p>
+                <p class="badge__s">Fine art</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contatti" class="section section--contact" aria-label="Contatti">
+      <div class="wrap">
+        <header class="section__header">
+          <h2 class="h2">Contatti</h2>
+          <p class="section__sub" data-i18n="contact_sub">
+            <span lang="it">Scrivimi per informazioni, disponibilità e prenotazioni.</span>
+            <span lang="en">Get in touch for info, availability and bookings.</span>
+          </p>
+        </header>
+
+        <div class="contact" data-component="contact">
+          <div class="contact__card">
+            <h3 class="h3" style="margin-top:0;">Info</h3>
+            <ul class="contact__list">
+              <!-- TODO: Replace with real contacts -->
+              <li><span class="micro">Email</span> <a href="mailto:info@example.com">info@example.com</a></li>
+              <li><span class="micro">Instagram</span> <a href="#" rel="noopener">@emanuelepassarelli</a></li>
+              <li><span class="micro">Città</span> Roma (IT)</li>
+            </ul>
+
+            <p class="micro" data-i18n="contact_note">
+              <span lang="it">Nota: su GitHub Pages la pagina “Contatti” sarà in <code>/contatti/index.html</code>.</span>
+              <span lang="en">Note: on GitHub Pages the “Contacts” page will live at <code>/contatti/index.html</code>.</span>
+            </p>
+          </div>
+
+          <form class="contact__form" method="post" action="#" aria-label="Modulo contatto (placeholder)">
+            <!--
+              GitHub Pages is static: use a form backend (Netlify Forms, Formspree, Basin, etc.).
+              We'll wire it later; for now keep an accessible structure ready.
+            -->
+            <div class="field">
+              <label for="name">Nome</label>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="Il tuo nome">
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="La tua email">
+            </div>
+            <div class="field">
+              <label for="message">Messaggio</label>
+              <textarea id="message" name="message" rows="5" placeholder="Scrivi qui…"></textarea>
+            </div>
+            <button class="btn btn--primary" type="submit" disabled data-i18n="contact_btn">
+              <span lang="it">Invia (da collegare)</span>
+              <span lang="en">Send (to be wired)</span>
+            </button>
+            <p class="micro" style="opacity:.75; margin:.75rem 0 0;">
+              Il form è disattivato finché non colleghiamo un provider.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" data-component="footer">
+    <div class="wrap footer__wrap">
+      <p class="micro">© <span data-year></span> Emanuele Passarelli · Artigiano del Ritratto</p>
+      <div class="footer__links">
+        <a class="micro" href="#main">Torna su</a>
+        <!-- TODO: Add privacy/cookie pages if needed -->
+      </div>
+    </div>
+  </footer>
+
+  <!-- Accessibility: polite announcements for language/theme changes -->
+  <div class="sr-only" aria-live="polite" aria-atomic="true" data-announcer></div>
+</body>
+</html>
