@@ -1,0 +1,9 @@
+# robots.txt
+# GitHub Pages / static site
+# Allow crawling of everything.
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://emanuelepassarelli.it/sitemap.xml
