@@ -1,11 +1,18 @@
 <!doctype html>
 <html lang="it" dir="ltr" data-theme="dark" data-language="it">
 <head>
+  <!--
+    Single-file landing page
+    - Everything is inside this index.html (HTML + CSS + JS)
+    - External only: Google Fonts + (optional) YouTube embed loaded on click
+    - Monochrome theme: white on black, black on white
+  -->
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <title>Emanuele Passarelli | Artigiano del Ritratto</title>
-  <meta name="description" content="Portfolio, bio e contatti di Emanuele Passarelli.">
+  <meta name="description" content="Ritratti in grande formato, tecniche antiche e stampe da custodire. Portfolio, Italia nel Grande Formato, biografia e contatti di Emanuele Passarelli.">
   <meta name="robots" content="index,follow,max-image-preview:large">
 
   <meta name="color-scheme" content="dark light">
@@ -13,21 +20,36 @@
 
   <link rel="canonical" href="https://emanuelepassarelli.it/">
 
+  <!-- Icons -->
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- Open Graph -->
   <meta property="og:locale" content="it_IT">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Emanuele Passarelli">
+  <meta property="og:site_name" content="Emanuele Passarelli · Artigiano del Ritratto">
   <meta property="og:title" content="Emanuele Passarelli · Artigiano del Ritratto">
-  <meta property="og:description" content="Portfolio, bio e contatti.">
+  <meta property="og:description" content="Ritratti in grande formato, tecniche antiche e stampe da custodire. Portfolio, progetto e contatti.">
   <meta property="og:url" content="https://emanuelepassarelli.it/">
-  <meta property="og:image" content="/assets/img/og-cover.jpg">
+  <meta property="og:image" content="https://emanuelepassarelli.it/assets/img/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
+  <!-- Optional hreflang (single page, language toggle) -->
+  <link rel="alternate" hreflang="it" href="https://emanuelepassarelli.it/">
+  <link rel="alternate" hreflang="en" href="https://emanuelepassarelli.it/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://emanuelepassarelli.it/">
+
+  <!-- Performance: fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@200..900&display=swap" rel="stylesheet">
 
+  <!-- Minimal critical CSS to prevent FOUC -->
   <style>
     :root{ color-scheme: dark light; }
+    html, body{ overflow-x:hidden; }
     body{ margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
     a{ color:inherit; }
     .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
@@ -35,7 +57,17 @@
     .skip-link:focus{ left:.75rem; top:.75rem; }
   </style>
 
+  <!-- Site CSS (single-file) -->
   <style>
+    /*
+      Monochrome premium system
+      - Dark default, light switcher (user can opt-in)
+      - Fullwidth media rhythm
+      - Smooth placeholders (no shimmer line)
+      - Scroll reveals
+      - Mobile drawer menu (no overscroll)
+    */
+
     :root{
       --font-body: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       --font-display: Fraunces, ui-serif, Georgia, serif;
@@ -98,7 +130,7 @@
     }
 
     *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; overflow-x: hidden; }
+    html{ scroll-behavior:smooth; }
     body{
       margin:0;
       font-family: var(--font-body);
@@ -112,13 +144,12 @@
       overflow-x: hidden;
     }
 
-    body.nav-open{ overflow: hidden; }
-
     img, video, iframe{ max-width:100%; display:block; }
     a{ color: inherit; text-decoration: none; }
 
     .wrap{ width: var(--wrap); margin-inline:auto; }
 
+    /* Grain */
     body::before{
       content:"";
       position: fixed;
@@ -135,25 +166,22 @@
       *, *::before, *::after{ animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
     }
 
+    /* Language visibility */
     :root[data-language="it"] [lang="en"]{ display:none !important; }
     :root[data-language="en"] [lang="it"]{ display:none !important; }
 
+    /* Type */
     .kicker{ margin: 0 0 var(--s-2); color: var(--muted); letter-spacing: .10em; text-transform: uppercase; font-size: .86em; }
     .h2{ font-family: var(--font-display); font-size: var(--fs-3); line-height: 1.08; letter-spacing: .03em; margin: 0 0 var(--s-2); }
     .h3{ font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.12; letter-spacing: .03em; margin: 0 0 var(--s-1); }
-    .lead{ font-size: var(--fs-1); color: var(--muted); margin: 0 0 var(--s-3); max-width: 62ch; }
-    .p{ margin: 0 0 var(--s-2); color: var(--muted); max-width: 72ch; }
+    .lead{ font-size: var(--fs-1); color: var(--muted); margin: 0 0 var(--s-3); max-width: 68ch; }
+    .p{ margin: 0 0 var(--s-2); color: var(--muted); max-width: 76ch; }
     .micro{ font-size: .92em; color: var(--muted-2); margin: 0; letter-spacing: .06em; text-transform: uppercase; }
 
-    .bleed{
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      margin-right: calc(50% - 50vw);
-      width: 100dvw;
-      margin-left: calc(50% - 50dvw);
-      margin-right: calc(50% - 50dvw);
-    }
+    /* Full-bleed helper */
+    .bleed{ width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
 
+    /* Header */
     .site-header{
       position: sticky;
       top: 0;
@@ -171,19 +199,28 @@
       display:flex;
       align-items:center;
       justify-content: space-between;
-      gap: .75rem;
+      gap: var(--s-2);
       padding: .95rem 0;
       transition: padding var(--dur-2) var(--ease-out);
       min-width: 0;
     }
     .site-header.is-scrolled .header__wrap{ padding: .70rem 0; }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      min-width: 0;
-      flex: 1 1 auto;
+    .brand{ display:flex; align-items:center; gap: .85rem; min-width:0; flex: 1 1 auto; }
+    .brand__mark{
+      width: 40px;
+      height: 40px;
+      display:grid;
+      place-items:center;
+      border-radius: 12px;
+      background: color-mix(in oklab, var(--surface-2) 80%, transparent);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 60px var(--shadow);
+      font-weight: 700;
+      letter-spacing: .14em;
+      flex: 0 0 auto;
     }
+    .brand__text{ min-width:0; }
     .brand__name{
       display:block;
       font-weight: 700;
@@ -194,7 +231,16 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .brand__tagline{ display:block; font-size: .92em; color: var(--muted); margin-top: .1rem; letter-spacing: .06em; }
+    .brand__tagline{
+      display:block;
+      font-size: .92em;
+      color: var(--muted);
+      margin-top: .1rem;
+      letter-spacing: .06em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     .nav{ display:flex; gap: clamp(.55rem, 1.2vw, 1.05rem); align-items:center; }
     .nav__link{
@@ -208,8 +254,7 @@
     }
     .nav__link:hover{ color: var(--text); background: color-mix(in oklab, var(--surface) 92%, transparent); }
 
-    .controls{ display:flex; align-items:center; gap: .55rem; flex: 0 0 auto; }
-
+    .controls{ display:flex; align-items:center; gap: .6rem; flex: 0 0 auto; }
     .segmented{
       display:flex;
       align-items:center;
@@ -244,29 +289,26 @@
       display:grid;
       place-items:center;
       cursor:pointer;
-      transition: transform var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+      transition: transform var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+      flex: 0 0 auto;
     }
     .icon-btn:hover{ transform: translateY(-1px); border-color: var(--border-2); }
     .icon-btn:active{ transform: translateY(0); }
+    .icon-btn.is-active{ border-color: color-mix(in oklab, var(--text) 60%, transparent); }
 
     .nav-toggle{ display:none; }
-    @media (max-width: 920px){
-      .nav{ display:none; }
-      .nav-toggle{ display:grid; }
-    }
-
-    @media (max-width: 520px){
-      .brand__tagline{ display:none; }
-    }
-
+    @media (max-width: 920px){ .nav{ display:none; } .nav-toggle{ display:grid; } }
     @media (max-width: 420px){
-      .segmented{ display:none; }
-      .icon-btn{ width: 38px; height: 38px; border-radius: 13px; }
-      .header__wrap{ gap: .55rem; }
+      .brand__tagline{ display:none; }
+      .brand__mark{ width:36px; height:36px; border-radius: 12px; }
+      .icon-btn{ width:38px; height:38px; border-radius: 14px; }
+      .segmented__btn{ padding: .34rem .55rem; }
     }
 
+    /* Sections */
     .section{ padding: var(--s-6) 0; }
 
+    /* Buttons */
     .btn{
       display:inline-flex;
       align-items:center;
@@ -280,13 +322,13 @@
       text-transform: uppercase;
       cursor:pointer;
       transition: transform var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
-      max-width: 100%;
     }
     .btn--primary{ background: color-mix(in oklab, var(--surface-2) 85%, transparent); }
     .btn--ghost{ background: transparent; }
     .btn:hover{ transform: translateY(-1px); border-color: var(--border-2); }
     .btn:active{ transform: translateY(0); }
 
+    /* Hero */
     .hero{ padding: clamp(2.2rem, 2vw + 1.3rem, 3.6rem) 0 var(--s-6); }
     .hero__wrap{ display:grid; grid-template-columns: 1.12fr .88fr; gap: var(--s-5); align-items: center; }
     .hero__title{ font-family: var(--font-display); font-size: var(--fs-4); line-height: 1.02; letter-spacing: .02em; margin: 0 0 var(--s-3); }
@@ -295,6 +337,7 @@
     .hero__cta{ display:flex; flex-wrap: wrap; gap: .75rem; margin-bottom: var(--s-3); }
     @media (max-width: 980px){ .hero__wrap{ grid-template-columns: 1fr; } .hero__media{ order: -1; } }
 
+    /* Video portal */
     .videoPortal{ display:grid; gap: .75rem; }
     .videoPortal__frame{
       position: relative;
@@ -306,15 +349,8 @@
       box-shadow: 0 28px 110px var(--shadow);
       isolation: isolate;
     }
-    .videoPortal__mount{
-      position:absolute;
-      inset:0;
-      z-index: 2;
-      opacity: 0;
-      transition: opacity var(--dur-3) var(--ease-out);
-    }
-    .videoPortal__mount iframe{ width:100% !important; height:100% !important; border:0; }
-    .videoPortal__mount > div{ width:100% !important; height:100% !important; }
+    .videoPortal__mount{ position:absolute; inset:0; z-index: 2; opacity: 0; transition: opacity var(--dur-3) var(--ease-out); }
+    .videoPortal__mount iframe{ width:100%; height:100%; border:0; }
 
     .mediaPlaceholder{
       position:absolute;
@@ -327,6 +363,21 @@
       animation: phBreath var(--ph-breath) var(--ease-soft) infinite;
     }
     @keyframes phBreath{ 0%{ filter: contrast(1) brightness(1); opacity: .70; } 50%{ filter: contrast(1.05) brightness(1.04); opacity: .95; } 100%{ filter: contrast(1) brightness(1); opacity: .70; } }
+
+    .videoPortal__badge{
+      position:absolute;
+      left: 18px;
+      bottom: 16px;
+      padding: .45rem .75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: .80em;
+      z-index: 4;
+    }
 
     .videoPortal__start{
       position:absolute;
@@ -369,6 +420,34 @@
     .videoPortal.is-playing .mediaPlaceholder{ opacity: 0; transition: opacity var(--dur-3) var(--ease-out); }
     .videoPortal.is-playing .videoPortal__start{ opacity: 0; pointer-events:none; transition: opacity var(--dur-3) var(--ease-out); }
 
+    /* Feature cards (Ritratto Unico) */
+    .cards{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-3);
+      margin-top: var(--s-4);
+    }
+    .card{
+      border: 1px solid var(--border);
+      border-radius: var(--r-3);
+      padding: var(--s-4);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      box-shadow: 0 22px 90px var(--shadow);
+    }
+    .card__title{
+      margin: 0 0 .45rem;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: .92em;
+      color: var(--text);
+    }
+    .card__text{ margin: 0; color: var(--muted); max-width: 66ch; }
+    @media (max-width: 860px){
+      .cards{ grid-template-columns: 1fr; }
+    }
+
+    /* Fullwidth portfolio rhythm */
     .portfolio{ padding-top: 0; }
 
     .fullMedia{
@@ -384,7 +463,6 @@
       padding: var(--s-5) 0;
       display:grid;
       gap: var(--s-3);
-      min-width: 0;
     }
 
     .media{
@@ -394,7 +472,6 @@
       border: 1px solid var(--border);
       background: linear-gradient(180deg, var(--bg-2), var(--bg));
       box-shadow: 0 28px 110px var(--shadow);
-      min-width: 0;
     }
     .media--wide{ aspect-ratio: 21/10; }
     .media--cinema{ aspect-ratio: 16/9; }
@@ -424,6 +501,10 @@
     .is-loaded > .media__img{ opacity: 1; transform: scale(1); }
     .has-error .media__img{ display:none; }
 
+    @media (hover:hover){
+      .media:hover .media__img{ transform: scale(1.03); }
+    }
+
     .captionRow{
       display:flex;
       align-items: baseline;
@@ -431,15 +512,16 @@
       gap: var(--s-2);
       flex-wrap: wrap;
       margin-top: .85rem;
-      min-width: 0;
     }
     .captionRow__title{ margin:0; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; font-size: .90em; color: var(--text); }
     .captionRow__meta{ margin:0; color: var(--muted); letter-spacing: .10em; text-transform: uppercase; font-size: .80em; }
 
+    /* Bio layout */
     .bio{ display:grid; grid-template-columns: 1.08fr .92fr; gap: var(--s-5); align-items: start; }
     .bio__media{ display:grid; gap: var(--s-3); }
     @media (max-width: 980px){ .bio{ grid-template-columns: 1fr; } }
 
+    /* Minimal contacts */
     .contactMini{
       display:flex;
       flex-wrap: wrap;
@@ -451,11 +533,11 @@
       padding: var(--s-4);
       background: color-mix(in oklab, var(--surface) 92%, transparent);
       box-shadow: 0 26px 120px var(--shadow);
-      min-width: 0;
     }
-    .contactMini__left{ display:grid; gap: .35rem; min-width: 0; }
-    .contactMini__right{ display:flex; flex-wrap: wrap; gap: .75rem; min-width: 0; }
+    .contactMini__left{ display:grid; gap: .35rem; }
+    .contactMini__right{ display:flex; flex-wrap: wrap; gap: .75rem; }
 
+    /* Footer */
     .site-footer{
       padding: var(--s-4) 0 var(--s-5);
       border-top: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
@@ -466,67 +548,68 @@
     .footer__links a{ color: var(--muted); letter-spacing: .12em; text-transform: uppercase; font-size: .82em; }
     .footer__links a:hover{ color: var(--text); }
 
+    /* Scroll reveal */
     .reveal{ opacity: 0; transform: translateY(14px); filter: blur(2px); transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out), filter var(--dur-3) var(--ease-out); }
     .reveal.is-inview{ opacity: 1; transform: translateY(0); filter: blur(0); }
 
-    :focus-visible{ outline: 2px solid color-mix(in oklab, var(--text) 55%, transparent); outline-offset: 3px; }
-    *{ word-wrap: break-word; }
-
-    .drawer{
+    /* Mobile drawer menu */
+    .mobileNav{
       position: fixed;
       inset: 0;
       z-index: 80;
-      display: grid;
-      grid-template-columns: 1fr;
       pointer-events: none;
       opacity: 0;
       transition: opacity var(--dur-2) var(--ease-out);
     }
-    .drawer.is-open{ pointer-events: auto; opacity: 1; }
-
-    .drawer__overlay{
+    .mobileNav.is-open{
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobileNav__backdrop{
       position:absolute;
       inset:0;
       background: rgba(0,0,0,.55);
-      backdrop-filter: blur(10px);
     }
-
-    .drawer__panel{
+    .mobileNav__panel{
       position:absolute;
-      top: 0;
-      right: 0;
+      top: 0; right: 0;
       height: 100%;
-      width: min(380px, 92vw);
-      background: color-mix(in oklab, var(--bg) 92%, transparent);
+      width: min(420px, 88vw);
+      background: var(--bg);
       border-left: 1px solid var(--border);
-      transform: translateX(105%);
-      transition: transform var(--dur-2) var(--ease-out);
-      padding: 1.1rem;
-      display: grid;
-      gap: 1rem;
-      overflow: auto;
+      transform: translateX(102%);
+      transition: transform var(--dur-3) var(--ease-out);
+      padding: 1rem;
+      display:flex;
+      flex-direction: column;
+      gap: 1.2rem;
     }
-    .drawer.is-open .drawer__panel{ transform: translateX(0); }
+    .mobileNav.is-open .mobileNav__panel{ transform: translateX(0); }
 
-    .drawer__head{ display:flex; align-items:center; justify-content: space-between; gap: .75rem; }
-    .drawer__title{ font-weight: 850; letter-spacing: .12em; text-transform: uppercase; font-size: .92em; }
-
-    .drawer__nav{ display:grid; gap: .35rem; }
-    .drawer__nav a{
-      padding: .85rem .85rem;
-      border-radius: 16px;
+    .mobileNav__top{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: .75rem;
+    }
+    .mobileNav__icons{ display:flex; gap: .5rem; align-items:center; }
+    .mobileNav__links{ display:grid; gap: .5rem; }
+    .mobileNav__links a{
+      padding: .9rem 1rem;
       border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      border-radius: 16px;
       letter-spacing: .12em;
       text-transform: uppercase;
-      font-weight: 800;
-      font-size: .86em;
+      color: var(--text);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
     }
 
-    .drawer__controls{ display:grid; gap: .75rem; }
-    .drawer__row{ display:flex; align-items:center; justify-content: space-between; gap: .75rem; }
+    /* Accessibility */
+    :focus-visible{ outline: 2px solid color-mix(in oklab, var(--text) 55%, transparent); outline-offset: 3px; }
+    *{ word-wrap: break-word; }
   </style>
 
+  <!-- Structured data (single page) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -535,8 +618,8 @@
         "@type": "WebSite",
         "@id": "https://emanuelepassarelli.it/#website",
         "url": "https://emanuelepassarelli.it/",
-        "name": "Emanuele Passarelli",
-        "inLanguage": "it-IT"
+        "name": "Emanuele Passarelli · Artigiano del Ritratto",
+        "inLanguage": ["it-IT","en"]
       },
       {
         "@type": "Person",
@@ -546,7 +629,10 @@
           { "@value": "Fotografo", "@language": "it" },
           { "@value": "Portrait Photographer", "@language": "en" }
         ],
-        "url": "https://emanuelepassarelli.it/"
+        "url": "https://emanuelepassarelli.it/",
+        "email": "mailto:contact@emanuelepassarelli.it",
+        "sameAs": ["https://instagram.com/emanuelepassarelli"],
+        "knowsAbout": ["ritratto", "fotografia analogica", "banco ottico", "grande formato", "tecniche antiche"]
       },
       {
         "@type": "WebPage",
@@ -555,7 +641,7 @@
         "name": "Emanuele Passarelli | Artigiano del Ritratto",
         "isPartOf": { "@id": "https://emanuelepassarelli.it/#website" },
         "about": { "@id": "https://emanuelepassarelli.it/#person" },
-        "inLanguage": "it-IT"
+        "inLanguage": ["it-IT","en"]
       }
     ]
   }
@@ -568,6 +654,7 @@
   <header class="site-header" data-component="header">
     <div class="wrap header__wrap">
       <a class="brand" href="#top" aria-label="Torna all'inizio">
+        <span class="brand__mark" aria-hidden="true">EP</span>
         <span class="brand__text">
           <span class="brand__name">Emanuele Passarelli</span>
           <span class="brand__tagline">
@@ -578,10 +665,17 @@
       </a>
 
       <nav class="nav" aria-label="Navigazione principale">
-        <a class="nav__link" href="#ritratto">Ritratto</a>
+        <a class="nav__link" href="#ritratto">
+          <span lang="it">Ritratto</span><span lang="en">Portrait</span>
+        </a>
         <a class="nav__link" href="#portfolio">Portfolio</a>
+        <a class="nav__link" href="#progetto">
+          <span lang="it">Progetto</span><span lang="en">Project</span>
+        </a>
         <a class="nav__link" href="#bio">Bio</a>
-        <a class="nav__link" href="#contatti">Contatti</a>
+        <a class="nav__link" href="#contatti">
+          <span lang="it">Contatti</span><span lang="en">Contact</span>
+        </a>
       </nav>
 
       <div class="controls" aria-label="Controlli sito">
@@ -597,7 +691,7 @@
           </svg>
         </button>
 
-        <button class="icon-btn nav-toggle" type="button" data-action="toggle-nav" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
+        <button class="icon-btn nav-toggle" type="button" data-action="toggle-nav" aria-label="Apri menu" aria-expanded="false">
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
           </svg>
@@ -606,48 +700,39 @@
     </div>
   </header>
 
-  <div id="mobile-menu" class="drawer" data-component="drawer" aria-hidden="true">
-    <div class="drawer__overlay" data-action="close-nav" tabindex="-1" aria-hidden="true"></div>
-    <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1">
-      <div class="drawer__head">
-        <span class="drawer__title">Menu</span>
+  <!-- Mobile drawer -->
+  <div class="mobileNav" data-component="mobile-nav" aria-hidden="true">
+    <div class="mobileNav__backdrop" data-action="close-nav" aria-hidden="true"></div>
+
+    <aside class="mobileNav__panel" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="mobileNav__top">
+        <div class="mobileNav__icons" aria-label="Controlli rapidi">
+          <button class="icon-btn is-active" type="button" data-action="set-language" data-language="it" aria-pressed="true" aria-label="Italiano">IT</button>
+          <button class="icon-btn" type="button" data-action="set-language" data-language="en" aria-pressed="false" aria-label="English">EN</button>
+
+          <button class="icon-btn" type="button" data-action="toggle-theme" aria-label="Cambia tema (dark/light)">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" fill="currentColor"></path>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+            </svg>
+          </button>
+        </div>
+
         <button class="icon-btn" type="button" data-action="close-nav" aria-label="Chiudi menu">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
           </svg>
         </button>
       </div>
 
-      <nav class="drawer__nav" aria-label="Menu mobile">
-        <a href="#ritratto" data-action="close-nav">Ritratto</a>
+      <nav class="mobileNav__links" aria-label="Navigazione mobile">
+        <a href="#ritratto" data-action="close-nav"><span lang="it">Ritratto</span><span lang="en">Portrait</span></a>
         <a href="#portfolio" data-action="close-nav">Portfolio</a>
+        <a href="#progetto" data-action="close-nav"><span lang="it">Progetto</span><span lang="en">Project</span></a>
         <a href="#bio" data-action="close-nav">Bio</a>
-        <a href="#contatti" data-action="close-nav">Contatti</a>
+        <a href="#contatti" data-action="close-nav"><span lang="it">Contatti</span><span lang="en">Contact</span></a>
       </nav>
-
-      <div class="drawer__controls" aria-label="Impostazioni">
-        <div class="drawer__row">
-          <span class="micro">Lingua</span>
-          <div class="segmented" role="group" aria-label="Lingua (menu)">
-            <button class="segmented__btn is-active" type="button" data-action="set-language" data-language="it" aria-pressed="true">IT</button>
-            <button class="segmented__btn" type="button" data-action="set-language" data-language="en" aria-pressed="false">EN</button>
-          </div>
-        </div>
-
-        <div class="drawer__row">
-          <span class="micro">Tema</span>
-          <button class="btn btn--ghost" type="button" data-action="toggle-theme">
-            <span lang="it">Cambia</span>
-            <span lang="en">Toggle</span>
-          </button>
-        </div>
-
-        <div class="drawer__row">
-          <span class="micro">Instagram</span>
-          <a class="btn btn--primary" href="https://www.instagram.com/emanuelepassarelli/" target="_blank" rel="noopener">@emanuelepassarelli</a>
-        </div>
-      </div>
-    </div>
+    </aside>
   </div>
 
   <main id="main">
@@ -655,8 +740,8 @@
       <div class="wrap hero__wrap">
         <div class="hero__copy reveal">
           <p class="kicker">
-            <span lang="it">Ritratti</span>
-            <span lang="en">Portraits</span>
+            <span lang="it">Ritratti e progetto itinerante</span>
+            <span lang="en">Portraits and an itinerant project</span>
           </p>
           <h1 class="hero__title">
             <span class="hero__titleLine">Emanuele Passarelli</span>
@@ -665,28 +750,34 @@
               <span lang="en">Portrait Artisan</span>
             </span>
           </h1>
-
+          <p class="lead">
+            <span lang="it">Ritratti in grande formato, tecniche antiche e stampe da custodire. Una sessione fotografica pensata per lasciare una traccia di te.</span>
+            <span lang="en">Large-format portraits, historic techniques, and prints to keep. A photographic session designed to leave a trace of you.</span>
+          </p>
           <div class="hero__cta">
             <a class="btn btn--primary" href="#portfolio">
-              <span lang="it">Portfolio</span>
-              <span lang="en">Portfolio</span>
+              <span lang="it">Vedi portfolio</span>
+              <span lang="en">View portfolio</span>
             </a>
             <a class="btn btn--ghost" href="#contatti">
               <span lang="it">Contatti</span>
               <span lang="en">Contact</span>
             </a>
           </div>
-
           <p class="micro">
-            <span lang="it">Scroll</span>
-            <span lang="en">Scroll</span>
+            <span lang="it">Scroll per esplorare</span>
+            <span lang="en">Scroll to explore</span>
           </p>
         </div>
 
         <div class="hero__media reveal">
-          <div class="videoPortal" data-video="youtube" data-youtube-id="" data-start="0" data-end="0">
+          <div class="videoPortal" data-video="youtube" data-youtube-id="dQw4w9WgXcQ">
             <div class="videoPortal__frame" aria-label="Video presentazione">
               <div class="mediaPlaceholder" aria-hidden="true"></div>
+              <div class="videoPortal__badge" aria-hidden="true">
+                <span lang="it">Showreel</span>
+                <span lang="en">Showreel</span>
+              </div>
               <div class="videoPortal__mount" data-video-mount></div>
               <button class="videoPortal__start" type="button" data-action="start-video" aria-label="Avvia video">
                 <span class="videoPortal__pulse" aria-hidden="true"></span>
@@ -697,6 +788,10 @@
               </button>
             </div>
           </div>
+          <p class="micro" style="margin-top:.75rem;">
+            <span lang="it">Video caricato al click per migliorare le performance.</span>
+            <span lang="en">Video loads on click to improve performance.</span>
+          </p>
         </div>
       </div>
     </section>
@@ -704,18 +799,81 @@
     <section id="ritratto" class="section" aria-label="Ritratto">
       <div class="wrap">
         <div class="reveal">
+          <p class="kicker">
+            <span lang="it">Ritratto Unico</span>
+            <span lang="en">Unique Portrait</span>
+          </p>
           <h2 class="h2">
-            <span lang="it">Ritratto</span>
-            <span lang="en">Portrait</span>
+            <span lang="it">Diventa un'opera d'arte</span>
+            <span lang="en">Become a work of art</span>
           </h2>
+          <p class="p">
+            <span lang="it">Avere un proprio ritratto stampato è la testimonianza di chi siamo. Ti verrà dedicata una sessione fotografica per poter lasciare una traccia di te.</span>
+            <span lang="en">Having your portrait printed is a testimony of who we are. A dedicated session is designed to leave a trace of you.</span>
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card reveal">
+            <h3 class="card__title">
+              <span lang="it">Tecniche antiche</span>
+              <span lang="en">Historic techniques</span>
+            </h3>
+            <p class="card__text">
+              <span lang="it">Avrai modo di essere scattato con delle tecniche fotografiche antiche tramite un banco ottico: la luce e l’argento scriveranno su supporti di alluminio, vetro e pellicole.</span>
+              <span lang="en">Shot with historic techniques using a large-format camera: light and silver will write on aluminum, glass, and film.</span>
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="card__title">
+              <span lang="it">Italia nel Grande Formato</span>
+              <span lang="en">Italy in Large Format</span>
+            </h3>
+            <p class="card__text">
+              <span lang="it">Hai la possibilità di far parte di una immensa raccolta di ritratti Passarelliani che negli anni è diventata essa stessa un’opera unica.</span>
+              <span lang="en">You can become part of a vast collection of Passarellian portraits, grown into a single unique work over time.</span>
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="card__title">
+              <span lang="it">Opera finita</span>
+              <span lang="en">Finished piece</span>
+            </h3>
+            <p class="card__text">
+              <span lang="it">Alla fine della sessione fotografica riceverai un tuo ritratto stampato da custodire, per poterlo tramandare alle tue future generazioni.</span>
+              <span lang="en">At the end of the session you will receive a printed portrait to keep and pass down to future generations.</span>
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="card__title">
+              <span lang="it">Una traccia di te</span>
+              <span lang="en">A trace of you</span>
+            </h3>
+            <p class="card__text">
+              <span lang="it">Poche scelte, tutte intenzionali: tempo, ascolto e precisione, per un ritratto che resta.</span>
+              <span lang="en">Few choices, all intentional: time, listening, and precision, for a portrait that lasts.</span>
+            </p>
+          </article>
         </div>
       </div>
     </section>
 
+    <!-- Fullwidth portfolio rhythm -->
     <section id="portfolio" class="section portfolio" aria-label="Portfolio">
       <div class="wrap">
         <div class="reveal">
-          <h2 class="h2">Portfolio</h2>
+          <p class="kicker">Portfolio</p>
+          <h2 class="h2">
+            <span lang="it">Selezione</span>
+            <span lang="en">Selection</span>
+          </h2>
+          <p class="p">
+            <span lang="it">Immagini grandi, poche per volta. Il layout fa da cornice e sparisce.</span>
+            <span lang="en">Big images, few at a time. The layout frames and disappears.</span>
+          </p>
         </div>
       </div>
 
@@ -723,13 +881,13 @@
         <div class="fullMedia__wrap">
           <figure class="media media--wide reveal" data-component="smart-media">
             <div class="media__ph" aria-hidden="true"></div>
-            <img class="media__img" data-src="/assets/img/portfolio/01.jpg" alt="Ritratto, immagine 01">
+            <img class="media__img" data-src="/assets/img/portfolio/01.jpg" alt="Ritratto in grande formato, serie 01">
           </figure>
           <div class="captionRow reveal">
             <p class="captionRow__title">Serie 01</p>
             <p class="captionRow__meta">
-              <span lang="it">Ritratto</span>
-              <span lang="en">Portrait</span>
+              <span lang="it">Ritratti</span>
+              <span lang="en">Portraits</span>
             </p>
           </div>
         </div>
@@ -739,13 +897,13 @@
         <div class="fullMedia__wrap">
           <figure class="media media--cinema reveal" data-component="smart-media">
             <div class="media__ph" aria-hidden="true"></div>
-            <img class="media__img" data-src="/assets/img/portfolio/02.jpg" alt="Ritratto, immagine 02">
+            <img class="media__img" data-src="/assets/img/portfolio/02.jpg" alt="Ritratto, luce notturna urbana, serie 02">
           </figure>
           <div class="captionRow reveal">
             <p class="captionRow__title">Serie 02</p>
             <p class="captionRow__meta">
-              <span lang="it">Luce naturale</span>
-              <span lang="en">Natural light</span>
+              <span lang="it">Notturni urbani</span>
+              <span lang="en">Urban nights</span>
             </p>
           </div>
         </div>
@@ -755,11 +913,11 @@
         <div class="fullMedia__wrap" style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--s-3);">
           <figure class="media media--portrait reveal" data-component="smart-media">
             <div class="media__ph" aria-hidden="true"></div>
-            <img class="media__img" data-src="/assets/img/portfolio/03.jpg" alt="Ritratto, immagine 03">
+            <img class="media__img" data-src="/assets/img/portfolio/03.jpg" alt="Ritratto in grande formato, serie 03, immagine 01">
           </figure>
           <figure class="media media--portrait reveal" data-component="smart-media">
             <div class="media__ph" aria-hidden="true"></div>
-            <img class="media__img" data-src="/assets/img/portfolio/04.jpg" alt="Ritratto, immagine 04">
+            <img class="media__img" data-src="/assets/img/portfolio/04.jpg" alt="Ritratto in grande formato, serie 03, immagine 02">
           </figure>
         </div>
         <div class="wrap" style="margin-top: var(--s-3);">
@@ -774,10 +932,108 @@
       </div>
     </section>
 
+    <section id="progetto" class="section" aria-label="Italia nel Grande Formato">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="kicker">
+            <span lang="it">Italia nel Grande Formato</span>
+            <span lang="en">Italy in Large Format</span>
+          </p>
+          <h2 class="h2">
+            <span lang="it">Un’enciclopedia umana</span>
+            <span lang="en">A human encyclopedia</span>
+          </h2>
+
+          <p class="p">
+            <span lang="it">
+              Italia nel Grande Formato è un’enciclopedia umana, in cui ogni persona è descritta unicamente dal suo ritratto.
+              È un progetto itinerante che ha coinvolto tutte le regioni italiane, dal sud al nord, dalle maggiori città ai più piccoli paesini,
+              raccogliendo più di cento ritratti.
+            </span>
+            <span lang="en">
+              Italy in Large Format is a human encyclopedia, where each person is described only through their portrait.
+              It is an itinerant project that has crossed every Italian region, from south to north, from major cities to the smallest towns,
+              collecting more than one hundred portraits.
+            </span>
+          </p>
+
+          <p class="p">
+            <span lang="it">
+              L’Italia viene raccontata attraverso questa raccolta di ritratti, in un viaggio ideale fra volti e paesaggi che costituiscono la principale ricchezza di questo Paese.
+              Tutti i ritratti sono stati realizzati con un banco ottico e costituiscono nel loro insieme un’opera unica.
+            </span>
+            <span lang="en">
+              Italy is told through this collection of portraits, an ideal journey between faces and landscapes that form the country’s greatest wealth.
+              All portraits are made with a large-format camera and together become a single unique work.
+            </span>
+          </p>
+        </div>
+      </div>
+    </section>
+
     <section id="bio" class="section" aria-label="Bio">
       <div class="wrap bio">
         <div class="reveal">
-          <h2 class="h2">Bio</h2>
+          <p class="kicker">
+            <span lang="it">Biografia</span>
+            <span lang="en">Biography</span>
+          </p>
+          <h2 class="h2">Emanuele Passarelli</h2>
+
+          <p class="p">
+            <span lang="it">Inizio il mio percorso con la fotografia da autodidatta, all’età di ventun anni.</span>
+            <span lang="en">I began my path in photography as a self-taught author, at the age of twenty-one.</span>
+          </p>
+
+          <p class="p">
+            <span lang="it">
+              Esordisco con “Solitudo”, nel 2014, progetto fotografico composto da una serie di autoritratti che raccontano le fasi più significative della mia adolescenza.
+              Nel 2016 con “Night Tour” nascono quelli che verranno chiamati “Ritratti Passarelliani”.
+              L’idea di trasportare i miei soggetti immersi nel buio in scenari urbani, illuminati solo dalle luci della città in chiave cinematografica,
+              mi ha fatto premiare con numerosi articoli dedicati e interviste personali.
+              Pochi anni dopo alcuni di questi ritratti diventeranno opere esposte in più città tra Italia e Cina.
+            </span>
+            <span lang="en">
+              I debuted with “Solitudo” in 2014, a photographic project made of self-portraits that narrate the most significant phases of my adolescence.
+              In 2016, with “Night Tour”, what would later be called the “Passarellian Portraits” was born.
+              Moving subjects immersed in darkness into urban scenes lit only by city lights, with a cinematic approach, led to awards, articles, and interviews.
+              A few years later, some of these portraits became works exhibited in several cities across Italy and China.
+            </span>
+          </p>
+
+          <p class="p">
+            <span lang="it">
+              Nel 2017 dopo aver partecipato al workshop “Oltre il ritratto” di Mustafa Sabbagh, grande fonte di ispirazione,
+              realizzo il mio secondo progetto “Mattatoio”, un reportage fotografico che attraverso alcuni ritratti notturni su strada,
+              racconta la vita delle prostitute transessuali della periferia romana, con l’intenzione di ridare un’anima e una dignità a queste persone,
+              che vengono dalla società “spersonificate” e ridotte allo status di scarto sociale.
+            </span>
+            <span lang="en">
+              In 2017, after taking part in Mustafa Sabbagh’s workshop “Beyond Portrait”, a major source of inspiration,
+              I created my second project “Mattatoio”, a photographic reportage that, through night street portraits,
+              tells the lives of transgender sex workers on the outskirts of Rome, with the intention of restoring soul and dignity to people
+              often dehumanized by society and pushed into the status of social discard.
+            </span>
+          </p>
+
+          <p class="p">
+            <span lang="it">Nello stesso anno inizio a maturare un interesse sempre più forte nei confronti della fotografia analogica e decido dunque di proseguire con gli studi in questo campo.</span>
+            <span lang="en">That same year I developed a growing interest in analog photography and decided to continue my studies in this field.</span>
+          </p>
+
+          <p class="p">
+            <span lang="it">
+              Nel 2018 lancio “Italia nel Grande Formato”, un progetto fotografico che mi ha portato a far riscoprire agli italiani,
+              tramite canali social e interviste cartacee e televisive, l’importanza di avere almeno un proprio ritratto stampato che avesse il compito di testimoniare la loro esistenza.
+              Dopo moltissimi consensi ottenuti finalmente l’iniziativa guadagna i primi 100+ partecipanti tramite una piattaforma crowdfunding,
+              per poi diventare il mio principale impegno fotografico.
+            </span>
+            <span lang="en">
+              In 2018 I launched “Italy in Large Format”, a project that helped many Italians rediscover, through social channels and print and TV interviews,
+              the importance of having at least one printed portrait as testimony of their existence.
+              After strong support, the initiative reached its first 100+ participants through crowdfunding, and became my main photographic commitment.
+            </span>
+          </p>
         </div>
 
         <div class="bio__media">
@@ -792,16 +1048,25 @@
     <section id="contatti" class="section" aria-label="Contatti">
       <div class="wrap">
         <div class="reveal">
-          <h2 class="h2">Contatti</h2>
+          <p class="kicker">Contatti</p>
+          <h2 class="h2">
+            <span lang="it">Due righe, zero attrito</span>
+            <span lang="en">Two lines, zero friction</span>
+          </h2>
         </div>
 
         <div class="contactMini reveal">
           <div class="contactMini__left">
+            <p class="lead" style="margin:0;">
+              <span lang="it">Scrivimi per disponibilità, preventivi e collaborazioni.</span>
+              <span lang="en">Reach out for availability, quotes, and collaborations.</span>
+            </p>
             <p class="micro" style="margin-top:.35rem;">Roma · Italia</p>
           </div>
 
           <div class="contactMini__right">
-            <a class="btn btn--ghost" href="https://www.instagram.com/emanuelepassarelli/" target="_blank" rel="noopener">Instagram</a>
+            <a class="btn btn--primary" href="mailto:contact@emanuelepassarelli.it">Email</a>
+            <a class="btn btn--ghost" href="https://instagram.com/emanuelepassarelli" rel="noopener" target="_blank">Instagram</a>
           </div>
         </div>
       </div>
@@ -824,16 +1089,16 @@
 
   <div class="sr-only" aria-live="polite" aria-atomic="true" data-announcer></div>
 
+  <!-- Site JS (single-file) -->
   <script>
     (function(){
       "use strict";
 
       const root = document.documentElement;
-      const body = document.body;
       const header = document.querySelector('[data-component="header"]');
       const announcer = document.querySelector('[data-announcer]');
-      const drawer = document.querySelector('[data-component="drawer"]');
-      const navToggleBtn = document.querySelector('[data-action="toggle-nav"]');
+      const mobileNav = document.querySelector('[data-component="mobile-nav"]');
+      const navToggle = document.querySelector('[data-action="toggle-nav"]');
 
       const prefersReducedMotion = () =>
         window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -845,6 +1110,28 @@
 
       const announce = (msg) => { if(announcer) announcer.textContent = msg; };
 
+      const lockScroll = (lock) => {
+        document.documentElement.style.overflow = lock ? 'hidden' : '';
+        document.body.style.overflow = lock ? 'hidden' : '';
+      };
+
+      const openNav = () => {
+        if(!mobileNav) return;
+        mobileNav.classList.add('is-open');
+        mobileNav.setAttribute('aria-hidden', 'false');
+        if(navToggle) navToggle.setAttribute('aria-expanded', 'true');
+        lockScroll(true);
+      };
+
+      const closeNav = () => {
+        if(!mobileNav) return;
+        mobileNav.classList.remove('is-open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        if(navToggle) navToggle.setAttribute('aria-expanded', 'false');
+        lockScroll(false);
+      };
+
+      /* Theme (default ALWAYS dark unless user chose otherwise) */
       const THEME_KEY = 'ep_theme';
       const applyTheme = (theme) => {
         const t = theme === 'light' ? 'light' : 'dark';
@@ -853,9 +1140,11 @@
       };
       const initTheme = () => {
         const saved = safeStorage.get(THEME_KEY);
-        applyTheme(saved || 'dark');
+        if(saved){ applyTheme(saved); return; }
+        applyTheme('dark');
       };
 
+      /* Language */
       const LANG_KEY = 'ep_lang';
       const applyLanguage = (lang) => {
         const l = lang === 'en' ? 'en' : 'it';
@@ -872,10 +1161,13 @@
         announce(l === 'it' ? 'Lingua impostata su Italiano' : 'Language set to English');
       };
       const initLanguage = () => {
+        const params = new URLSearchParams(window.location.search);
+        const urlLang = params.get('lang');
         const saved = safeStorage.get(LANG_KEY);
-        applyLanguage(saved || 'it');
+        applyLanguage(urlLang || saved || 'it');
       };
 
+      /* Sticky header that moves with scroll */
       const initHeaderScroll = () => {
         if(!header) return;
         let lastY = window.scrollY;
@@ -904,6 +1196,7 @@
         }, { passive: true });
       };
 
+      /* Scroll reveal animations */
       const initReveals = () => {
         const els = Array.from(document.querySelectorAll('.reveal'));
         if(!els.length) return;
@@ -928,6 +1221,7 @@
         }
       };
 
+      /* Smart media loader (prevents broken image icons) */
       const initSmartMedia = () => {
         const imgs = Array.from(document.querySelectorAll('img[data-src]'));
         if(!imgs.length) return;
@@ -961,129 +1255,41 @@
         }
       };
 
-      const setNavExpanded = (expanded) => {
-        if(navToggleBtn) navToggleBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-        if(drawer) drawer.setAttribute('aria-hidden', expanded ? 'false' : 'true');
-      };
-
-      const openNav = () => {
-        if(!drawer) return;
-        drawer.classList.add('is-open');
-        body.classList.add('nav-open');
-        setNavExpanded(true);
-        const panel = drawer.querySelector('.drawer__panel');
-        if(panel) panel.focus({ preventScroll: true });
-      };
-
-      const closeNav = () => {
-        if(!drawer) return;
-        drawer.classList.remove('is-open');
-        body.classList.remove('nav-open');
-        setNavExpanded(false);
-        if(navToggleBtn) navToggleBtn.focus({ preventScroll: true });
-      };
-
-      const toggleNav = () => {
-        if(!drawer) return;
-        const isOpen = drawer.classList.contains('is-open');
-        if(isOpen) closeNav();
-        else openNav();
-      };
-
-      const initVideoPortals = async () => {
+      /* YouTube Video Portal (load on click, no iframe API) */
+      const initVideoPortals = () => {
         const portals = Array.from(document.querySelectorAll('.videoPortal[data-video="youtube"]'));
         if(!portals.length) return;
-
-        const reduce = prefersReducedMotion();
-
-        const loadYT = () => {
-          if(window.YT && window.YT.Player) return Promise.resolve(window.YT);
-          return new Promise((resolve) => {
-            const s = document.createElement('script');
-            s.src = 'https://www.youtube.com/iframe_api';
-            s.async = true;
-            s.defer = true;
-            document.head.appendChild(s);
-
-            const prev = window.onYouTubeIframeAPIReady;
-            window.onYouTubeIframeAPIReady = function(){
-              prev && prev();
-              resolve(window.YT);
-            };
-          });
-        };
-
-        const YT = await loadYT();
 
         portals.forEach((portal) => {
           const mount = portal.querySelector('[data-video-mount]');
           const startBtn = portal.querySelector('[data-action="start-video"]');
           const videoId = portal.getAttribute('data-youtube-id');
-          const start = Number(portal.getAttribute('data-start') || '0');
-          const end = Number(portal.getAttribute('data-end') || '0');
-          if(!mount || !videoId) return;
+          if(!mount || !startBtn || !videoId) return;
 
-          if(!mount.id) mount.id = `yt-${Math.random().toString(16).slice(2)}`;
-
-          const playerVars = {
-            autoplay: reduce ? 0 : 1,
-            controls: 0,
-            modestbranding: 1,
-            rel: 0,
-            playsinline: 1,
-            iv_load_policy: 3,
-            fs: 0,
-            disablekb: 1,
-            start: start > 0 ? start : undefined,
-            end: end > 0 ? end : undefined,
-            mute: 1
+          const makeIframe = () => {
+            const reduce = prefersReducedMotion();
+            const iframe = document.createElement('iframe');
+            iframe.width = "100%";
+            iframe.height = "100%";
+            iframe.loading = "lazy";
+            iframe.allow = "autoplay; encrypted-media; picture-in-picture";
+            iframe.referrerPolicy = "strict-origin-when-cross-origin";
+            iframe.src =
+              "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(videoId) +
+              "?autoplay=" + (reduce ? "0" : "1") +
+              "&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1";
+            mount.appendChild(iframe);
+            portal.classList.add('is-playing');
           };
-          Object.keys(playerVars).forEach(k => playerVars[k] === undefined && delete playerVars[k]);
 
-          const player = new YT.Player(mount.id, {
-            videoId,
-            playerVars,
-            events: {
-              onReady: (ev) => {
-                try{
-                  ev.target.mute();
-                  if(!reduce) ev.target.playVideo();
-                }catch{ /* ignore */ }
-              },
-              onStateChange: (ev) => {
-                if(ev.data === 1){
-                  portal.classList.add('is-playing');
-                  if(start > 0 && end > 0 && end > start){
-                    window.setInterval(() => {
-                      try{
-                        const t = player.getCurrentTime();
-                        if(t >= end - 0.15) player.seekTo(start, true);
-                      }catch{ /* ignore */ }
-                    }, 250);
-                  }
-                }
-              }
-            }
-          });
-
-          if(startBtn){
-            startBtn.addEventListener('click', () => {
-              try{ player.mute(); player.playVideo(); }catch{ /* ignore */ }
-            });
-          }
-
-          if('IntersectionObserver' in window){
-            const io = new IntersectionObserver((entries) => {
-              entries.forEach((entry) => {
-                if(entry.isIntersecting) return;
-                try{ player.pauseVideo(); }catch{ /* ignore */ }
-              });
-            }, { threshold: 0.05 });
-            io.observe(portal);
-          }
+          startBtn.addEventListener('click', () => {
+            if(mount.querySelector('iframe')) return;
+            makeIframe();
+          }, { passive: true });
         });
       };
 
+      /* Actions */
       const initActions = () => {
         document.addEventListener('click', (e) => {
           const btn = e.target.closest('[data-action]');
@@ -1104,7 +1310,7 @@
           }
 
           if(action === 'toggle-nav'){
-            toggleNav();
+            openNav();
             return;
           }
 
@@ -1112,15 +1318,19 @@
             closeNav();
             return;
           }
+
+          if(action === 'start-video'){
+            return;
+          }
         });
 
         document.addEventListener('keydown', (e) => {
-          if(e.key !== 'Escape') return;
-          if(drawer && drawer.classList.contains('is-open')){
-            e.preventDefault();
-            closeNav();
-          }
+          if(e.key === 'Escape') closeNav();
         });
+
+        window.addEventListener('hashchange', () => {
+          closeNav();
+        }, { passive: true });
       };
 
       const initYear = () => {
@@ -1128,6 +1338,7 @@
         if(el) el.textContent = String(new Date().getFullYear());
       };
 
+      /* Init */
       const init = () => {
         initTheme();
         initLanguage();
