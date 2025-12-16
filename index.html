@@ -95,6 +95,7 @@
       --shadow: rgba(0,0,0,.55);
       --ph-1: rgba(255,255,255,.045);
       --ph-2: rgba(255,255,255,.095);
+      --ok: #42d17a;
     }
 
     :root[data-theme="light"]{
@@ -110,6 +111,7 @@
       --shadow: rgba(0,0,0,.18);
       --ph-1: rgba(0,0,0,.035);
       --ph-2: rgba(0,0,0,.085);
+      --ok: #1aa957;
     }
 
     *{ box-sizing:border-box; }
@@ -129,7 +131,7 @@
 
     img, video, iframe{ max-width:100%; display:block; }
     a{ color: inherit; text-decoration: none; }
-    button{ font-family: inherit; }
+    button{ font-family: inherit; color: inherit; }
     .wrap{ width: var(--wrap); margin-inline:auto; }
 
     body::before{
@@ -272,7 +274,6 @@
     }
 
     .section{ padding: var(--s-6) 0; }
-    .section--tight{ padding: var(--s-5) 0; }
 
     .btn{
       display:inline-flex;
@@ -290,6 +291,7 @@
       font-size: .86em;
       line-height: 1;
       white-space: nowrap;
+      color: var(--text);
     }
     .btn--primary{ background: color-mix(in oklab, var(--surface-2) 85%, transparent); }
     .btn--ghost{ background: transparent; }
@@ -303,10 +305,15 @@
     .hero__title{ font-family: var(--font-display); font-size: var(--fs-4); line-height: 1.02; letter-spacing: .02em; margin: 0 0 var(--s-3); }
     .hero__titleLine{ display:block; }
     .hero__titleLine--muted{ color: color-mix(in oklab, var(--text) 70%, transparent); }
-    .hero__cta{ display:flex; flex-wrap: wrap; gap: .75rem; margin-bottom: var(--s-4); }
-    @media (max-width: 980px){ .hero__wrap{ grid-template-columns: 1fr; } .hero__media{ order: -1; } }
+    .hero__cta{ display:flex; flex-wrap: wrap; gap: .75rem; margin-bottom: var(--s-4); align-items: center; }
 
-    /* Improved scroll cue (centered, text above arrow) */
+    /* Centered scroll cue under CTAs */
+    .hero__underCta{
+      display:flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: .35rem;
+    }
     .scrollCue{
       display:flex;
       flex-direction: column;
@@ -314,16 +321,16 @@
       justify-content: center;
       gap: .55rem;
       width: fit-content;
-      margin-top: .25rem;
       color: var(--muted-2);
       letter-spacing: .14em;
       text-transform: uppercase;
       font-size: .78em;
+      text-align: center;
     }
     .scrollCue__text{ text-align:center; }
     .scrollCue__arrow{
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border: 1px solid var(--border);
       border-radius: 999px;
       display:grid;
@@ -342,6 +349,11 @@
       100%{ transform: translateY(-2px); opacity: .55; }
     }
 
+    @media (max-width: 980px){
+      .hero__wrap{ grid-template-columns: 1fr; }
+      .hero__media{ order: -1; }
+    }
+
     /* Video portal */
     .videoPortal{ display:grid; gap: .75rem; }
     .videoPortal__frame{
@@ -354,8 +366,36 @@
       box-shadow: 0 28px 110px var(--shadow);
       isolation: isolate;
     }
-    .videoPortal__mount{ position:absolute; inset:0; z-index: 3; opacity: 0; transition: opacity var(--dur-3) var(--ease-out); }
-    .videoPortal__mount iframe{ width:100%; height:100%; border:0; }
+    .videoPortal__mount{
+      position:absolute;
+      inset:0;
+      z-index: 3;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
+      will-change: transform, opacity;
+    }
+    .videoPortal__mount iframe{
+      width:100%;
+      height:100%;
+      border:0;
+    }
+    /* Ensure full bleed (no black bars): cover via transform on iframe */
+    .videoPortal__mount{
+      overflow: hidden;
+    }
+    .videoPortal__mount iframe{
+      position:absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%,-50%) scale(1.18);
+      transform-origin: center;
+    }
+    @media (max-width: 520px){
+      .videoPortal__mount iframe{ transform: translate(-50%,-50%) scale(1.22); }
+    }
 
     .mediaPlaceholder{
       position:absolute;
@@ -408,36 +448,10 @@
       gap:.5rem;
     }
 
-    /* Autoplay: hide start overlay, keep subtle gradient */
-    .videoPortal__start{
-      position:absolute;
-      inset: 0;
-      z-index: 4;
-      display:grid;
-      place-items:center;
-      background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--bg) 62%, transparent));
-      border:0;
-      color: var(--text);
-      opacity: 0;
-      pointer-events:none;
+    .videoPortal.is-playing .videoPortal__mount{
+      opacity: 1;
+      transform: translateY(0);
     }
-    .videoPortal__label{ display:none; }
-    .videoPortal__pulse{
-      position:absolute;
-      width: 96px;
-      height: 96px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 50% 50%, var(--ph-2), transparent 65%);
-      animation: pulse 2.3s var(--ease-soft) infinite;
-      opacity: 0;
-    }
-    @keyframes pulse{
-      0%{ transform: scale(0.90); opacity: .60; }
-      45%{ transform: scale(1.02); opacity: .90; }
-      100%{ transform: scale(0.90); opacity: .60; }
-    }
-
-    .videoPortal.is-playing .videoPortal__mount{ opacity: 1; }
 
     /* Feature cards */
     .cards{
@@ -445,7 +459,7 @@
       grid-template-columns: 1fr 1fr;
       gap: var(--s-3);
       margin-top: var(--s-4);
-      margin-bottom: var(--s-6); /* extra spacing before gallery */
+      margin-bottom: var(--s-6);
     }
     .card{
       border: 1px solid var(--border);
@@ -466,9 +480,7 @@
       gap:.6rem;
     }
     .card__text{ margin: 0; color: var(--muted); max-width: 66ch; }
-    @media (max-width: 860px){
-      .cards{ grid-template-columns: 1fr; }
-    }
+    @media (max-width: 860px){ .cards{ grid-template-columns: 1fr; } }
 
     /* Fullwidth galleries */
     .fullMedia{
@@ -485,7 +497,7 @@
       display:grid;
       gap: var(--s-3);
     }
-    .fullMedia--spaced{ margin-top: var(--s-6); } /* extra spacing when needed */
+    .fullMedia--spaced{ margin-top: var(--s-6); }
 
     .media{
       position: relative;
@@ -554,51 +566,57 @@
     .contactMini__left{ display:grid; gap: .35rem; }
     .contactMini__right{ display:flex; flex-wrap: wrap; gap: .75rem; align-items:center; }
 
-    /* Email button morph */
+    /* Email button expands to fit email */
     .btnEmail{
       position: relative;
-      overflow: hidden;
-      padding-right: 1.05rem;
+      overflow: visible;
+      --padX: 1.25rem;
+      padding-inline: var(--padX);
     }
-    .btnEmail__label{
+    .btnEmail__shell{
       display:inline-flex;
       align-items:center;
       gap:.55rem;
-      transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
-    }
-    .btnEmail__email{
-      position:absolute;
-      inset: 0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:.55rem;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
-      padding: .95rem 1.25rem;
-      border-radius: 999px;
-      letter-spacing: .10em;
-      text-transform: none;
-      font-weight: 900;
-      font-size: .86em;
       white-space: nowrap;
     }
-    .btnEmail.is-done{
-      background: color-mix(in oklab, var(--surface-2) 85%, transparent);
-      opacity: .92;
+    .btnEmail__email{
+      display:none;
+      letter-spacing: .06em;
+      text-transform: none;
+      font-weight: 900;
     }
-    .btnEmail.is-done .btnEmail__label{ opacity: 0; transform: translateY(-6px); }
-    .btnEmail.is-done .btnEmail__email{ opacity: 1; transform: translateY(0); }
+    .btnEmail.is-done .btnEmail__labelText{ display:none; }
+    .btnEmail.is-done .btnEmail__email{ display:inline; }
 
-    .btnEmail__check{
+    /* Popup */
+    .toast{
+      position: fixed;
+      left: 50%;
+      top: 14px;
+      transform: translateX(-50%) translateY(-10px);
+      background: color-mix(in oklab, var(--bg) 82%, transparent);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: .60rem .85rem;
+      box-shadow: 0 22px 80px var(--shadow);
+      display:flex;
+      align-items:center;
+      gap:.55rem;
       opacity: 0;
-      transform: scale(.92);
+      pointer-events:none;
       transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+      z-index: 120;
+      color: var(--text);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: .78em;
+      white-space: nowrap;
     }
-    .btnEmail.is-done .btnEmail__check{
+    .toast i{ color: var(--ok); }
+    .toast.is-show{
       opacity: 1;
-      transform: scale(1);
+      transform: translateX(-50%) translateY(0);
     }
 
     /* Footer */
@@ -646,7 +664,7 @@
     .mobileNav.is-open .mobileNav__panel{ transform: translateX(0); }
 
     .mobileNav__top{ display:flex; align-items:center; justify-content: space-between; gap: .75rem; }
-    .mobileNav__icons{ display:flex; gap: .5rem; align-items:center; }
+    .mobileNav__icons{ display:flex; gap: .5rem; align-items:center; flex-wrap: wrap; }
     .mobileNav__links{ display:grid; gap: .5rem; }
     .mobileNav__links a{
       padding: .9rem 1rem;
@@ -717,9 +735,7 @@
       </a>
 
       <nav class="nav" aria-label="Navigazione principale">
-        <a class="nav__link" href="#ritratto"><i class="fa-regular fa-user"></i><span lang="it">Ritratto</span><span lang="en">Portrait</span></a>
-        <a class="nav__link" href="#italia"><i class="fa-regular fa-map"></i><span lang="it">Italia</span><span lang="en">Italy</span></a>
-        <a class="nav__link" href="#bio"><i class="fa-regular fa-file-lines"></i>Bio</a>
+        <a class="nav__link" href="#ritratto"><i class="fa-regular fa-compass"></i><span lang="it">Scopri</span><span lang="en">Discover</span></a>
         <a class="nav__link" href="#contatti"><i class="fa-regular fa-paper-plane"></i><span lang="it">Contatti</span><span lang="en">Contact</span></a>
       </nav>
 
@@ -759,10 +775,9 @@
       </div>
 
       <nav class="mobileNav__links" aria-label="Navigazione mobile">
-        <a href="#ritratto" data-action="close-nav"><i class="fa-regular fa-user"></i> <span lang="it">Ritratto</span><span lang="en">Portrait</span></a>
-        <a href="#italia" data-action="close-nav"><i class="fa-regular fa-map"></i> <span lang="it">Italia</span><span lang="en">Italy</span></a>
-        <a href="#bio" data-action="close-nav"><i class="fa-regular fa-file-lines"></i> Bio</a>
+        <a href="#ritratto" data-action="close-nav"><i class="fa-regular fa-compass"></i> <span lang="it">Scopri</span><span lang="en">Discover</span></a>
         <a href="#contatti" data-action="close-nav"><i class="fa-regular fa-paper-plane"></i> <span lang="it">Contatti</span><span lang="en">Contact</span></a>
+        <a href="#bio" data-action="close-nav"><i class="fa-regular fa-file-lines"></i> Bio</a>
       </nav>
     </aside>
   </div>
@@ -786,6 +801,7 @@
             <span lang="it">Ritratti in grande formato, tecniche antiche e stampe da custodire. Una sessione fotografica pensata per lasciare una traccia di te.</span>
             <span lang="en">Large-format portraits, historic techniques, and prints to keep. A photographic session designed to leave a trace of you.</span>
           </p>
+
           <div class="hero__cta">
             <a class="btn btn--primary" href="#ritratto">
               <i class="fa-regular fa-images"></i>
@@ -799,11 +815,13 @@
             </a>
           </div>
 
-          <div class="scrollCue" aria-hidden="true">
-            <div class="scrollCue__text">
-              <span lang="it">Scorri</span><span lang="en">Scroll</span>
+          <div class="hero__underCta" aria-hidden="true">
+            <div class="scrollCue">
+              <div class="scrollCue__text">
+                <span lang="it">Scopri</span><span lang="en">Discover</span>
+              </div>
+              <div class="scrollCue__arrow"><i class="fa-solid fa-arrow-down"></i></div>
             </div>
-            <div class="scrollCue__arrow"><i class="fa-solid fa-arrow-down"></i></div>
           </div>
         </div>
 
@@ -818,7 +836,6 @@
                 <span lang="en">Project presentation</span>
               </div>
               <div class="videoPortal__mount" data-video-mount></div>
-              <button class="videoPortal__start" type="button" data-action="start-video" aria-hidden="true" tabindex="-1"></button>
             </div>
           </div>
           <p class="micro" style="margin-top:.75rem;">
@@ -896,8 +913,8 @@
       <div class="fullMedia bleed fullMedia--spaced" aria-label="Gallery Ritratto Unico (estratti)">
         <div class="fullMedia__wrap">
           <div class="reveal">
-            <p class="kicker"><span lang="it">Gallery</span><span lang="en">Gallery</span></p>
-            <h3 class="h3"><span lang="it">Ritratto Unico</span><span lang="en">Unique Portrait</span></h3>
+            <p class="kicker"><span lang="it">Estratti</span><span lang="en">Excerpts</span></p>
+            <h3 class="h3"><span lang="it">Selezione Ritratto Unico</span><span lang="en">Unique Portrait Selection</span></h3>
             <p class="p">
               <span lang="it">Una selezione di immagini rappresentative.</span>
               <span lang="en">A selection of representative images.</span>
@@ -953,7 +970,7 @@
             </span>
           </p>
 
-          <p class="p">
+          <p class="p" style="margin-bottom: var(--s-5);">
             <span lang="it">
               L’Italia viene raccontata attraverso questa raccolta di ritratti, in un viaggio ideale fra volti e paesaggi che costituiscono la principale ricchezza di questo Paese.
               Tutti i ritratti sono stati realizzati con un banco ottico e costituiscono nel loro insieme un’opera unica.
@@ -969,8 +986,8 @@
       <div class="fullMedia bleed fullMedia--spaced" aria-label="Gallery Italia nel Grande Formato (estratti)">
         <div class="fullMedia__wrap">
           <div class="reveal">
-            <p class="kicker"><span lang="it">Gallery</span><span lang="en">Gallery</span></p>
-            <h3 class="h3"><span lang="it">Italia nel Grande Formato</span><span lang="en">Italy in Large Format</span></h3>
+            <p class="kicker"><span lang="it">Estratti</span><span lang="en">Excerpts</span></p>
+            <h3 class="h3"><span lang="it">Selezione dal progetto</span><span lang="en">Project Selection</span></h3>
             <p class="p">
               <span lang="it">Una selezione di immagini rappresentative del progetto.</span>
               <span lang="en">A selection of representative images from the project.</span>
@@ -1002,7 +1019,7 @@
     </section>
 
     <section id="bio" class="section" aria-label="Bio">
-      <div class="wrap bio">
+      <div class="wrap" style="display:grid; grid-template-columns: 1.08fr .92fr; gap: var(--s-5); align-items:start;">
         <div class="reveal">
           <p class="kicker"><span lang="it">Biografia</span><span lang="en">Biography</span></p>
           <h2 class="h2">Emanuele Passarelli</h2>
@@ -1059,8 +1076,8 @@
           </p>
         </div>
 
-        <div class="bio__media">
-          <figure class="media media--portrait reveal" data-component="smart-media">
+        <div class="reveal">
+          <figure class="media media--portrait" data-component="smart-media">
             <div class="media__ph" aria-hidden="true"></div>
             <img class="media__img" data-src="/assets/img/bio/emanuele.jpg" alt="Ritratto di Emanuele Passarelli">
           </figure>
@@ -1091,16 +1108,11 @@
           </div>
 
           <div class="contactMini__right">
-            <button class="btn btn--primary btnEmail" type="button" data-action="copy-email" aria-label="Copia email">
-              <span class="btnEmail__label">
+            <button class="btn btn--primary btnEmail" type="button" data-action="copy-email" aria-label="Vedi email e copia">
+              <span class="btnEmail__shell">
                 <i class="fa-regular fa-envelope"></i>
-                <span lang="it">Copia email</span><span lang="en">Copy email</span>
-              </span>
-
-              <span class="btnEmail__email" aria-hidden="true">
-                <i class="fa-regular fa-copy"></i>
-                <span>contact@emanuelepassarelli.it</span>
-                <i class="fa-solid fa-check btnEmail__check" aria-hidden="true"></i>
+                <span class="btnEmail__labelText"><span lang="it">Vedi email</span><span lang="en">View email</span></span>
+                <span class="btnEmail__email">contact@emanuelepassarelli.it</span>
               </span>
             </button>
 
@@ -1119,13 +1131,14 @@
       <p class="micro">© <span data-year></span> Emanuele Passarelli</p>
       <div class="footer__links">
         <a href="#top"><i class="fa-solid fa-arrow-up" style="margin-right:.4rem; opacity:.9;"></i>Top</a>
-        <a href="#ritratto"><span lang="it">Ritratto</span><span lang="en">Portrait</span></a>
+        <a href="#ritratto"><span lang="it">Scopri</span><span lang="en">Discover</span></a>
         <a href="#contatti"><span lang="it">Contatti</span><span lang="en">Contact</span></a>
       </div>
     </div>
   </footer>
 
   <div class="sr-only" aria-live="polite" aria-atomic="true" data-announcer></div>
+  <div class="toast" data-toast><i class="fa-solid fa-circle-check"></i><span lang="it">Copiata</span><span lang="en">Copied</span></div>
 
   <script>
     (function(){
@@ -1136,6 +1149,7 @@
       const announcer = document.querySelector('[data-announcer]');
       const mobileNav = document.querySelector('[data-component="mobile-nav"]');
       const navToggle = document.querySelector('[data-action="toggle-nav"]');
+      const toast = document.querySelector('[data-toast]');
 
       const emailValue = "contact@emanuelepassarelli.it";
 
@@ -1301,17 +1315,14 @@
           const tryLoad = () => {
             const src = candidates[idx];
             img.onload = () => portal.classList.add('is-thumb-loaded');
-            img.onerror = () => {
-              idx += 1;
-              if(idx < candidates.length) tryLoad();
-            };
+            img.onerror = () => { idx += 1; if(idx < candidates.length) tryLoad(); };
             img.src = src;
           };
           tryLoad();
         });
       };
 
-      /* YouTube autoplay, muted, start at 8s, loop (best-effort) */
+      /* YouTube autoplay, muted, start at 8s, loop */
       const initVideoPortals = () => {
         const portals = Array.from(document.querySelectorAll('.videoPortal[data-video="youtube"]'));
         if(!portals.length) return;
@@ -1325,16 +1336,12 @@
           const start = 8;
 
           const iframe = document.createElement('iframe');
-          iframe.width = "560";
-          iframe.height = "315";
           iframe.title = "Italia nel Grande Formato - Presentazione Progetto";
           iframe.loading = "lazy";
           iframe.allowFullscreen = true;
           iframe.referrerPolicy = "strict-origin-when-cross-origin";
           iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
 
-          // Note: true seamless loop on an embedded YouTube player requires playlist=VIDEO_ID.
-          // UI hiding is best-effort (YouTube still may show some overlays).
           const params = new URLSearchParams({
             autoplay: reduce ? "0" : "1",
             mute: "1",
@@ -1351,8 +1358,8 @@
           });
 
           iframe.src = "https://www.youtube.com/embed/" + encodeURIComponent(videoId) + "?" + params.toString();
-
           mount.appendChild(iframe);
+
           portal.classList.add('is-playing');
         });
       };
@@ -1382,6 +1389,13 @@
         }
       };
 
+      const showToast = () => {
+        if(!toast) return;
+        toast.classList.add('is-show');
+        window.clearTimeout(toast._t);
+        toast._t = window.setTimeout(() => toast.classList.remove('is-show'), 1100);
+      };
+
       /* Actions */
       const initActions = () => {
         document.addEventListener('click', async (e) => {
@@ -1409,8 +1423,9 @@
             const ok = await copyToClipboard(emailValue);
             btn.classList.add('is-done');
             announce(ok ? 'Email copiata' : 'Copia non riuscita');
+            if(ok) showToast();
             window.clearTimeout(btn._t);
-            btn._t = window.setTimeout(() => btn.classList.remove('is-done'), 1600);
+            btn._t = window.setTimeout(() => btn.classList.remove('is-done'), 2200);
             return;
           }
         });
@@ -1427,6 +1442,7 @@
         if(el) el.textContent = String(new Date().getFullYear());
       };
 
+      /* Init */
       const init = () => {
         initTheme();
         initLanguage();
