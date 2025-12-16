@@ -14,6 +14,7 @@
   <link rel="icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+  <!-- Open Graph -->
   <meta property="og:locale" content="it_IT">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Emanuele Passarelli · Artigiano del Ritratto">
@@ -25,14 +26,17 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
+  <!-- hreflang -->
   <link rel="alternate" hreflang="it" href="https://emanuelepassarelli.it/">
   <link rel="alternate" hreflang="en" href="https://emanuelepassarelli.it/?lang=en">
   <link rel="alternate" hreflang="x-default" href="https://emanuelepassarelli.it/">
 
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@200..900&display=swap" rel="stylesheet">
 
+  <!-- Font Awesome (free) -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer">
 
@@ -158,16 +162,16 @@
 
     .bleed{ width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
 
-    /* Header */
+    /* Header (fixed always on top) */
     .site-header{
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 50;
+      left: 0;
+      right: 0;
+      z-index: 70;
       backdrop-filter: blur(14px);
       background: color-mix(in oklab, var(--bg) 85%, transparent);
       border-bottom: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
-      transform: translateY(0);
-      transition: border-color var(--dur-2) var(--ease-out), padding var(--dur-2) var(--ease-out);
     }
     .site-header.is-scrolled{ border-bottom-color: var(--border-2); }
 
@@ -178,9 +182,7 @@
       gap: var(--s-2);
       padding: .95rem 0;
       min-width: 0;
-      transition: padding var(--dur-2) var(--ease-out);
     }
-    .site-header.is-scrolled .header__wrap{ padding: .70rem 0; }
 
     .brand{ display:flex; align-items:center; min-width:0; flex: 1 1 auto; }
     .brand__name{
@@ -296,22 +298,30 @@
     .btn i{ opacity: .9; font-size: 1em; }
 
     /* Hero */
-    .hero{ padding: clamp(2.2rem, 2vw + 1.3rem, 3.6rem) 0 var(--s-6); }
+    .hero{
+      padding: clamp(2.2rem, 2vw + 1.3rem, 3.6rem) 0 var(--s-6);
+      position: relative; /* anchor for absolute scroll cue */
+    }
     .hero__wrap{ display:grid; grid-template-columns: 1.12fr .88fr; gap: var(--s-5); align-items: center; }
     .hero__title{ font-family: var(--font-display); font-size: var(--fs-4); line-height: 1.02; letter-spacing: .02em; margin: 0 0 var(--s-3); }
     .hero__titleLine{ display:block; }
     .hero__titleLine--muted{ color: color-mix(in oklab, var(--text) 70%, transparent); }
     .hero__cta{ display:flex; flex-wrap: wrap; gap: .75rem; margin-bottom: var(--s-4); align-items: center; }
 
-    /* Centered to viewport, not to the column */
-    .hero__underCta{
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      display:flex;
-      justify-content: center;
-      margin-top: .35rem;
+    @media (max-width: 980px){
+      .hero__wrap{ grid-template-columns: 1fr; }
+      .hero__media{ order: -1; }
     }
 
+    /* Scroll cue centered to viewport (absolute, positioned by JS) */
+    .scrollCueDock{
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: fit-content;
+      z-index: 5;
+      pointer-events: none;
+    }
     .scrollCue{
       display:flex;
       flex-direction: column;
@@ -324,6 +334,7 @@
       text-transform: uppercase;
       font-size: .78em;
       text-align: center;
+      pointer-events: none;
     }
     .scrollCue__text{ text-align:center; }
     .scrollCue__arrow{
@@ -336,6 +347,7 @@
       background: color-mix(in oklab, var(--surface) 92%, transparent);
       position: relative;
       overflow: hidden;
+      pointer-events: none;
     }
     .scrollCue__arrow i{
       animation: arrowDrop 1.45s var(--ease-soft) infinite;
@@ -345,11 +357,6 @@
       0%{ transform: translateY(-2px); opacity: .55; }
       45%{ transform: translateY(6px); opacity: 1; }
       100%{ transform: translateY(-2px); opacity: .55; }
-    }
-
-    @media (max-width: 980px){
-      .hero__wrap{ grid-template-columns: 1fr; }
-      .hero__media{ order: -1; }
     }
 
     /* Video portal */
@@ -363,6 +370,18 @@
       background: linear-gradient(180deg, var(--bg-2), var(--bg));
       box-shadow: 0 28px 110px var(--shadow);
       isolation: isolate;
+
+      /* strong on-load entrance */
+      opacity: 0;
+      transform: translateY(64px);
+      filter: blur(2px);
+      transition: opacity 980ms var(--ease-out), transform 980ms var(--ease-out), filter 980ms var(--ease-out);
+      will-change: transform, opacity, filter;
+    }
+    .is-video-enter .videoPortal__frame{
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
     }
 
     .mediaPlaceholder{
@@ -409,50 +428,33 @@
       letter-spacing: .14em;
       text-transform: uppercase;
       font-size: .80em;
-      z-index: 10;
+      z-index: 6;
       display:inline-flex;
       align-items:center;
       gap:.5rem;
       transition: transform var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+      pointer-events: auto;
     }
     .videoPortal__badge:hover{ transform: translateY(-1px); border-color: var(--border-2); }
-
-    /* Mask top-right overlay (hides watch later + share) */
-    .videoPortal__uiMask{
-      position:absolute;
-      top: 12px;
-      right: 12px;
-      width: 132px;
-      height: 54px;
-      border-radius: 14px;
-      z-index: 9;
-      background: color-mix(in oklab, var(--bg) 82%, transparent);
-      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
-      backdrop-filter: blur(10px);
-      opacity: .92;
-      pointer-events: none;
-    }
-    @media (max-width: 520px){
-      .videoPortal__uiMask{ width: 120px; height: 50px; top: 10px; right: 10px; opacity: .88; }
-    }
 
     .videoPortal__mount{
       position:absolute;
       inset:0;
       z-index: 3;
-
-      opacity: 0;
-      transform: translateY(110px);
-      transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
       will-change: transform, opacity;
       overflow: hidden;
     }
-
     .videoPortal__mount iframe{
       position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%,-50%);
+      transform-origin: center;
       border:0;
       pointer-events: none;
     }
@@ -468,25 +470,16 @@
       height: 100%;
       position:absolute;
       inset:0;
+      transform: none;
     }
     @media (max-width: 520px){
       .videoPortal__cover{ transform: scale(1.22); }
     }
 
-    .videoPortal.is-playing .videoPortal__mount{
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .videoPortal.is-playing .mediaPlaceholder{
-      opacity: 0;
-      transition: opacity var(--dur-3) var(--ease-out);
-    }
-
     .videoPortal__hoverMask{
       position:absolute;
       inset:0;
-      z-index: 6;
+      z-index: 5;
       opacity: 0;
       transition: opacity var(--dur-2) var(--ease-out);
       pointer-events: none;
@@ -524,6 +517,7 @@
     .card__text{ margin: 0; color: var(--muted); max-width: 66ch; }
     @media (max-width: 860px){ .cards{ grid-template-columns: 1fr; } }
 
+    /* Fullwidth galleries */
     .fullMedia{
       position: relative;
       border-top: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
@@ -593,7 +587,12 @@
 
     .btnEmail{ position: relative; }
     .btnEmail__shell{ display:inline-flex; align-items:center; gap:.55rem; white-space: nowrap; }
-    .btnEmail__email{ display:none; letter-spacing: .04em; text-transform: none; font-weight: 900; }
+    .btnEmail__email{
+      display:none;
+      letter-spacing: .04em;
+      text-transform: none;
+      font-weight: 900;
+    }
     .btnEmail.is-done .btnEmail__labelText{ display:none; }
     .btnEmail.is-done .btnEmail__email{ display:inline; }
 
@@ -627,6 +626,7 @@
       transform: translateX(-50%) translateY(-16px);
     }
 
+    /* Footer */
     .site-footer{
       padding: var(--s-4) 0 var(--s-5);
       border-top: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
@@ -637,13 +637,15 @@
     .footer__links a{ color: var(--muted); letter-spacing: .12em; text-transform: uppercase; font-size: .82em; }
     .footer__links a:hover{ color: var(--text); }
 
+    /* Scroll reveal */
     .reveal{ opacity: 0; transform: translateY(14px); filter: blur(2px); transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out), filter var(--dur-3) var(--ease-out); }
     .reveal.is-inview{ opacity: 1; transform: translateY(0); filter: blur(0); }
 
+    /* Mobile drawer */
     .mobileNav{
       position: fixed;
       inset: 0;
-      z-index: 80;
+      z-index: 90;
       pointer-events: none;
       opacity: 0;
       transition: opacity var(--dur-2) var(--ease-out);
@@ -788,7 +790,7 @@
   </div>
 
   <main id="main">
-    <section id="top" class="hero" aria-label="Intro">
+    <section id="top" class="hero" aria-label="Intro" data-hero>
       <div class="wrap hero__wrap">
         <div class="hero__copy reveal">
           <p class="kicker">
@@ -807,7 +809,7 @@
             <span lang="en">Large-format portraits, historic techniques, and prints to keep. A photographic session designed to leave a trace of you.</span>
           </p>
 
-          <div class="hero__cta">
+          <div class="hero__cta" data-hero-cta>
             <a class="btn btn--primary" href="#ritratto">
               <i class="fa-regular fa-images"></i>
               <span lang="it">Scopri i ritratti</span>
@@ -819,15 +821,6 @@
               <span lang="en">Contact</span>
             </a>
           </div>
-
-          <div class="hero__underCta" aria-hidden="true">
-            <div class="scrollCue">
-              <div class="scrollCue__text">
-                <span lang="it">Scopri</span><span lang="en">Discover</span>
-              </div>
-              <div class="scrollCue__arrow"><i class="fa-solid fa-arrow-down"></i></div>
-            </div>
-          </div>
         </div>
 
         <div class="hero__media reveal">
@@ -836,8 +829,6 @@
               <div class="mediaPlaceholder" aria-hidden="true"></div>
               <img class="videoPortal__thumb" alt="Italia nel Grande Formato - Presentazione Progetto (thumbnail)" data-thumb>
               <div class="videoPortal__hoverMask" aria-hidden="true"></div>
-
-              <div class="videoPortal__uiMask" aria-hidden="true"></div>
 
               <a class="videoPortal__badge" href="https://youtu.be/nSSJRcRtqpo?si=5NLpwZrZA5981h1J" target="_blank" rel="noopener" aria-label="Apri il video su YouTube">
                 <i class="fa-regular fa-circle-play"></i>
@@ -852,6 +843,16 @@
             <span lang="it">Italia nel Grande Formato - Presentazione Progetto</span>
             <span lang="en">Italy in Large Format - Project Presentation</span>
           </p>
+        </div>
+      </div>
+
+      <!-- Viewport-centered scroll cue, positioned by JS to sit under CTA without breaking flow -->
+      <div class="scrollCueDock" data-scrollcue aria-hidden="true">
+        <div class="scrollCue">
+          <div class="scrollCue__text">
+            <span lang="it">Scopri</span><span lang="en">Discover</span>
+          </div>
+          <div class="scrollCue__arrow"><i class="fa-solid fa-arrow-down"></i></div>
         </div>
       </div>
     </section>
@@ -1136,6 +1137,10 @@
       const mobileNav = document.querySelector('[data-component="mobile-nav"]');
       const navToggle = document.querySelector('[data-action="toggle-nav"]');
 
+      const hero = document.querySelector('[data-hero]');
+      const heroCta = document.querySelector('[data-hero-cta]');
+      const scrollCueDock = document.querySelector('[data-scrollcue]');
+
       const emailValue = "contact@emanuelepassarelli.it";
 
       const prefersReducedMotion = () =>
@@ -1167,6 +1172,13 @@
         mobileNav.setAttribute('aria-hidden', 'true');
         if(navToggle) navToggle.setAttribute('aria-expanded', 'false');
         lockScroll(false);
+      };
+
+      /* Fixed header offset */
+      const applyHeaderOffset = () => {
+        if(!header) return;
+        const h = header.getBoundingClientRect().height;
+        document.body.style.paddingTop = h + 'px';
       };
 
       /* Theme (default always dark) */
@@ -1206,22 +1218,46 @@
         applyLanguage(urlLang || saved || 'it');
       };
 
-      /* Sticky header styling on scroll, no hide */
+      /* Header scrolled state (no hide) */
       const initHeaderScroll = () => {
         if(!header) return;
-        const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 12);
-        window.addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
+        let ticking = false;
+
+        const onScroll = () => {
+          const y = window.scrollY;
+          header.classList.toggle('is-scrolled', y > 12);
+          ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(onScroll);
+        }, { passive: true });
+
         onScroll();
+      };
+
+      /* Position the scroll cue centered to viewport, under CTA, without affecting layout */
+      const placeScrollCue = () => {
+        if(!hero || !heroCta || !scrollCueDock) return;
+        const heroRect = hero.getBoundingClientRect();
+        const ctaRect = heroCta.getBoundingClientRect();
+
+        const top = (ctaRect.bottom - heroRect.top) + 18; /* small breathing space */
+        scrollCueDock.style.top = Math.max(0, top) + 'px';
       };
 
       /* Scroll reveal */
       const initReveals = () => {
         const els = Array.from(document.querySelectorAll('.reveal'));
         if(!els.length) return;
+
         if(prefersReducedMotion()){
           els.forEach(el => el.classList.add('is-inview'));
           return;
         }
+
         if('IntersectionObserver' in window){
           const io = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -1230,6 +1266,7 @@
               io.unobserve(entry.target);
             });
           }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+
           els.forEach(el => io.observe(el));
         } else {
           els.forEach(el => el.classList.add('is-inview'));
@@ -1260,6 +1297,7 @@
               loadImg(entry.target);
             });
           }, { rootMargin: '280px 0px' });
+
           imgs.forEach(img => io.observe(img));
         } else {
           imgs.forEach(loadImg);
@@ -1292,7 +1330,7 @@
         });
       };
 
-      /* YouTube autoplay embed, with a more evident rise animation */
+      /* YouTube autoplay embed */
       const initVideoPortals = () => {
         const portals = Array.from(document.querySelectorAll('.videoPortal[data-video="youtube"]'));
         if(!portals.length) return;
@@ -1325,7 +1363,6 @@
             disablekb: "1",
             fs: "0",
             iv_load_policy: "3",
-            cc_load_policy: "0",
             start: String(start),
             loop: "1",
             playlist: videoId
@@ -1335,14 +1372,6 @@
 
           cover.appendChild(iframe);
           mount.appendChild(cover);
-
-          /* Trigger transition in a separate frame so the rise animation is visible */
-          portal.classList.remove('is-playing');
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              portal.classList.add('is-playing');
-            });
-          });
         });
       };
 
@@ -1353,7 +1382,7 @@
             await navigator.clipboard.writeText(text);
             return true;
           }
-        }catch{ }
+        }catch{ /* fallback below */ }
 
         try{
           const ta = document.createElement('textarea');
@@ -1425,6 +1454,11 @@
         if(el) el.textContent = String(new Date().getFullYear());
       };
 
+      const initVideoEntrance = () => {
+        if(prefersReducedMotion()) return;
+        window.setTimeout(() => root.classList.add('is-video-enter'), 120);
+      };
+
       /* Init */
       const init = () => {
         initTheme();
@@ -1434,8 +1468,21 @@
         initReveals();
         initSmartMedia();
         initYTThumbs();
-        initYear();
         initVideoPortals();
+        initYear();
+
+        applyHeaderOffset();
+        placeScrollCue();
+        initVideoEntrance();
+
+        window.addEventListener('resize', () => {
+          applyHeaderOffset();
+          placeScrollCue();
+        }, { passive: true });
+
+        window.addEventListener('scroll', () => {
+          placeScrollCue();
+        }, { passive: true });
       };
 
       if(document.readyState === 'loading'){
