@@ -14,7 +14,6 @@
   <link rel="icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <!-- Open Graph -->
   <meta property="og:locale" content="it_IT">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Emanuele Passarelli · Artigiano del Ritratto">
@@ -26,17 +25,14 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- hreflang -->
   <link rel="alternate" hreflang="it" href="https://emanuelepassarelli.it/">
   <link rel="alternate" hreflang="en" href="https://emanuelepassarelli.it/?lang=en">
   <link rel="alternate" hreflang="x-default" href="https://emanuelepassarelli.it/">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@200..900&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome (free) -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer">
 
@@ -171,9 +167,8 @@
       background: color-mix(in oklab, var(--bg) 85%, transparent);
       border-bottom: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
       transform: translateY(0);
-      transition: transform var(--dur-2) var(--ease-out);
+      transition: border-color var(--dur-2) var(--ease-out), padding var(--dur-2) var(--ease-out);
     }
-    .site-header.is-hidden{ transform: translateY(-105%); }
     .site-header.is-scrolled{ border-bottom-color: var(--border-2); }
 
     .header__wrap{
@@ -182,8 +177,8 @@
       justify-content: space-between;
       gap: var(--s-2);
       padding: .95rem 0;
-      transition: padding var(--dur-2) var(--ease-out);
       min-width: 0;
+      transition: padding var(--dur-2) var(--ease-out);
     }
     .site-header.is-scrolled .header__wrap{ padding: .70rem 0; }
 
@@ -308,12 +303,15 @@
     .hero__titleLine--muted{ color: color-mix(in oklab, var(--text) 70%, transparent); }
     .hero__cta{ display:flex; flex-wrap: wrap; gap: .75rem; margin-bottom: var(--s-4); align-items: center; }
 
+    /* Centered to viewport, not to the column */
     .hero__underCta{
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
       display:flex;
       justify-content: center;
-      width: 100%;
       margin-top: .35rem;
     }
+
     .scrollCue{
       display:flex;
       flex-direction: column;
@@ -399,7 +397,6 @@
     }
     .videoPortal.is-thumb-loaded .videoPortal__thumb{ opacity: 1; transform: scale(1); }
 
-    /* Badge as link to YouTube */
     .videoPortal__badge{
       position:absolute;
       left: 18px;
@@ -412,7 +409,7 @@
       letter-spacing: .14em;
       text-transform: uppercase;
       font-size: .80em;
-      z-index: 6;
+      z-index: 10;
       display:inline-flex;
       align-items:center;
       gap:.5rem;
@@ -420,36 +417,46 @@
     }
     .videoPortal__badge:hover{ transform: translateY(-1px); border-color: var(--border-2); }
 
-    /*
-      IMPORTANT NOTE ABOUT YOUTUBE UI:
-      YouTube iframes cannot be made truly "UI-less" in all states (hover, load, branded overlays).
-      We can reduce UI via params, but we cannot guarantee 100% removal.
-      Best illusion: keep interactions off the iframe and show the thumbnail on hover, while video continues muted underneath.
-    */
+    /* Mask top-right overlay (hides watch later + share) */
+    .videoPortal__uiMask{
+      position:absolute;
+      top: 12px;
+      right: 12px;
+      width: 132px;
+      height: 54px;
+      border-radius: 14px;
+      z-index: 9;
+      background: color-mix(in oklab, var(--bg) 82%, transparent);
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+      backdrop-filter: blur(10px);
+      opacity: .92;
+      pointer-events: none;
+    }
+    @media (max-width: 520px){
+      .videoPortal__uiMask{ width: 120px; height: 50px; top: 10px; right: 10px; opacity: .88; }
+    }
 
     .videoPortal__mount{
       position:absolute;
       inset:0;
       z-index: 3;
+
       opacity: 0;
-      transform: translateY(16px);
-      transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
+      transform: translateY(110px);
+      transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
       will-change: transform, opacity;
       overflow: hidden;
     }
+
     .videoPortal__mount iframe{
       position:absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      transform: translate(-50%,-50%);
-      transform-origin: center;
+      inset:0;
+      width:100%;
+      height:100%;
       border:0;
-      pointer-events: none; /* prevents hover UI / interaction */
+      pointer-events: none;
     }
 
-    /* Cover strategy: keep iframe cover without zooming UI (scale is applied to a wrapper instead) */
     .videoPortal__cover{
       position:absolute;
       inset:-8%;
@@ -461,7 +468,6 @@
       height: 100%;
       position:absolute;
       inset:0;
-      transform: none;
     }
     @media (max-width: 520px){
       .videoPortal__cover{ transform: scale(1.22); }
@@ -471,13 +477,16 @@
       opacity: 1;
       transform: translateY(0);
     }
-    .videoPortal.is-playing .mediaPlaceholder{ opacity: 0; transition: opacity var(--dur-3) var(--ease-out); }
 
-    /* When cursor enters the frame, show thumbnail on top to hide any YouTube overlay that might appear */
+    .videoPortal.is-playing .mediaPlaceholder{
+      opacity: 0;
+      transition: opacity var(--dur-3) var(--ease-out);
+    }
+
     .videoPortal__hoverMask{
       position:absolute;
       inset:0;
-      z-index: 5;
+      z-index: 6;
       opacity: 0;
       transition: opacity var(--dur-2) var(--ease-out);
       pointer-events: none;
@@ -515,7 +524,6 @@
     .card__text{ margin: 0; color: var(--muted); max-width: 66ch; }
     @media (max-width: 860px){ .cards{ grid-template-columns: 1fr; } }
 
-    /* Fullwidth galleries */
     .fullMedia{
       position: relative;
       border-top: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
@@ -567,17 +575,6 @@
     .is-loaded > .media__img{ opacity: 1; transform: scale(1); }
     .has-error .media__img{ display:none; }
 
-    .captionRow{
-      display:flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: var(--s-2);
-      flex-wrap: wrap;
-      margin-top: .85rem;
-    }
-    .captionRow__title{ margin:0; font-weight: 950; letter-spacing: .14em; text-transform: uppercase; font-size: .90em; color: var(--text); }
-    .captionRow__meta{ margin:0; color: var(--muted); letter-spacing: .10em; text-transform: uppercase; font-size: .80em; }
-
     /* Contact */
     .contactMini{
       display:flex;
@@ -596,16 +593,10 @@
 
     .btnEmail{ position: relative; }
     .btnEmail__shell{ display:inline-flex; align-items:center; gap:.55rem; white-space: nowrap; }
-    .btnEmail__email{
-      display:none;
-      letter-spacing: .04em;
-      text-transform: none;
-      font-weight: 900;
-    }
+    .btnEmail__email{ display:none; letter-spacing: .04em; text-transform: none; font-weight: 900; }
     .btnEmail.is-done .btnEmail__labelText{ display:none; }
     .btnEmail.is-done .btnEmail__email{ display:inline; }
 
-    /* Local badge (appears above the email button) */
     .btnBadge{
       position: absolute;
       left: 50%;
@@ -636,7 +627,6 @@
       transform: translateX(-50%) translateY(-16px);
     }
 
-    /* Footer */
     .site-footer{
       padding: var(--s-4) 0 var(--s-5);
       border-top: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
@@ -647,11 +637,9 @@
     .footer__links a{ color: var(--muted); letter-spacing: .12em; text-transform: uppercase; font-size: .82em; }
     .footer__links a:hover{ color: var(--text); }
 
-    /* Scroll reveal */
     .reveal{ opacity: 0; transform: translateY(14px); filter: blur(2px); transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out), filter var(--dur-3) var(--ease-out); }
     .reveal.is-inview{ opacity: 1; transform: translateY(0); filter: blur(0); }
 
-    /* Mobile drawer */
     .mobileNav{
       position: fixed;
       inset: 0;
@@ -849,6 +837,8 @@
               <img class="videoPortal__thumb" alt="Italia nel Grande Formato - Presentazione Progetto (thumbnail)" data-thumb>
               <div class="videoPortal__hoverMask" aria-hidden="true"></div>
 
+              <div class="videoPortal__uiMask" aria-hidden="true"></div>
+
               <a class="videoPortal__badge" href="https://youtu.be/nSSJRcRtqpo?si=5NLpwZrZA5981h1J" target="_blank" rel="noopener" aria-label="Apri il video su YouTube">
                 <i class="fa-regular fa-circle-play"></i>
                 <span lang="it">Presentazione progetto</span>
@@ -930,7 +920,6 @@
         </div>
       </div>
 
-      <!-- GALLERY: titles removed (only photos) -->
       <div class="fullMedia bleed fullMedia--spaced" aria-label="Gallery Ritratto Unico (estratti)">
         <div class="fullMedia__wrap">
           <figure class="media media--wide reveal" data-component="smart-media">
@@ -990,7 +979,6 @@
         </div>
       </div>
 
-      <!-- GALLERY: titles removed (only photos) -->
       <div class="fullMedia bleed fullMedia--spaced" aria-label="Gallery Italia nel Grande Formato (estratti)">
         <div class="fullMedia__wrap">
           <figure class="media media--cinema reveal" data-component="smart-media">
@@ -1218,27 +1206,12 @@
         applyLanguage(urlLang || saved || 'it');
       };
 
-      /* Header hide on scroll */
+      /* Sticky header styling on scroll, no hide */
       const initHeaderScroll = () => {
         if(!header) return;
-        let lastY = window.scrollY;
-        let ticking = false;
-
-        const onScroll = () => {
-          const y = window.scrollY;
-          const goingDown = y > lastY;
-          header.classList.toggle('is-scrolled', y > 12);
-          if (y < 40) header.classList.remove('is-hidden');
-          else header.classList.toggle('is-hidden', goingDown && y > 140);
-          lastY = y;
-          ticking = false;
-        };
-
-        window.addEventListener('scroll', () => {
-          if (ticking) return;
-          ticking = true;
-          requestAnimationFrame(onScroll);
-        }, { passive: true });
+        const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 12);
+        window.addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
+        onScroll();
       };
 
       /* Scroll reveal */
@@ -1319,12 +1292,7 @@
         });
       };
 
-      /*
-        YouTube autoplay embed:
-        - We reduce UI, but cannot fully remove YouTube overlays.
-        - To avoid hover overlays, the iframe is non-interactive (pointer-events:none).
-        - On hover, we overlay the thumbnail to hide any overlay that might appear.
-      */
+      /* YouTube autoplay embed, with a more evident rise animation */
       const initVideoPortals = () => {
         const portals = Array.from(document.querySelectorAll('.videoPortal[data-video="youtube"]'));
         if(!portals.length) return;
@@ -1357,6 +1325,7 @@
             disablekb: "1",
             fs: "0",
             iv_load_policy: "3",
+            cc_load_policy: "0",
             start: String(start),
             loop: "1",
             playlist: videoId
@@ -1367,7 +1336,13 @@
           cover.appendChild(iframe);
           mount.appendChild(cover);
 
-          portal.classList.add('is-playing');
+          /* Trigger transition in a separate frame so the rise animation is visible */
+          portal.classList.remove('is-playing');
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              portal.classList.add('is-playing');
+            });
+          });
         });
       };
 
@@ -1378,7 +1353,7 @@
             await navigator.clipboard.writeText(text);
             return true;
           }
-        }catch{ /* fallback below */ }
+        }catch{ }
 
         try{
           const ta = document.createElement('textarea');
