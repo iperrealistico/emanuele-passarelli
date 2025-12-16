@@ -1,25 +1,16 @@
 <!doctype html>
 <html lang="it" dir="ltr" data-theme="dark" data-language="it">
 <head>
-  <!--
-    Single-file landing page
-    - Everything is inside this index.html (HTML + CSS + JS)
-    - External: Google Fonts + Font Awesome (free) + YouTube thumbnail + YouTube embed (loaded on click)
-  -->
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <title>Emanuele Passarelli | Artigiano del Ritratto</title>
   <meta name="description" content="Ritratto Unico in grande formato, tecniche antiche e stampe da custodire. Italia nel Grande Formato, biografia e contatti di Emanuele Passarelli.">
   <meta name="robots" content="index,follow,max-image-preview:large">
-
   <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#0b0c0f">
 
   <link rel="canonical" href="https://emanuelepassarelli.it/">
-
-  <!-- Icons -->
   <link rel="icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -35,12 +26,12 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- hreflang (single page, language toggle) -->
+  <!-- hreflang -->
   <link rel="alternate" hreflang="it" href="https://emanuelepassarelli.it/">
   <link rel="alternate" hreflang="en" href="https://emanuelepassarelli.it/?lang=en">
   <link rel="alternate" hreflang="x-default" href="https://emanuelepassarelli.it/">
 
-  <!-- Performance: fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@200..900&display=swap" rel="stylesheet">
@@ -49,7 +40,6 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer">
 
-  <!-- Minimal critical CSS to prevent FOUC -->
   <style>
     :root{ color-scheme: dark light; }
     html, body{ overflow-x:hidden; }
@@ -140,7 +130,6 @@
     img, video, iframe{ max-width:100%; display:block; }
     a{ color: inherit; text-decoration: none; }
     button{ font-family: inherit; }
-
     .wrap{ width: var(--wrap); margin-inline:auto; }
 
     body::before{
@@ -196,7 +185,7 @@
     }
     .site-header.is-scrolled .header__wrap{ padding: .70rem 0; }
 
-    .brand{ display:flex; align-items:center; gap: .85rem; min-width:0; flex: 1 1 auto; }
+    .brand{ display:flex; align-items:center; min-width:0; flex: 1 1 auto; }
     .brand__name{
       display:block;
       font-weight: 800;
@@ -227,12 +216,12 @@
       letter-spacing: .12em;
       text-transform: uppercase;
       transition: color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+      white-space: nowrap;
     }
     .nav__link:hover{ color: var(--text); background: color-mix(in oklab, var(--surface) 92%, transparent); }
     .nav__link i{ margin-right: .45rem; opacity: .9; }
 
     .controls{ display:flex; align-items:center; gap: .6rem; flex: 0 0 auto; }
-
     .segmented{
       display:flex;
       align-items:center;
@@ -283,6 +272,7 @@
     }
 
     .section{ padding: var(--s-6) 0; }
+    .section--tight{ padding: var(--s-5) 0; }
 
     .btn{
       display:inline-flex;
@@ -296,13 +286,16 @@
       letter-spacing: .14em;
       text-transform: uppercase;
       cursor:pointer;
-      transition: transform var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+      transition: transform var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
+      font-size: .86em;
+      line-height: 1;
+      white-space: nowrap;
     }
     .btn--primary{ background: color-mix(in oklab, var(--surface-2) 85%, transparent); }
     .btn--ghost{ background: transparent; }
     .btn:hover{ transform: translateY(-1px); border-color: var(--border-2); }
     .btn:active{ transform: translateY(0); }
-    .btn i{ opacity: .9; }
+    .btn i{ opacity: .9; font-size: 1em; }
 
     /* Hero */
     .hero{ padding: clamp(2.2rem, 2vw + 1.3rem, 3.6rem) 0 var(--s-6); }
@@ -310,36 +303,44 @@
     .hero__title{ font-family: var(--font-display); font-size: var(--fs-4); line-height: 1.02; letter-spacing: .02em; margin: 0 0 var(--s-3); }
     .hero__titleLine{ display:block; }
     .hero__titleLine--muted{ color: color-mix(in oklab, var(--text) 70%, transparent); }
+    .hero__cta{ display:flex; flex-wrap: wrap; gap: .75rem; margin-bottom: var(--s-4); }
+    @media (max-width: 980px){ .hero__wrap{ grid-template-columns: 1fr; } .hero__media{ order: -1; } }
 
-    .hero__cta{ display:flex; flex-wrap: wrap; gap: .75rem; margin-bottom: var(--s-3); }
-
+    /* Improved scroll cue (centered, text above arrow) */
     .scrollCue{
-      display:inline-flex;
-      align-items:center;
-      gap:.55rem;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .55rem;
+      width: fit-content;
       margin-top: .25rem;
       color: var(--muted-2);
       letter-spacing: .14em;
       text-transform: uppercase;
-      font-size: .80em;
+      font-size: .78em;
     }
+    .scrollCue__text{ text-align:center; }
     .scrollCue__arrow{
-      width: 36px;
-      height: 36px;
+      width: 44px;
+      height: 44px;
       border: 1px solid var(--border);
       border-radius: 999px;
       display:grid;
       place-items:center;
       background: color-mix(in oklab, var(--surface) 92%, transparent);
-      animation: bob 1.6s var(--ease-soft) infinite;
+      position: relative;
+      overflow: hidden;
     }
-    @keyframes bob{
-      0%{ transform: translateY(0); opacity: .80; }
-      55%{ transform: translateY(6px); opacity: 1; }
-      100%{ transform: translateY(0); opacity: .80; }
+    .scrollCue__arrow i{
+      animation: arrowDrop 1.45s var(--ease-soft) infinite;
+      opacity: .9;
     }
-
-    @media (max-width: 980px){ .hero__wrap{ grid-template-columns: 1fr; } .hero__media{ order: -1; } }
+    @keyframes arrowDrop{
+      0%{ transform: translateY(-2px); opacity: .55; }
+      45%{ transform: translateY(6px); opacity: 1; }
+      100%{ transform: translateY(-2px); opacity: .55; }
+    }
 
     /* Video portal */
     .videoPortal{ display:grid; gap: .75rem; }
@@ -372,7 +373,6 @@
       100%{ filter: contrast(1) brightness(1); opacity: .70; }
     }
 
-    /* Thumbnail loads above placeholder */
     .videoPortal__thumb{
       position:absolute;
       inset:0;
@@ -388,6 +388,7 @@
     }
     .videoPortal.is-thumb-loaded .videoPortal__thumb{ opacity: 1; transform: scale(1); }
     .videoPortal.is-playing .videoPortal__thumb{ opacity: 0; }
+    .videoPortal.is-playing .mediaPlaceholder{ opacity: 0; transition: opacity var(--dur-3) var(--ease-out); }
 
     .videoPortal__badge{
       position:absolute;
@@ -407,31 +408,20 @@
       gap:.5rem;
     }
 
+    /* Autoplay: hide start overlay, keep subtle gradient */
     .videoPortal__start{
       position:absolute;
       inset: 0;
       z-index: 4;
       display:grid;
       place-items:center;
-      background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--bg) 60%, transparent));
+      background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--bg) 62%, transparent));
       border:0;
       color: var(--text);
-      cursor:pointer;
+      opacity: 0;
+      pointer-events:none;
     }
-    .videoPortal__label{
-      display:inline-flex;
-      align-items:center;
-      gap:.65rem;
-      font-weight: 950;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      padding: .95rem 1.25rem;
-      border-radius: 999px;
-      border: 1px solid var(--border-2);
-      background: color-mix(in oklab, var(--surface-2) 85%, transparent);
-      box-shadow: 0 26px 110px var(--shadow);
-      transition: transform var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
-    }
+    .videoPortal__label{ display:none; }
     .videoPortal__pulse{
       position:absolute;
       width: 96px;
@@ -439,18 +429,15 @@
       border-radius: 999px;
       background: radial-gradient(circle at 50% 50%, var(--ph-2), transparent 65%);
       animation: pulse 2.3s var(--ease-soft) infinite;
-      opacity: .9;
+      opacity: 0;
     }
     @keyframes pulse{
       0%{ transform: scale(0.90); opacity: .60; }
       45%{ transform: scale(1.02); opacity: .90; }
       100%{ transform: scale(0.90); opacity: .60; }
     }
-    .videoPortal__start:hover .videoPortal__label{ transform: translateY(-2px); border-color: var(--text); }
 
     .videoPortal.is-playing .videoPortal__mount{ opacity: 1; }
-    .videoPortal.is-playing .mediaPlaceholder{ opacity: 0; transition: opacity var(--dur-3) var(--ease-out); }
-    .videoPortal.is-playing .videoPortal__start{ opacity: 0; pointer-events:none; transition: opacity var(--dur-3) var(--ease-out); }
 
     /* Feature cards */
     .cards{
@@ -458,6 +445,7 @@
       grid-template-columns: 1fr 1fr;
       gap: var(--s-3);
       margin-top: var(--s-4);
+      margin-bottom: var(--s-6); /* extra spacing before gallery */
     }
     .card{
       border: 1px solid var(--border);
@@ -488,6 +476,7 @@
       border-top: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
       border-bottom: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
       background: linear-gradient(180deg, var(--bg-2), var(--bg));
+      margin-top: var(--s-4);
     }
     .fullMedia__wrap{
       width: var(--wrap);
@@ -496,6 +485,7 @@
       display:grid;
       gap: var(--s-3);
     }
+    .fullMedia--spaced{ margin-top: var(--s-6); } /* extra spacing when needed */
 
     .media{
       position: relative;
@@ -531,9 +521,6 @@
     }
     .is-loaded > .media__img{ opacity: 1; transform: scale(1); }
     .has-error .media__img{ display:none; }
-    @media (hover:hover){
-      .media:hover .media__img{ transform: scale(1.03); }
-    }
 
     .captionRow{
       display:flex;
@@ -567,55 +554,52 @@
     .contactMini__left{ display:grid; gap: .35rem; }
     .contactMini__right{ display:flex; flex-wrap: wrap; gap: .75rem; align-items:center; }
 
-    .emailReveal{
+    /* Email button morph */
+    .btnEmail{
+      position: relative;
+      overflow: hidden;
+      padding-right: 1.05rem;
+    }
+    .btnEmail__label{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
+    }
+    .btnEmail__email{
+      position:absolute;
+      inset: 0;
       display:flex;
       align-items:center;
-      gap:.65rem;
-      padding: .85rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      background: color-mix(in oklab, var(--surface) 92%, transparent);
-      max-width: 100%;
-      overflow: hidden;
+      justify-content:center;
+      gap:.55rem;
       opacity: 0;
       transform: translateY(6px);
-      pointer-events: none;
-      transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
-    }
-    .emailReveal.is-shown{
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-    .emailReveal__text{
-      font-weight: 800;
-      letter-spacing: .08em;
-      font-size: .92em;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .toast{
-      position: fixed;
-      left: 50%;
-      bottom: 16px;
-      transform: translateX(-50%) translateY(12px);
-      opacity: 0;
-      pointer-events:none;
-      padding: .7rem .95rem;
+      transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
+      padding: .95rem 1.25rem;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--bg) 88%, transparent);
-      color: var(--text);
-      box-shadow: 0 20px 90px var(--shadow);
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      font-size: .78em;
-      transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
-      z-index: 200;
+      letter-spacing: .10em;
+      text-transform: none;
+      font-weight: 900;
+      font-size: .86em;
+      white-space: nowrap;
     }
-    .toast.is-on{ opacity: 1; transform: translateX(-50%) translateY(0); }
+    .btnEmail.is-done{
+      background: color-mix(in oklab, var(--surface-2) 85%, transparent);
+      opacity: .92;
+    }
+    .btnEmail.is-done .btnEmail__label{ opacity: 0; transform: translateY(-6px); }
+    .btnEmail.is-done .btnEmail__email{ opacity: 1; transform: translateY(0); }
+
+    .btnEmail__check{
+      opacity: 0;
+      transform: scale(.92);
+      transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+    }
+    .btnEmail.is-done .btnEmail__check{
+      opacity: 1;
+      transform: scale(1);
+    }
 
     /* Footer */
     .site-footer{
@@ -656,6 +640,8 @@
       display:flex;
       flex-direction: column;
       gap: 1.2rem;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .mobileNav.is-open .mobileNav__panel{ transform: translateX(0); }
 
@@ -670,6 +656,7 @@
       text-transform: uppercase;
       color: var(--text);
       background: color-mix(in oklab, var(--surface) 92%, transparent);
+      white-space: nowrap;
     }
 
     :focus-visible{ outline: 2px solid color-mix(in oklab, var(--text) 55%, transparent); outline-offset: 3px; }
@@ -753,7 +740,6 @@
     </div>
   </header>
 
-  <!-- Mobile drawer -->
   <div class="mobileNav" data-component="mobile-nav" aria-hidden="true">
     <div class="mobileNav__backdrop" data-action="close-nav" aria-hidden="true"></div>
 
@@ -814,8 +800,10 @@
           </div>
 
           <div class="scrollCue" aria-hidden="true">
-            <span class="scrollCue__arrow"><i class="fa-solid fa-arrow-down"></i></span>
-            <span lang="it">Scorri</span><span lang="en">Scroll</span>
+            <div class="scrollCue__text">
+              <span lang="it">Scorri</span><span lang="en">Scroll</span>
+            </div>
+            <div class="scrollCue__arrow"><i class="fa-solid fa-arrow-down"></i></div>
           </div>
         </div>
 
@@ -830,14 +818,7 @@
                 <span lang="en">Project presentation</span>
               </div>
               <div class="videoPortal__mount" data-video-mount></div>
-              <button class="videoPortal__start" type="button" data-action="start-video" aria-label="Avvia video">
-                <span class="videoPortal__pulse" aria-hidden="true"></span>
-                <span class="videoPortal__label">
-                  <i class="fa-solid fa-play"></i>
-                  <span lang="it">Guarda</span>
-                  <span lang="en">Watch</span>
-                </span>
-              </button>
+              <button class="videoPortal__start" type="button" data-action="start-video" aria-hidden="true" tabindex="-1"></button>
             </div>
           </div>
           <p class="micro" style="margin-top:.75rem;">
@@ -867,7 +848,10 @@
 
         <div class="cards" aria-label="Punti chiave Ritratto Unico">
           <article class="card reveal">
-            <h3 class="card__title"><i class="fa-regular fa-camera"></i><span lang="it">Tecniche antiche</span><span lang="en">Historic techniques</span></h3>
+            <h3 class="card__title">
+              <i class="fa-solid fa-camera-retro"></i>
+              <span lang="it">Tecniche antiche</span><span lang="en">Historic techniques</span>
+            </h3>
             <p class="card__text">
               <span lang="it">Avrai modo di essere scattato con delle tecniche fotografiche antiche tramite un banco ottico: la luce e l’argento scriveranno su supporti di alluminio, vetro e pellicole.</span>
               <span lang="en">Shot with historic techniques using a large-format camera: light and silver will write on aluminum, glass, and film.</span>
@@ -875,7 +859,10 @@
           </article>
 
           <article class="card reveal">
-            <h3 class="card__title"><i class="fa-regular fa-map"></i><span lang="it">Italia nel Grande Formato</span><span lang="en">Italy in Large Format</span></h3>
+            <h3 class="card__title">
+              <i class="fa-regular fa-map"></i>
+              <span lang="it">Italia nel Grande Formato</span><span lang="en">Italy in Large Format</span>
+            </h3>
             <p class="card__text">
               <span lang="it">Hai la possibilità di far parte di una immensa raccolta di ritratti Passarelliani che negli anni è diventata essa stessa un’opera unica.</span>
               <span lang="en">You can become part of a vast collection of Passarellian portraits, grown into a single unique work over time.</span>
@@ -883,7 +870,10 @@
           </article>
 
           <article class="card reveal">
-            <h3 class="card__title"><i class="fa-regular fa-image"></i><span lang="it">Opera finita</span><span lang="en">Finished piece</span></h3>
+            <h3 class="card__title">
+              <i class="fa-regular fa-image"></i>
+              <span lang="it">Opera finita</span><span lang="en">Finished piece</span>
+            </h3>
             <p class="card__text">
               <span lang="it">Alla fine della sessione fotografica riceverai un tuo ritratto stampato da custodire, per poterlo tramandare alle tue future generazioni.</span>
               <span lang="en">At the end of the session you will receive a printed portrait to keep and pass down to future generations.</span>
@@ -891,7 +881,10 @@
           </article>
 
           <article class="card reveal">
-            <h3 class="card__title"><i class="fa-regular fa-clock"></i><span lang="it">Tempo e presenza</span><span lang="en">Time and presence</span></h3>
+            <h3 class="card__title">
+              <i class="fa-regular fa-clock"></i>
+              <span lang="it">Tempo e presenza</span><span lang="en">Time and presence</span>
+            </h3>
             <p class="card__text">
               <span lang="it">Poche scelte, tutte intenzionali: tempo, ascolto e precisione, per un ritratto che resta.</span>
               <span lang="en">Few choices, all intentional: time, listening, and precision, for a portrait that lasts.</span>
@@ -900,15 +893,14 @@
         </div>
       </div>
 
-      <!-- Gallery: Ritratto Unico (estratti) -->
-      <div class="fullMedia bleed" aria-label="Gallery Ritratto Unico (estratti)">
+      <div class="fullMedia bleed fullMedia--spaced" aria-label="Gallery Ritratto Unico (estratti)">
         <div class="fullMedia__wrap">
           <div class="reveal">
             <p class="kicker"><span lang="it">Gallery</span><span lang="en">Gallery</span></p>
             <h3 class="h3"><span lang="it">Ritratto Unico</span><span lang="en">Unique Portrait</span></h3>
             <p class="p">
-              <span lang="it">Una selezione di immagini rappresentative. Non è il portfolio completo: sono estratti.</span>
-              <span lang="en">A selection of representative images. Not the full portfolio: these are excerpts.</span>
+              <span lang="it">Una selezione di immagini rappresentative.</span>
+              <span lang="en">A selection of representative images.</span>
             </p>
           </div>
 
@@ -974,15 +966,14 @@
         </div>
       </div>
 
-      <!-- Gallery: Italia nel Grande Formato (estratti) -->
-      <div class="fullMedia bleed" aria-label="Gallery Italia nel Grande Formato (estratti)">
+      <div class="fullMedia bleed fullMedia--spaced" aria-label="Gallery Italia nel Grande Formato (estratti)">
         <div class="fullMedia__wrap">
           <div class="reveal">
             <p class="kicker"><span lang="it">Gallery</span><span lang="en">Gallery</span></p>
             <h3 class="h3"><span lang="it">Italia nel Grande Formato</span><span lang="en">Italy in Large Format</span></h3>
             <p class="p">
-              <span lang="it">Una selezione di immagini rappresentative del progetto. Estratti, non l’opera completa.</span>
-              <span lang="en">A selection of representative images from the project. Excerpts, not the complete work.</span>
+              <span lang="it">Una selezione di immagini rappresentative del progetto.</span>
+              <span lang="en">A selection of representative images from the project.</span>
             </p>
           </div>
 
@@ -1013,10 +1004,7 @@
     <section id="bio" class="section" aria-label="Bio">
       <div class="wrap bio">
         <div class="reveal">
-          <p class="kicker">
-            <span lang="it">Biografia</span>
-            <span lang="en">Biography</span>
-          </p>
+          <p class="kicker"><span lang="it">Biografia</span><span lang="en">Biography</span></p>
           <h2 class="h2">Emanuele Passarelli</h2>
 
           <p class="p">
@@ -1033,10 +1021,10 @@
               Pochi anni dopo alcuni di questi ritratti diventeranno opere esposte in più città tra Italia e Cina.
             </span>
             <span lang="en">
-              I debuted with “Solitudo” in 2014, a photographic project made of self-portraits that narrate the most significant phases of my adolescence.
-              In 2016, with “Night Tour”, what would later be called the “Passarellian Portraits” was born.
-              Moving subjects immersed in darkness into urban scenes lit only by city lights, with a cinematic approach, led to awards, articles, and interviews.
-              A few years later, some of these portraits became works exhibited in several cities across Italy and China.
+              I debuted with “Solitudo” in 2014, a project made of self-portraits.
+              In 2016, with “Night Tour”, the “Passarellian Portraits” was born.
+              A cinematic approach to urban darkness and city light led to awards, articles and interviews.
+              Later, some portraits became works exhibited in several cities across Italy and China.
             </span>
           </p>
 
@@ -1048,16 +1036,13 @@
               che vengono dalla società “spersonificate” e ridotte allo status di scarto sociale.
             </span>
             <span lang="en">
-              In 2017, after taking part in Mustafa Sabbagh’s workshop “Beyond Portrait”, a major source of inspiration,
-              I created my second project “Mattatoio”, a photographic reportage that, through night street portraits,
-              tells the lives of transgender sex workers on the outskirts of Rome, with the intention of restoring soul and dignity to people
-              often dehumanized by society and pushed into the status of social discard.
+              In 2017, after Mustafa Sabbagh’s workshop “Beyond Portrait”, I created “Mattatoio”, a reportage telling the lives of transgender sex workers on the outskirts of Rome.
             </span>
           </p>
 
           <p class="p">
             <span lang="it">Nello stesso anno inizio a maturare un interesse sempre più forte nei confronti della fotografia analogica e decido dunque di proseguire con gli studi in questo campo.</span>
-            <span lang="en">That same year I developed a growing interest in analog photography and decided to continue my studies in this field.</span>
+            <span lang="en">That same year I developed a growing interest in analog photography and continued studying it.</span>
           </p>
 
           <p class="p">
@@ -1068,9 +1053,8 @@
               per poi diventare il mio principale impegno fotografico.
             </span>
             <span lang="en">
-              In 2018 I launched “Italy in Large Format”, a project that helped many Italians rediscover, through social channels and print and TV interviews,
-              the importance of having at least one printed portrait as testimony of their existence.
-              After strong support, the initiative reached its first 100+ participants through crowdfunding, and became my main photographic commitment.
+              In 2018 I launched “Italy in Large Format”, which helped many rediscover the importance of having at least one printed portrait.
+              After strong support, it reached 100+ participants through crowdfunding and became my main commitment.
             </span>
           </p>
         </div>
@@ -1107,22 +1091,23 @@
           </div>
 
           <div class="contactMini__right">
-            <button class="btn btn--primary" type="button" data-action="reveal-email" aria-label="Mostra e copia email">
-              <i class="fa-regular fa-copy"></i>
-              <span lang="it">Copia email</span>
-              <span lang="en">Copy email</span>
+            <button class="btn btn--primary btnEmail" type="button" data-action="copy-email" aria-label="Copia email">
+              <span class="btnEmail__label">
+                <i class="fa-regular fa-envelope"></i>
+                <span lang="it">Copia email</span><span lang="en">Copy email</span>
+              </span>
+
+              <span class="btnEmail__email" aria-hidden="true">
+                <i class="fa-regular fa-copy"></i>
+                <span>contact@emanuelepassarelli.it</span>
+                <i class="fa-solid fa-check btnEmail__check" aria-hidden="true"></i>
+              </span>
             </button>
 
             <a class="btn btn--ghost" href="https://instagram.com/emanuelepassarelli" rel="noopener" target="_blank">
               <i class="fa-brands fa-instagram"></i>
               <span>Instagram</span>
             </a>
-
-            <div class="emailReveal" data-email-box aria-hidden="true">
-              <i class="fa-regular fa-envelope"></i>
-              <span class="emailReveal__text" data-email-text>contact@emanuelepassarelli.it</span>
-              <i class="fa-regular fa-circle-check" aria-hidden="true" style="opacity:.75;"></i>
-            </div>
           </div>
         </div>
       </div>
@@ -1141,7 +1126,6 @@
   </footer>
 
   <div class="sr-only" aria-live="polite" aria-atomic="true" data-announcer></div>
-  <div class="toast" data-toast>Copiato</div>
 
   <script>
     (function(){
@@ -1153,9 +1137,6 @@
       const mobileNav = document.querySelector('[data-component="mobile-nav"]');
       const navToggle = document.querySelector('[data-action="toggle-nav"]');
 
-      const toast = document.querySelector('[data-toast]');
-      const emailBox = document.querySelector('[data-email-box]');
-      const emailTextEl = document.querySelector('[data-email-text]');
       const emailValue = "contact@emanuelepassarelli.it";
 
       const prefersReducedMotion = () =>
@@ -1189,14 +1170,12 @@
         lockScroll(false);
       };
 
-      /* Theme (default ALWAYS dark unless user chose otherwise) */
+      /* Theme (default always dark) */
       const THEME_KEY = 'ep_theme';
       const applyTheme = (theme) => {
         const t = theme === 'light' ? 'light' : 'dark';
         root.setAttribute('data-theme', t);
         safeStorage.set(THEME_KEY, t);
-
-        // swap theme icon (sun/moon) in all buttons
         document.querySelectorAll('[data-action="toggle-theme"] i').forEach((icon) => {
           icon.className = (t === 'dark') ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
         });
@@ -1214,13 +1193,11 @@
         root.setAttribute('data-language', l);
         safeStorage.set(LANG_KEY, l);
         document.documentElement.setAttribute('lang', l);
-
         document.querySelectorAll('[data-action="set-language"]').forEach((btn) => {
           const active = btn.getAttribute('data-language') === l;
           btn.classList.toggle('is-active', active);
           btn.setAttribute('aria-pressed', active ? 'true' : 'false');
         });
-
         announce(l === 'it' ? 'Lingua impostata su Italiano' : 'Language set to English');
       };
       const initLanguage = () => {
@@ -1230,7 +1207,7 @@
         applyLanguage(urlLang || saved || 'it');
       };
 
-      /* Sticky header */
+      /* Header hide on scroll */
       const initHeaderScroll = () => {
         if(!header) return;
         let lastY = window.scrollY;
@@ -1239,12 +1216,9 @@
         const onScroll = () => {
           const y = window.scrollY;
           const goingDown = y > lastY;
-
           header.classList.toggle('is-scrolled', y > 12);
-
           if (y < 40) header.classList.remove('is-hidden');
           else header.classList.toggle('is-hidden', goingDown && y > 140);
-
           lastY = y;
           ticking = false;
         };
@@ -1260,12 +1234,10 @@
       const initReveals = () => {
         const els = Array.from(document.querySelectorAll('.reveal'));
         if(!els.length) return;
-
         if(prefersReducedMotion()){
           els.forEach(el => el.classList.add('is-inview'));
           return;
         }
-
         if('IntersectionObserver' in window){
           const io = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -1274,14 +1246,13 @@
               io.unobserve(entry.target);
             });
           }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
-
           els.forEach(el => io.observe(el));
         } else {
           els.forEach(el => el.classList.add('is-inview'));
         }
       };
 
-      /* Smart media loader */
+      /* Smart media */
       const initSmartMedia = () => {
         const imgs = Array.from(document.querySelectorAll('img[data-src]'));
         if(!imgs.length) return;
@@ -1290,13 +1261,10 @@
           const src = img.getAttribute('data-src');
           if(!src) return;
           const holder = img.closest('[data-component="smart-media"]');
-
           const onLoad = () => holder && holder.classList.add('is-loaded');
           const onError = () => holder && holder.classList.add('has-error');
-
           img.addEventListener('load', onLoad, { once: true });
           img.addEventListener('error', onError, { once: true });
-
           img.setAttribute('src', src);
         };
 
@@ -1308,14 +1276,13 @@
               loadImg(entry.target);
             });
           }, { rootMargin: '280px 0px' });
-
           imgs.forEach(img => io.observe(img));
         } else {
           imgs.forEach(loadImg);
         }
       };
 
-      /* YouTube thumbnail preload (show above placeholder when loaded) */
+      /* YouTube thumbnail preload */
       const initYTThumbs = () => {
         const portals = Array.from(document.querySelectorAll('.videoPortal[data-video="youtube"]'));
         if(!portals.length) return;
@@ -1325,7 +1292,6 @@
           const img = portal.querySelector('[data-thumb]');
           if(!id || !img) return;
 
-          // try maxres, fallback to hq
           const candidates = [
             `https://i.ytimg.com/vi/${encodeURIComponent(id)}/maxresdefault.jpg`,
             `https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`
@@ -1341,61 +1307,57 @@
             };
             img.src = src;
           };
-
           tryLoad();
         });
       };
 
-      /* YouTube Video Portal (embed on click) */
+      /* YouTube autoplay, muted, start at 8s, loop (best-effort) */
       const initVideoPortals = () => {
         const portals = Array.from(document.querySelectorAll('.videoPortal[data-video="youtube"]'));
         if(!portals.length) return;
 
         portals.forEach((portal) => {
           const mount = portal.querySelector('[data-video-mount]');
-          const startBtn = portal.querySelector('[data-action="start-video"]');
           const videoId = portal.getAttribute('data-youtube-id');
-          if(!mount || !startBtn || !videoId) return;
+          if(!mount || !videoId) return;
 
-          const makeIframe = () => {
-            const reduce = prefersReducedMotion();
+          const reduce = prefersReducedMotion();
+          const start = 8;
 
-            const iframe = document.createElement('iframe');
-            iframe.width = "560";
-            iframe.height = "315";
-            iframe.title = "Italia nel Grande Formato - Presentazione Progetto";
-            iframe.loading = "lazy";
-            iframe.allowFullscreen = true;
-            iframe.referrerPolicy = "strict-origin-when-cross-origin";
-            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+          const iframe = document.createElement('iframe');
+          iframe.width = "560";
+          iframe.height = "315";
+          iframe.title = "Italia nel Grande Formato - Presentazione Progetto";
+          iframe.loading = "lazy";
+          iframe.allowFullscreen = true;
+          iframe.referrerPolicy = "strict-origin-when-cross-origin";
+          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
 
-            // You provided: https://www.youtube.com/embed/nSSJRcRtqpo?si=...
-            // We keep embed, add autoplay/mute/playsinline for a clean start.
-            iframe.src =
-              "https://www.youtube.com/embed/" + encodeURIComponent(videoId) +
-              "?autoplay=" + (reduce ? "0" : "1") +
-              "&mute=1&playsinline=1&rel=0&modestbranding=1";
+          // Note: true seamless loop on an embedded YouTube player requires playlist=VIDEO_ID.
+          // UI hiding is best-effort (YouTube still may show some overlays).
+          const params = new URLSearchParams({
+            autoplay: reduce ? "0" : "1",
+            mute: "1",
+            playsinline: "1",
+            rel: "0",
+            modestbranding: "1",
+            controls: "0",
+            disablekb: "1",
+            fs: "0",
+            iv_load_policy: "3",
+            start: String(start),
+            loop: "1",
+            playlist: videoId
+          });
 
-            mount.appendChild(iframe);
-            portal.classList.add('is-playing');
-          };
+          iframe.src = "https://www.youtube.com/embed/" + encodeURIComponent(videoId) + "?" + params.toString();
 
-          startBtn.addEventListener('click', () => {
-            if(mount.querySelector('iframe')) return;
-            makeIframe();
-          }, { passive: true });
+          mount.appendChild(iframe);
+          portal.classList.add('is-playing');
         });
       };
 
-      /* Clipboard + reveal email */
-      const showToast = (msg) => {
-        if(!toast) return;
-        toast.textContent = msg;
-        toast.classList.add('is-on');
-        window.clearTimeout(showToast._t);
-        showToast._t = window.setTimeout(() => toast.classList.remove('is-on'), 1300);
-      };
-
+      /* Clipboard */
       const copyToClipboard = async (text) => {
         try{
           if(navigator.clipboard && navigator.clipboard.writeText){
@@ -1443,18 +1405,12 @@
           if(action === 'toggle-nav'){ openNav(); return; }
           if(action === 'close-nav'){ closeNav(); return; }
 
-          if(action === 'reveal-email'){
-            if(emailTextEl) emailTextEl.textContent = emailValue;
-            if(emailBox){
-              emailBox.classList.add('is-shown');
-              emailBox.setAttribute('aria-hidden', 'false');
-            }
+          if(action === 'copy-email'){
             const ok = await copyToClipboard(emailValue);
-            showToast(ok ? (root.getAttribute('data-language') === 'en' ? 'Copied' : 'Copiato') : (root.getAttribute('data-language') === 'en' ? 'Copy failed' : 'Copia non riuscita'));
-            return;
-          }
-
-          if(action === 'start-video'){
+            btn.classList.add('is-done');
+            announce(ok ? 'Email copiata' : 'Copia non riuscita');
+            window.clearTimeout(btn._t);
+            btn._t = window.setTimeout(() => btn.classList.remove('is-done'), 1600);
             return;
           }
         });
@@ -1463,9 +1419,7 @@
           if(e.key === 'Escape') closeNav();
         });
 
-        window.addEventListener('hashchange', () => {
-          closeNav();
-        }, { passive: true });
+        window.addEventListener('hashchange', () => closeNav(), { passive: true });
       };
 
       const initYear = () => {
