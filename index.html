@@ -21,7 +21,7 @@
   <meta property="og:title" content="Emanuele Passarelli · Artigiano del Ritratto">
   <meta property="og:description" content="Ritratto Unico, Italia nel Grande Formato, biografia e contatti.">
   <meta property="og:url" content="https://emanuelepassarelli.it/">
-  <meta property="og:image" content="https://emanuelepassarelli.it/assets/img/og-cover.jpg">
+  <meta property="og:image" content="https://emanuelepassarelli.it/img/og-cover.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Emanuele Passarelli · Artigiano del Ritratto">
@@ -191,7 +191,6 @@
     .emph{ color: var(--accent); font-weight: 900; }
     :focus-visible{ outline: 2px solid color-mix(in oklab, var(--text) 55%, transparent); outline-offset: 3px; }
 
-    /* Header: only the small pill behind the hamburger (and its pop menu) */
     .site-header{
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -221,7 +220,6 @@
       transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), backdrop-filter var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), padding var(--dur-2) var(--ease-out);
     }
 
-    /* On scroll: show only a compact blurred background behind the hamburger area */
     .site-header.is-scrolled .headerPill{
       padding: .35rem;
       backdrop-filter: blur(14px);
@@ -230,7 +228,6 @@
       box-shadow: 0 22px 110px var(--shadow);
     }
 
-    /* When the header is over the hero video: force white for readability (both themes) */
     .site-header.is-over-hero .icon-btn,
     .site-header.is-over-hero .chip-btn{
       color: rgba(255,255,255,.93);
@@ -238,7 +235,6 @@
       background: rgba(0,0,0,.18);
     }
 
-    /* If scrolling while still over hero: keep the pill dark (even in light mode) */
     .site-header.is-over-hero.is-scrolled .headerPill{
       background: rgba(0,0,0,.32);
       border-color: rgba(255,255,255,.18);
@@ -262,7 +258,6 @@
     .icon-btn:active{ transform: translateY(0); }
     .icon-btn.is-active{ border-color: color-mix(in oklab, var(--accent) 70%, transparent); }
 
-    /* Wider compact button for language (IT/EN) */
     .chip-btn{
       appearance:none;
       border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
@@ -369,7 +364,6 @@
       transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out), filter var(--dur-3) var(--ease-out);
     }
 
-    /* Hero: always readable (white) over the video, even in light mode */
     .hero{
       position: relative;
       padding: clamp(7.5rem, 12vh, 10.5rem) 0 var(--s-6);
@@ -560,9 +554,13 @@
     .pill__title i{ color: var(--accent); opacity: .95; }
     .pill__text{ margin: 0; color: var(--muted); max-width: 66ch; }
 
+    /* Photo frames: square corners (no rounding) */
+    .hScroll, .gridItem, .bioPhoto{
+      border-radius: 0;
+    }
+
     .hScroll{
       border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
-      border-radius: var(--r-3);
       background: linear-gradient(180deg, var(--bg-2), var(--bg));
       box-shadow: 0 28px 120px var(--shadow);
       overflow: hidden;
@@ -610,11 +608,18 @@
       object-fit: cover;
       object-position: center;
       opacity: 0;
-      transform: scale(1.01);
-      transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
-      filter: contrast(1.02) saturate(.98);
+      transform: scale(1.02);
+      filter: blur(2px);
+      transition: opacity 680ms var(--ease-out), transform 980ms var(--ease-out), filter 980ms var(--ease-out);
+      will-change: opacity, transform, filter;
+      pointer-events:none;
     }
-    .is-loaded > .media__img{ opacity: 1; transform: scale(1); }
+    /* Works for both direct and nested images */
+    .is-loaded .media__img{
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+    }
     .has-error .media__img{ display:none; }
 
     .hScroll__meta{
@@ -654,7 +659,6 @@
     }
     .gridItem{
       border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
-      border-radius: var(--r-3);
       overflow:hidden;
       background: linear-gradient(180deg, var(--bg-3), var(--bg));
       box-shadow: 0 26px 110px var(--shadow);
@@ -728,7 +732,6 @@
     }
     .bioPhoto{
       border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
-      border-radius: var(--r-3);
       overflow:hidden;
       background: linear-gradient(180deg, var(--bg-3), var(--bg));
       box-shadow: 0 28px 120px var(--shadow);
@@ -1019,28 +1022,28 @@
                   <div class="hScroll__item" data-component="smart-media">
                     <div class="media">
                       <div class="media__ph" aria-hidden="true"></div>
-                      <img class="media__img" data-src="/assets/img/ritratto-unico/01.jpg" alt="Ritratto Unico, foto 01" decoding="async">
+                      <img class="media__img" data-src="/img/EmanuelePassarelli01.jpg" alt="Ritratto Unico, foto 01" decoding="async" loading="lazy">
                     </div>
                   </div>
 
                   <div class="hScroll__item" data-component="smart-media">
                     <div class="media">
                       <div class="media__ph" aria-hidden="true"></div>
-                      <img class="media__img" data-src="/assets/img/ritratto-unico/02.jpg" alt="Ritratto Unico, foto 02" decoding="async">
+                      <img class="media__img" data-src="/img/EmanuelePassarelli03.jpg" alt="Ritratto Unico, foto 02" decoding="async" loading="lazy">
                     </div>
                   </div>
 
                   <div class="hScroll__item" data-component="smart-media">
                     <div class="media">
                       <div class="media__ph" aria-hidden="true"></div>
-                      <img class="media__img" data-src="/assets/img/ritratto-unico/03.jpg" alt="Ritratto Unico, foto 03" decoding="async">
+                      <img class="media__img" data-src="/img/EmanuelePassarelli02.jpg" alt="Ritratto Unico, foto 03" decoding="async" loading="lazy">
                     </div>
                   </div>
 
                   <div class="hScroll__item" data-component="smart-media">
                     <div class="media">
                       <div class="media__ph" aria-hidden="true"></div>
-                      <img class="media__img" data-src="/assets/img/ritratto-unico/04.jpg" alt="Ritratto Unico, foto 04" decoding="async">
+                      <img class="media__img" data-src="/img/EmanuelePasserelli00.jpg" alt="Ritratto Unico, foto 04" decoding="async" loading="lazy">
                     </div>
                   </div>
                 </div>
@@ -1086,39 +1089,47 @@
             <div class="grid3" aria-label="Gallery 3x3">
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/assets/img/italia-grande-formato/01.jpg" alt="Italia nel Grande Formato, foto 01" decoding="async">
+                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" alt="Italia nel Grande Formato, foto 01" decoding="async" loading="lazy">
               </figure>
+
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/assets/img/italia-grande-formato/02.jpg" alt="Italia nel Grande Formato, foto 02" decoding="async">
+                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" alt="Italia nel Grande Formato, foto 02" decoding="async" loading="lazy">
               </figure>
+
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/assets/img/italia-grande-formato/03.jpg" alt="Italia nel Grande Formato, foto 03" decoding="async">
+                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n2.jpg" alt="Italia nel Grande Formato, foto 03" decoding="async" loading="lazy">
               </figure>
+
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/assets/img/italia-grande-formato/04.jpg" alt="Italia nel Grande Formato, foto 04" decoding="async">
+                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" alt="Italia nel Grande Formato, foto 04" decoding="async" loading="lazy">
               </figure>
+
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/assets/img/italia-grande-formato/05.jpg" alt="Italia nel Grande Formato, foto 05" decoding="async">
+                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n4.jpg" alt="Italia nel Grande Formato, foto 05" decoding="async" loading="lazy">
               </figure>
+
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/assets/img/italia-grande-formato/06.jpg" alt="Italia nel Grande Formato, foto 06" decoding="async">
+                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" alt="Italia nel Grande Formato, foto 06" decoding="async" loading="lazy">
               </figure>
+
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/assets/img/italia-grande-formato/07.jpg" alt="Italia nel Grande Formato, foto 07" decoding="async">
+                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n6.jpg" alt="Italia nel Grande Formato, foto 07" decoding="async" loading="lazy">
               </figure>
+
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/assets/img/italia-grande-formato/08.jpg" alt="Italia nel Grande Formato, foto 08" decoding="async">
+                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n7.jpg" alt="Italia nel Grande Formato, foto 08" decoding="async" loading="lazy">
               </figure>
+
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/assets/img/italia-grande-formato/09.jpg" alt="Italia nel Grande Formato, foto 09" decoding="async">
+                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" alt="Italia nel Grande Formato, foto 09" decoding="async" loading="lazy">
               </figure>
             </div>
 
@@ -1163,7 +1174,7 @@
             <div class="reveal">
               <figure class="bioPhoto" data-component="smart-media" aria-label="Foto di Emanuele Passarelli">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/assets/img/bio/emanuele.jpg" alt="Ritratto di Emanuele Passarelli" decoding="async">
+                <img class="media__img" data-src="/img/EmanuelePasserelliBio.jpg" alt="Ritratto di Emanuele Passarelli" decoding="async" loading="lazy">
               </figure>
             </div>
 
@@ -1200,8 +1211,8 @@
               </p>
 
               <p class="micro">
-                <span lang="it">Per richieste, disponibilità e collaborazioni: pagina contatti</span>
-                <span lang="en">For requests, availability and collaborations: contact page</span>
+                <span lang="it">Per richieste, disponibilità e collaborazioni:</span>
+                <span lang="en">For requests, availability and collaborations:</span>
               </p>
 
               <div style="margin-top: var(--s-3);">
@@ -1456,12 +1467,16 @@
         const loadImg = (img) => {
           const src = img.getAttribute('data-src');
           if(!src) return;
+
           const holder = img.closest('[data-component="smart-media"]');
           const onLoad = () => holder && holder.classList.add('is-loaded');
           const onError = () => holder && holder.classList.add('has-error');
+
           img.addEventListener('load', onLoad, { once: true });
           img.addEventListener('error', onError, { once: true });
+
           img.setAttribute('src', src);
+          img.removeAttribute('data-src');
         };
 
         if('IntersectionObserver' in window){
@@ -1471,7 +1486,7 @@
               io.unobserve(entry.target);
               loadImg(entry.target);
             });
-          }, { rootMargin: '280px 0px' });
+          }, { rootMargin: '0px', threshold: 0.01 });
 
           imgs.forEach(img => io.observe(img));
         } else {
