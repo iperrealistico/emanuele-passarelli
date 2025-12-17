@@ -8,7 +8,8 @@
   <meta name="description" content="Ritratto Unico in grande formato, tecniche antiche e stampe da custodire. Italia nel Grande Formato, biografia e contatti di Emanuele Passarelli.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#07080a">
+  <meta name="theme-color" content="#0b0c0f">
+  <meta name="format-detection" content="telephone=no">
 
   <link rel="canonical" href="https://emanuelepassarelli.it/">
   <link rel="icon" href="/favicon.ico">
@@ -24,6 +25,7 @@
   <meta property="og:image" content="https://emanuelepassarelli.it/assets/img/og-cover.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Emanuele Passarelli · Artigiano del Ritratto">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- hreflang -->
@@ -79,52 +81,46 @@
       --dur-3: 720ms;
 
       --wrap: min(1120px, calc(100% - 2*clamp(1rem, 4vw, 2.2rem)));
-      --ph-breath: 2.6s;
 
-      /* restyle tokens */
-      --hairline: 1px;
+      --accent: rgba(232,223,214,.92);
+      --accent-soft: rgba(232,223,214,.14);
+      --ph-breath: 2.6s;
     }
 
     :root[data-theme="dark"]{
-      /* graphite base, very dark */
-      --bg: #07080a;
-      --bg-2: #0b0c0f;
-      --bg-3: #0f1116;
+      --bg: #0b0c0f;
+      --bg-2: #0e1016;
+      --bg-3: #11131b;
 
-      /* surfaces stay dark (no ivory panels) */
-      --surface: rgba(255,255,255,.028);
-      --surface-2: rgba(255,255,255,.048);
+      --surface: rgba(255,255,255,.035);
+      --surface-2: rgba(255,255,255,.055);
+      --surface-3: rgba(255,255,255,.075);
 
-      /* borders subtle */
       --border: rgba(255,255,255,.10);
       --border-2: rgba(255,255,255,.16);
 
-      /* text: keep it warm, not pure white */
-      --ink: rgba(232, 224, 210, .96);      /* warm ivory used only for emphasis */
-      --text: rgba(232, 224, 210, .90);
-      --muted: rgba(232, 224, 210, .68);
-      --muted-2: rgba(232, 224, 210, .50);
+      --text: rgba(245,245,245,.93);
+      --muted: rgba(216,216,216,.70);
+      --muted-2: rgba(216,216,216,.54);
 
-      --shadow: rgba(0,0,0,.70);
-      --ph-1: rgba(255,255,255,.04);
-      --ph-2: rgba(255,255,255,.085);
-
+      --shadow: rgba(0,0,0,.60);
+      --ph-1: rgba(255,255,255,.045);
+      --ph-2: rgba(255,255,255,.095);
       --ok: #42d17a;
     }
 
     :root[data-theme="light"]{
-      /* kept for toggle, but the site is designed for dark by default */
       --bg: #ffffff;
       --bg-2: #f6f6f6;
-      --bg-3: #f0f0f0;
+      --bg-3: #efefef;
 
       --surface: rgba(0,0,0,.03);
       --surface-2: rgba(0,0,0,.055);
+      --surface-3: rgba(0,0,0,.085);
 
       --border: rgba(0,0,0,.10);
       --border-2: rgba(0,0,0,.16);
 
-      --ink: rgba(0,0,0,.92);
       --text: rgba(0,0,0,.90);
       --muted: rgba(0,0,0,.67);
       --muted-2: rgba(0,0,0,.52);
@@ -132,8 +128,10 @@
       --shadow: rgba(0,0,0,.18);
       --ph-1: rgba(0,0,0,.035);
       --ph-2: rgba(0,0,0,.085);
-
       --ok: #1aa957;
+
+      --accent: rgba(30,30,30,.92);
+      --accent-soft: rgba(30,30,30,.10);
     }
 
     *{ box-sizing:border-box; }
@@ -145,10 +143,7 @@
       line-height: 1.58;
       letter-spacing: .015em;
       color: var(--text);
-      background:
-        radial-gradient(1200px 900px at 18% 12%, color-mix(in oklab, var(--surface-2) 55%, transparent), transparent 55%),
-        radial-gradient(900px 700px at 82% 85%, color-mix(in oklab, var(--surface) 70%, transparent), transparent 60%),
-        linear-gradient(180deg, var(--bg), var(--bg));
+      background: linear-gradient(180deg, var(--bg), var(--bg));
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       overflow-x: hidden;
@@ -158,28 +153,17 @@
     a{ color: inherit; text-decoration: none; }
     button{ font-family: inherit; color: inherit; }
     .wrap{ width: var(--wrap); margin-inline:auto; }
+    .bleed{ width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
 
-    /* subtle film grain, darker and tighter */
     body::before{
       content:"";
       position: fixed;
       inset: 0;
       pointer-events:none;
-      opacity: .05;
+      opacity: .06;
       mix-blend-mode: overlay;
-      background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.12) 1px, transparent 0);
+      background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.14) 1px, transparent 0);
       background-size: 3px 3px;
-    }
-
-    /* ultra subtle vignette */
-    body::after{
-      content:"";
-      position: fixed;
-      inset: -10%;
-      pointer-events:none;
-      background: radial-gradient(closest-side, transparent 55%, rgba(0,0,0,.40));
-      opacity: .55;
-      mix-blend-mode: multiply;
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -190,29 +174,52 @@
     :root[data-language="it"] [lang="en"]{ display:none !important; }
     :root[data-language="en"] [lang="it"]{ display:none !important; }
 
-    .kicker{ margin: 0 0 var(--s-2); color: var(--muted-2); letter-spacing: .14em; text-transform: uppercase; font-size: .84em; }
-    .h2{ font-family: var(--font-display); font-size: var(--fs-3); line-height: 1.08; letter-spacing: .03em; margin: 0 0 var(--s-2); color: var(--ink); }
-    .h3{ font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.12; letter-spacing: .03em; margin: 0 0 var(--s-1); color: var(--ink); }
+    .kicker{
+      margin: 0 0 var(--s-2);
+      color: var(--muted-2);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: .82em;
+    }
+    .h2{
+      font-family: var(--font-display);
+      font-size: var(--fs-3);
+      line-height: 1.08;
+      letter-spacing: .03em;
+      margin: 0 0 var(--s-2);
+    }
+    .h3{
+      font-family: var(--font-display);
+      font-size: var(--fs-2);
+      line-height: 1.12;
+      letter-spacing: .03em;
+      margin: 0 0 var(--s-1);
+    }
     .lead{ font-size: var(--fs-1); color: var(--muted); margin: 0 0 var(--s-3); max-width: 70ch; }
     .p{ margin: 0 0 var(--s-2); color: var(--muted); max-width: 78ch; }
-    .micro{ font-size: .92em; color: var(--muted-2); margin: 0; letter-spacing: .10em; text-transform: uppercase; }
+    .micro{ font-size: .90em; color: var(--muted-2); margin: 0; letter-spacing: .08em; text-transform: uppercase; }
 
-    .bleed{ width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+    .emph{ color: var(--accent); font-weight: 900; }
+    .softLine{ height:1px; background: color-mix(in oklab, var(--border) 80%, transparent); }
 
-    /* Header (fixed always on top) */
+    :focus-visible{ outline: 2px solid color-mix(in oklab, var(--text) 55%, transparent); outline-offset: 3px; }
+    *{ word-wrap: break-word; }
+
+    /* Header: transparent, only home + contact + menu */
     .site-header{
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 70;
-      backdrop-filter: blur(16px);
-      background: color-mix(in oklab, var(--bg) 86%, transparent);
-      border-bottom: var(--hairline) solid color-mix(in oklab, var(--border) 85%, transparent);
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), backdrop-filter var(--dur-2) var(--ease-out);
     }
     .site-header.is-scrolled{
-      border-bottom-color: color-mix(in oklab, var(--border-2) 90%, transparent);
-      background: color-mix(in oklab, var(--bg) 92%, transparent);
+      backdrop-filter: blur(14px);
+      background: color-mix(in oklab, var(--bg) 62%, transparent);
+      border-bottom-color: color-mix(in oklab, var(--border) 80%, transparent);
     }
 
     .header__wrap{
@@ -220,103 +227,83 @@
       align-items:center;
       justify-content: space-between;
       gap: var(--s-2);
-      padding: .95rem 0;
+      padding: .90rem 0;
       min-width: 0;
     }
 
-    .brand{ display:flex; align-items:center; min-width:0; flex: 1 1 auto; }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: .75rem;
+      min-width:0;
+    }
+    .brand__mark{
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      display:grid;
+      place-items:center;
+      box-shadow: 0 16px 70px var(--shadow);
+      flex: 0 0 auto;
+    }
+    .brand__mark span{
+      font-family: var(--font-display);
+      letter-spacing: .06em;
+      font-weight: 900;
+      color: var(--accent);
+      font-size: .95rem;
+    }
+    .brand__text{ display:grid; gap: .12rem; min-width:0; }
     .brand__name{
       display:block;
-      font-weight: 850;
+      font-weight: 900;
       letter-spacing: .12em;
       text-transform: uppercase;
-      font-size: .92em;
+      font-size: .84em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      color: var(--ink);
     }
     .brand__tagline{
       display:block;
-      font-size: .92em;
-      color: var(--muted);
-      margin-top: .1rem;
+      font-size: .90em;
+      color: var(--muted-2);
       letter-spacing: .08em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .nav{ display:flex; gap: clamp(.55rem, 1.2vw, 1.05rem); align-items:center; }
-    .nav__link{
-      font-size: .86em;
-      color: var(--muted-2);
-      padding: .55rem .60rem;
-      border-radius: 12px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      transition: color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
-      white-space: nowrap;
-      border: 1px solid transparent;
-    }
-    .nav__link:hover{
-      color: var(--text);
-      background: color-mix(in oklab, var(--surface) 95%, transparent);
-      border-color: color-mix(in oklab, var(--border) 70%, transparent);
-    }
-    .nav__link i{ margin-right: .45rem; opacity: .9; }
-
-    .controls{ display:flex; align-items:center; gap: .6rem; flex: 0 0 auto; }
-    .segmented{
-      display:flex;
-      align-items:center;
-      padding: 4px;
-      border-radius: 999px;
-      border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
-      background: color-mix(in oklab, var(--surface) 95%, transparent);
-    }
-    .segmented__btn{
-      appearance:none;
-      border:0;
-      background: transparent;
-      color: var(--muted-2);
-      padding: .40rem .70rem;
-      border-radius: 999px;
-      font-weight: 850;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      cursor:pointer;
-      transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
-    }
-    .segmented__btn.is-active{
-      color: var(--ink);
-      background: color-mix(in oklab, var(--surface-2) 92%, transparent);
-    }
-
     .icon-btn{
       appearance:none;
-      border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
-      background: color-mix(in oklab, var(--surface) 95%, transparent);
-      color: var(--ink);
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      color: var(--text);
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
       display:grid;
       place-items:center;
       cursor:pointer;
       transition: transform var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
-      flex: 0 0 auto;
+      box-shadow: 0 18px 80px var(--shadow);
     }
-    .icon-btn:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--border-2) 92%, transparent); }
+    .icon-btn:hover{ transform: translateY(-1px); border-color: var(--border-2); }
     .icon-btn:active{ transform: translateY(0); }
-    .icon-btn.is-active{ border-color: color-mix(in oklab, var(--ink) 45%, transparent); }
+    .icon-btn.is-active{ border-color: color-mix(in oklab, var(--accent) 70%, transparent); }
 
-    .nav-toggle{ display:none; }
-    @media (max-width: 920px){ .nav{ display:none; } .nav-toggle{ display:grid; } }
-    @media (max-width: 420px){
+    .header__right{
+      display:flex;
+      align-items:center;
+      gap: .55rem;
+    }
+
+    @media (max-width: 520px){
       .brand__tagline{ display:none; }
-      .icon-btn{ width:38px; height:38px; border-radius: 14px; }
-      .segmented__btn{ padding: .34rem .55rem; }
+      .brand__mark{ width:40px; height:40px; }
+      .icon-btn{ width:40px; height:40px; }
     }
 
     .section{ padding: var(--s-6) 0; }
@@ -328,7 +315,7 @@
       gap:.55rem;
       padding: .95rem 1.25rem;
       border-radius: 999px;
-      border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
+      border: 1px solid var(--border);
       font-weight: 900;
       letter-spacing: .14em;
       text-transform: uppercase;
@@ -337,305 +324,256 @@
       font-size: .86em;
       line-height: 1;
       white-space: nowrap;
-      color: var(--ink);
+      color: var(--text);
       background: transparent;
     }
-    .btn--primary{
-      background: color-mix(in oklab, var(--surface-2) 92%, transparent);
-      border-color: color-mix(in oklab, var(--border-2) 70%, transparent);
-    }
+    .btn--primary{ background: color-mix(in oklab, var(--surface-2) 85%, transparent); }
     .btn--ghost{ background: transparent; }
-    .btn:hover{
-      transform: translateY(-1px);
-      border-color: color-mix(in oklab, var(--border-2) 92%, transparent);
-      background: color-mix(in oklab, var(--surface-2) 85%, transparent);
-    }
+    .btn:hover{ transform: translateY(-1px); border-color: var(--border-2); }
     .btn:active{ transform: translateY(0); }
     .btn i{ opacity: .9; font-size: 1em; }
 
-    /* Hero */
-    .hero{
-      padding: clamp(2.2rem, 2vw + 1.3rem, 3.6rem) 0 var(--s-6);
+    /* App view container: swap animation */
+    .viewShell{
       position: relative;
+      min-height: 60vh;
+      will-change: opacity, transform, filter;
     }
-    .hero__wrap{ display:grid; grid-template-columns: 1.12fr .88fr; gap: var(--s-5); align-items: center; }
-    .hero__title{
-      font-family: var(--font-display);
-      font-size: var(--fs-4);
-      line-height: 1.02;
-      letter-spacing: .02em;
-      margin: 0 0 var(--s-3);
-      color: var(--ink);
-      text-shadow: 0 18px 90px rgba(0,0,0,.35);
-    }
-    .hero__titleLine{ display:block; }
-    .hero__titleLine--muted{ color: color-mix(in oklab, var(--ink) 72%, transparent); }
-    .hero__cta{ display:flex; flex-wrap: wrap; gap: .75rem; margin-bottom: var(--s-4); align-items: center; }
-
-    @media (max-width: 980px){
-      .hero__wrap{ grid-template-columns: 1fr; }
-      .hero__media{ order: -1; }
-    }
-
-    /* Scroll cue centered to viewport (absolute, positioned by JS) */
-    .scrollCueDock{
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: fit-content;
-      z-index: 5;
+    .viewShell.is-swapping{
       pointer-events: none;
     }
-    .scrollCue{
-      display:flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: .55rem;
-      width: fit-content;
-      color: var(--muted-2);
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      font-size: .78em;
-      text-align: center;
-      pointer-events: none;
-    }
-    .scrollCue__text{ text-align:center; }
-    .scrollCue__arrow{
-      width: 46px;
-      height: 46px;
-      border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
-      border-radius: 999px;
-      display:grid;
-      place-items:center;
-      background: color-mix(in oklab, var(--surface) 96%, transparent);
-      position: relative;
-      overflow: hidden;
-      pointer-events: none;
-    }
-    .scrollCue__arrow i{
-      animation: arrowDrop 1.45s var(--ease-soft) infinite;
-      opacity: .85;
-    }
-    @keyframes arrowDrop{
-      0%{ transform: translateY(-2px); opacity: .50; }
-      45%{ transform: translateY(6px); opacity: 1; }
-      100%{ transform: translateY(-2px); opacity: .50; }
-    }
-
-    /* Video portal */
-    .videoPortal{ display:grid; gap: .75rem; }
-    .videoPortal__frame{
-      position: relative;
-      border-radius: var(--r-3);
-      overflow: hidden;
-      aspect-ratio: 16/10;
-      border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
-      background:
-        radial-gradient(120% 120% at 20% 15%, color-mix(in oklab, var(--surface-2) 60%, transparent), transparent 55%),
-        linear-gradient(180deg, var(--bg-3), var(--bg));
-      box-shadow: 0 36px 130px var(--shadow);
-      isolation: isolate;
-
+    .viewShell.is-leaving{
       opacity: 0;
-      transform: translateY(64px);
+      transform: translateY(10px);
       filter: blur(2px);
-      transition: opacity 980ms var(--ease-out), transform 980ms var(--ease-out), filter 980ms var(--ease-out);
-      will-change: transform, opacity, filter;
+      transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out), filter var(--dur-3) var(--ease-out);
     }
-    .is-video-enter .videoPortal__frame{
+    .viewShell.is-entering{
+      opacity: 0;
+      transform: translateY(10px);
+      filter: blur(2px);
+    }
+    .viewShell.is-entered{
       opacity: 1;
       transform: translateY(0);
       filter: blur(0);
+      transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out), filter var(--dur-3) var(--ease-out);
     }
 
-    .mediaPlaceholder{
+    /* Hero: background YouTube */
+    .hero{
+      position: relative;
+      padding: clamp(7.5rem, 12vh, 10.5rem) 0 var(--s-6);
+      overflow: hidden;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(120% 120% at 20% 0%, rgba(0,0,0,.10), rgba(0,0,0,.72)),
+        linear-gradient(180deg, rgba(0,0,0,.40), rgba(0,0,0,.70));
+      pointer-events:none;
+      z-index: 2;
+    }
+    .heroVideo{
       position:absolute;
       inset:0;
       z-index: 1;
+      overflow:hidden;
+      background: linear-gradient(180deg, var(--bg-2), var(--bg));
+    }
+    .heroVideo__ph{
+      position:absolute;
+      inset:0;
       background:
         radial-gradient(140% 120% at 18% 10%, var(--ph-2), transparent 60%),
         radial-gradient(120% 120% at 82% 85%, var(--ph-1), transparent 65%),
-        linear-gradient(180deg, var(--bg-3), var(--bg));
+        linear-gradient(180deg, var(--bg-2), var(--bg));
       animation: phBreath var(--ph-breath) var(--ease-soft) infinite;
+      z-index: 1;
     }
     @keyframes phBreath{
-      0%{ filter: contrast(1) brightness(1); opacity: .62; }
-      50%{ filter: contrast(1.06) brightness(1.03); opacity: .92; }
-      100%{ filter: contrast(1) brightness(1); opacity: .62; }
+      0%{ filter: contrast(1) brightness(1); opacity: .70; }
+      50%{ filter: contrast(1.05) brightness(1.04); opacity: .95; }
+      100%{ filter: contrast(1) brightness(1); opacity: .70; }
     }
-
-    .videoPortal__thumb{
+    .heroVideo__thumb{
       position:absolute;
       inset:0;
-      z-index: 2;
       width:100%;
       height:100%;
       object-fit: cover;
       object-position: center;
       opacity: 0;
-      transform: scale(1.01);
+      transform: scale(1.02);
       transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
-      filter: contrast(1.02) saturate(0.96);
-      pointer-events: none;
+      filter: contrast(1.02) saturate(.95);
+      z-index: 2;
+      pointer-events:none;
     }
-    .videoPortal.is-thumb-loaded .videoPortal__thumb{ opacity: 1; transform: scale(1); }
+    .heroVideo.is-thumb-loaded .heroVideo__thumb{ opacity: 1; transform: scale(1.00); }
 
-    .videoPortal__badge{
-      position:absolute;
-      left: 18px;
-      bottom: 16px;
-      padding: .45rem .75rem;
-      border-radius: 999px;
-      border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
-      background: color-mix(in oklab, var(--surface) 96%, transparent);
-      font-weight: 900;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      font-size: .80em;
-      z-index: 6;
-      display:inline-flex;
-      align-items:center;
-      gap:.5rem;
-      transition: transform var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
-      pointer-events: auto;
-      color: var(--ink);
-    }
-    .videoPortal__badge:hover{
-      transform: translateY(-1px);
-      border-color: color-mix(in oklab, var(--border-2) 92%, transparent);
-      background: color-mix(in oklab, var(--surface-2) 88%, transparent);
-    }
-
-    .videoPortal__mount{
+    .heroVideo__mount{
       position:absolute;
       inset:0;
       z-index: 3;
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
-      will-change: transform, opacity;
-      overflow: hidden;
+      pointer-events:none;
+      opacity: 0;
+      transition: opacity var(--dur-3) var(--ease-out);
     }
-    .videoPortal__mount iframe{
-      position:absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      transform: translate(-50%,-50%);
-      transform-origin: center;
-      border:0;
-      pointer-events: none;
-    }
+    .heroVideo.is-mounted .heroVideo__mount{ opacity: 1; }
 
-    .videoPortal__cover{
+    .heroVideo__cover{
       position:absolute;
-      inset:-8%;
-      transform: scale(1.18);
-      transform-origin: center;
+      inset:-10%;
+      transform: scale(1.22);
+      transform-origin:center;
     }
-    .videoPortal__cover iframe{
-      width: 100%;
-      height: 100%;
+    .heroVideo__cover iframe{
+      width:100%;
+      height:100%;
       position:absolute;
       inset:0;
-      transform: none;
+      border:0;
     }
     @media (max-width: 520px){
-      .videoPortal__cover{ transform: scale(1.22); }
+      .heroVideo__cover{ transform: scale(1.28); }
     }
 
-    .videoPortal__hoverMask{
-      position:absolute;
-      inset:0;
-      z-index: 5;
-      opacity: 0;
-      transition: opacity var(--dur-2) var(--ease-out);
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.30));
+    .hero__wrap{
+      position: relative;
+      z-index: 3;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: var(--s-4);
+      align-items: start;
     }
-    .videoPortal:hover .videoPortal__hoverMask{ opacity: 1; }
-    .videoPortal:hover .videoPortal__thumb{ opacity: 1; }
+    .hero__title{
+      font-family: var(--font-display);
+      font-size: var(--fs-4);
+      line-height: 1.02;
+      letter-spacing: .02em;
+      margin: 0 0 var(--s-2);
+      max-width: 18ch;
+    }
+    .hero__sub{
+      margin: 0 0 var(--s-3);
+      color: var(--muted);
+      max-width: 72ch;
+      font-size: var(--fs-1);
+    }
+    .hero__cta{ display:flex; flex-wrap: wrap; gap: .75rem; align-items:center; }
 
-    /* Feature cards */
-    .cards{
+    .scrollCue{
+      margin-top: var(--s-4);
+      display:flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .60rem;
+      width: fit-content;
+      color: var(--muted-2);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: .78em;
+      pointer-events:none;
+    }
+    .scrollCue__arrow{
+      width: 46px;
+      height: 46px;
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+      border-radius: 999px;
+      display:grid;
+      place-items:center;
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      overflow: hidden;
+      box-shadow: 0 18px 90px var(--shadow);
+    }
+    .scrollCue__arrow i{
+      animation: arrowDrop 1.45s var(--ease-soft) infinite;
+      opacity: .9;
+      color: var(--accent);
+    }
+    @keyframes arrowDrop{
+      0%{ transform: translateY(-2px); opacity: .55; }
+      45%{ transform: translateY(6px); opacity: 1; }
+      100%{ transform: translateY(-2px); opacity: .55; }
+    }
+
+    /* Ritratto Unico: text left, horizontal gallery right */
+    .split{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: var(--s-5);
+      align-items: start;
+    }
+    @media (max-width: 980px){
+      .split{ grid-template-columns: 1fr; }
+    }
+
+    .pillRow{
+      margin-top: var(--s-4);
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--s-3);
-      margin-top: var(--s-4);
-      margin-bottom: var(--s-6);
     }
-    .card{
-      border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
+    @media (max-width: 780px){
+      .pillRow{ grid-template-columns: 1fr; }
+    }
+
+    .pill{
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
       border-radius: var(--r-3);
       padding: var(--s-4);
-      background:
-        linear-gradient(180deg,
-          color-mix(in oklab, var(--surface-2) 70%, transparent),
-          color-mix(in oklab, var(--surface) 85%, transparent)
-        );
-      box-shadow: 0 26px 120px rgba(0,0,0,.55);
-      position: relative;
-      overflow: hidden;
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      box-shadow: 0 22px 110px var(--shadow);
     }
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      opacity:.35;
-      background:
-        radial-gradient(900px 220px at 12% 0%, rgba(255,255,255,.06), transparent 55%),
-        radial-gradient(700px 220px at 88% 110%, rgba(255,255,255,.035), transparent 55%);
-      mix-blend-mode: overlay;
-    }
-    .card__title{
+    .pill__title{
       margin: 0 0 .45rem;
       font-weight: 950;
-      letter-spacing: .16em;
+      letter-spacing: .14em;
       text-transform: uppercase;
       font-size: .90em;
-      color: var(--ink);
+      color: var(--text);
       display:flex;
       align-items:center;
       gap:.6rem;
     }
-    .card__title i{ opacity:.95; }
-    .card__text{ margin: 0; color: var(--muted); max-width: 66ch; }
-    @media (max-width: 860px){ .cards{ grid-template-columns: 1fr; } }
+    .pill__title i{ color: var(--accent); opacity: .95; }
+    .pill__text{ margin: 0; color: var(--muted); max-width: 66ch; }
 
-    /* Fullwidth galleries */
-    .fullMedia{
+    .hScroll{
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+      border-radius: var(--r-3);
+      background: linear-gradient(180deg, var(--bg-2), var(--bg));
+      box-shadow: 0 28px 120px var(--shadow);
+      overflow: hidden;
+    }
+    .hScroll__rail{
+      display:flex;
+      overflow-x:auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .hScroll__rail::-webkit-scrollbar{ display:none; }
+    .hScroll__item{
+      flex: 0 0 100%;
+      scroll-snap-align: start;
       position: relative;
-      border-top: var(--hairline) solid color-mix(in oklab, var(--border) 85%, transparent);
-      border-bottom: var(--hairline) solid color-mix(in oklab, var(--border) 85%, transparent);
-      background:
-        radial-gradient(1200px 500px at 50% 0%, color-mix(in oklab, var(--surface) 65%, transparent), transparent 60%),
-        linear-gradient(180deg, var(--bg-2), var(--bg));
-      margin-top: var(--s-4);
+      aspect-ratio: 16/10;
+      background: linear-gradient(180deg, var(--bg-3), var(--bg));
+      border-right: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+      overflow:hidden;
     }
-    .fullMedia__wrap{
-      width: var(--wrap);
-      margin-inline: auto;
-      padding: var(--s-5) 0;
-      display:grid;
-      gap: var(--s-3);
-    }
-    .fullMedia--spaced{ margin-top: var(--s-6); }
+    .hScroll__item:last-child{ border-right: 0; }
 
     .media{
-      position: relative;
-      border-radius: var(--r-3);
-      overflow: hidden;
-      border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
+      position:absolute;
+      inset:0;
+      overflow:hidden;
       background: linear-gradient(180deg, var(--bg-3), var(--bg));
-      box-shadow: 0 34px 140px rgba(0,0,0,.65);
     }
-    .media--wide{ aspect-ratio: 21/10; }
-    .media--cinema{ aspect-ratio: 16/9; }
-    .media--portrait{ aspect-ratio: 3/4; }
-
     .media__ph{
       position:absolute;
       inset:0;
@@ -655,52 +593,156 @@
       opacity: 0;
       transform: scale(1.01);
       transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
+      filter: contrast(1.02) saturate(.98);
     }
     .is-loaded > .media__img{ opacity: 1; transform: scale(1); }
     .has-error .media__img{ display:none; }
 
-    /* Contact */
-    .contactMini{
+    .hScroll__meta{
+      padding: .85rem 1.05rem;
       display:flex;
-      flex-wrap: wrap;
-      align-items:center;
       justify-content: space-between;
+      align-items:center;
+      gap: .75rem;
+      border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+    }
+    .dots{ display:flex; align-items:center; gap: .45rem; }
+    .dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: color-mix(in oklab, var(--border) 70%, transparent);
+      border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+      transition: transform var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+    }
+    .dot.is-active{
+      background: var(--accent);
+      border-color: color-mix(in oklab, var(--accent) 70%, transparent);
+      transform: scale(1.15);
+    }
+
+    /* Italia nel Grande Formato: 3x3 grid */
+    .grid3{
+      margin-top: var(--s-5);
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: var(--s-3);
-      border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
+    }
+    @media (max-width: 980px){
+      .grid3{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px){
+      .grid3{ grid-template-columns: 1fr; }
+    }
+    .gridItem{
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+      border-radius: var(--r-3);
+      overflow:hidden;
+      background: linear-gradient(180deg, var(--bg-3), var(--bg));
+      box-shadow: 0 26px 110px var(--shadow);
+      aspect-ratio: 3/4;
+      position: relative;
+    }
+
+    /* Stats row */
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--s-3);
+      margin-top: var(--s-5);
+    }
+    @media (max-width: 980px){
+      .stats{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px){
+      .stats{ grid-template-columns: 1fr; }
+    }
+    .stat{
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
       border-radius: var(--r-3);
       padding: var(--s-4);
-      background:
-        linear-gradient(180deg,
-          color-mix(in oklab, var(--surface-2) 65%, transparent),
-          color-mix(in oklab, var(--surface) 90%, transparent)
-        );
-      box-shadow: 0 34px 160px rgba(0,0,0,.62);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      box-shadow: 0 24px 110px var(--shadow);
+      display:flex;
+      align-items:center;
+      gap: 1rem;
+      min-height: 86px;
+    }
+    .stat__icon{
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+      background: color-mix(in oklab, var(--surface-2) 80%, transparent);
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+    }
+    .stat__icon i{
+      color: var(--accent);
+      opacity: .95;
+      transform: translateY(0);
+      transition: transform var(--dur-2) var(--ease-out);
+    }
+    .stat:hover .stat__icon i{ transform: translateY(-1px); }
+    .stat__num{
+      font-weight: 950;
+      letter-spacing: .06em;
+      font-size: 1.15rem;
+      margin: 0 0 .10rem;
+      color: var(--text);
+    }
+    .stat__label{
+      margin: 0;
+      color: var(--muted-2);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: .78em;
+    }
+
+    /* Bio: photo left, text right */
+    .bio{
+      display:grid;
+      grid-template-columns: .90fr 1.10fr;
+      gap: var(--s-5);
+      align-items: start;
+    }
+    @media (max-width: 980px){
+      .bio{ grid-template-columns: 1fr; }
+    }
+    .bioPhoto{
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+      border-radius: var(--r-3);
+      overflow:hidden;
+      background: linear-gradient(180deg, var(--bg-3), var(--bg));
+      box-shadow: 0 28px 120px var(--shadow);
+      aspect-ratio: 3/4;
       position: relative;
-      overflow: hidden;
     }
-    .contactMini::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      opacity:.30;
-      background:
-        radial-gradient(900px 240px at 20% 0%, rgba(255,255,255,.055), transparent 58%),
-        radial-gradient(700px 220px at 90% 120%, rgba(255,255,255,.03), transparent 60%);
-      mix-blend-mode: overlay;
+
+    /* Contact page */
+    .contactPage{
+      padding: clamp(7.5rem, 12vh, 10.5rem) 0 var(--s-6);
     }
-    .contactMini__left{ display:grid; gap: .35rem; position: relative; z-index: 1; }
-    .contactMini__right{ display:flex; flex-wrap: wrap; gap: .75rem; align-items:center; position: relative; z-index: 1; }
+    .contactCard{
+      margin-top: var(--s-4);
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+      border-radius: var(--r-3);
+      padding: var(--s-5);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      box-shadow: 0 30px 140px var(--shadow);
+      display:flex;
+      flex-wrap: wrap;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: var(--s-4);
+    }
+    .contactCard__right{ display:flex; flex-wrap: wrap; gap: .75rem; align-items:center; }
 
     .btnEmail{ position: relative; }
     .btnEmail__shell{ display:inline-flex; align-items:center; gap:.55rem; white-space: nowrap; }
-    .btnEmail__email{
-      display:none;
-      letter-spacing: .04em;
-      text-transform: none;
-      font-weight: 900;
-      color: var(--ink);
-    }
+    .btnEmail__email{ display:none; letter-spacing: .04em; text-transform: none; font-weight: 900; color: var(--accent); }
     .btnEmail.is-done .btnEmail__labelText{ display:none; }
     .btnEmail.is-done .btnEmail__email{ display:inline; }
 
@@ -709,11 +751,11 @@
       left: 50%;
       top: -10px;
       transform: translateX(-50%) translateY(-8px);
-      background: color-mix(in oklab, var(--bg) 90%, transparent);
-      border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
+      background: color-mix(in oklab, var(--bg) 82%, transparent);
+      border: 1px solid var(--border);
       border-radius: 999px;
       padding: .45rem .70rem;
-      box-shadow: 0 28px 120px rgba(0,0,0,.70);
+      box-shadow: 0 22px 80px var(--shadow);
       display:flex;
       align-items:center;
       gap:.45rem;
@@ -721,8 +763,8 @@
       pointer-events:none;
       transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
       z-index: 10;
-      color: var(--ink);
-      letter-spacing: .12em;
+      color: var(--text);
+      letter-spacing: .10em;
       text-transform: uppercase;
       font-weight: 950;
       font-size: .72em;
@@ -734,16 +776,37 @@
       transform: translateX(-50%) translateY(-16px);
     }
 
-    /* Footer */
+    /* Footer socket */
     .site-footer{
       padding: var(--s-4) 0 var(--s-5);
-      border-top: var(--hairline) solid color-mix(in oklab, var(--border) 85%, transparent);
+      border-top: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
       background: color-mix(in oklab, var(--bg) 92%, transparent);
     }
-    .footer__wrap{ display:flex; justify-content: space-between; gap: var(--s-2); align-items:center; flex-wrap: wrap; }
-    .footer__links{ display:flex; gap: .9rem; }
-    .footer__links a{ color: var(--muted-2); letter-spacing: .14em; text-transform: uppercase; font-size: .82em; }
-    .footer__links a:hover{ color: var(--ink); }
+    .footer__wrap{
+      display:flex;
+      justify-content: space-between;
+      gap: var(--s-2);
+      align-items:center;
+      flex-wrap: wrap;
+    }
+    .footer__links{ display:flex; gap: .9rem; align-items:center; flex-wrap: wrap; }
+    .footer__links a{
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: .82em;
+      display:inline-flex;
+      align-items:center;
+      gap: .45rem;
+      padding: .25rem .35rem;
+      border-radius: 10px;
+      transition: color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+    }
+    .footer__links a:hover{
+      color: var(--text);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+    }
+    .footer__links i{ color: var(--accent); opacity: .95; }
 
     /* Scroll reveal */
     .reveal{
@@ -752,9 +815,13 @@
       filter: blur(2px);
       transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out), filter var(--dur-3) var(--ease-out);
     }
-    .reveal.is-inview{ opacity: 1; transform: translateY(0); filter: blur(0); }
+    .reveal.is-inview{
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
 
-    /* Mobile drawer */
+    /* Drawer menu (settings + quick nav) */
     .mobileNav{
       position: fixed;
       inset: 0;
@@ -770,44 +837,67 @@
       top: 0; right: 0;
       height: 100%;
       width: min(420px, 88vw);
-      background: linear-gradient(180deg, var(--bg-2), var(--bg));
-      border-left: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
+      background: var(--bg);
+      border-left: 1px solid var(--border);
       transform: translateX(102%);
       transition: transform var(--dur-3) var(--ease-out);
       padding: 1rem;
       display:flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1.0rem;
       overflow: auto;
       -webkit-overflow-scrolling: touch;
     }
     .mobileNav.is-open .mobileNav__panel{ transform: translateX(0); }
 
     .mobileNav__top{ display:flex; align-items:center; justify-content: space-between; gap: .75rem; }
-    .mobileNav__icons{ display:flex; gap: .5rem; align-items:center; flex-wrap: wrap; }
-    .mobileNav__links{ display:grid; gap: .5rem; }
-    .mobileNav__links a{
-      padding: .9rem 1rem;
-      border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
-      border-radius: 16px;
+    .mobileNav__groupTitle{
+      color: var(--muted-2);
       letter-spacing: .14em;
       text-transform: uppercase;
-      color: var(--ink);
-      background: color-mix(in oklab, var(--surface) 96%, transparent);
-      white-space: nowrap;
-      transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), transform var(--dur-1) var(--ease-out);
+      font-size: .78em;
+      margin: .25rem 0 .15rem;
     }
-    .mobileNav__links a:hover{
-      background: color-mix(in oklab, var(--surface-2) 90%, transparent);
-      border-color: color-mix(in oklab, var(--border-2) 92%, transparent);
-      transform: translateY(-1px);
-    }
+    .mobileNav__icons{ display:flex; gap: .5rem; align-items:center; flex-wrap: wrap; }
 
-    :focus-visible{
-      outline: 2px solid color-mix(in oklab, var(--ink) 55%, transparent);
-      outline-offset: 3px;
+    .segmented{
+      display:flex;
+      align-items:center;
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
     }
-    *{ word-wrap: break-word; }
+    .segmented__btn{
+      appearance:none;
+      border:0;
+      background: transparent;
+      color: var(--muted);
+      padding: .40rem .70rem;
+      border-radius: 999px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor:pointer;
+      transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+    }
+    .segmented__btn.is-active{ color: var(--text); background: color-mix(in oklab, var(--surface-2) 85%, transparent); }
+
+    .mobileNav__links{ display:grid; gap: .55rem; }
+    .mobileNav__links a{
+      padding: .9rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      white-space: nowrap;
+      display:flex;
+      align-items:center;
+      gap: .6rem;
+    }
+    .mobileNav__links i{ color: var(--accent); opacity: .95; }
   </style>
 
   <script type="application/ld+json">
@@ -853,7 +943,8 @@
 
   <header class="site-header" data-component="header">
     <div class="wrap header__wrap">
-      <a class="brand" href="#top" aria-label="Torna all'inizio">
+      <a class="brand" href="/" data-route="/" aria-label="Home">
+        <span class="brand__mark" aria-hidden="true"><span>EP</span></span>
         <span class="brand__text">
           <span class="brand__name">Emanuele Passarelli</span>
           <span class="brand__tagline">
@@ -863,22 +954,12 @@
         </span>
       </a>
 
-      <nav class="nav" aria-label="Navigazione principale">
-        <a class="nav__link" href="#ritratto"><i class="fa-regular fa-compass"></i><span lang="it">Scopri</span><span lang="en">Discover</span></a>
-        <a class="nav__link" href="#contatti"><i class="fa-regular fa-paper-plane"></i><span lang="it">Contatti</span><span lang="en">Contact</span></a>
-      </nav>
+      <div class="header__right" aria-label="Azioni">
+        <a class="icon-btn" href="/contatti" data-route="/contatti" aria-label="Contatti" title="Contatti">
+          <i class="fa-regular fa-paper-plane"></i>
+        </a>
 
-      <div class="controls" aria-label="Controlli sito">
-        <div class="segmented" role="group" aria-label="Lingua">
-          <button class="segmented__btn is-active" type="button" data-action="set-language" data-language="it" aria-pressed="true">IT</button>
-          <button class="segmented__btn" type="button" data-action="set-language" data-language="en" aria-pressed="false">EN</button>
-        </div>
-
-        <button class="icon-btn" type="button" data-action="toggle-theme" aria-label="Cambia tema (dark/light)" title="Tema">
-          <i class="fa-regular fa-sun"></i>
-        </button>
-
-        <button class="icon-btn nav-toggle" type="button" data-action="toggle-nav" aria-label="Apri menu" aria-expanded="false">
+        <button class="icon-btn" type="button" data-action="toggle-nav" aria-label="Apri menu" aria-expanded="false" title="Menu">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>
@@ -890,9 +971,12 @@
 
     <aside class="mobileNav__panel" role="dialog" aria-modal="true" aria-label="Menu">
       <div class="mobileNav__top">
-        <div class="mobileNav__icons" aria-label="Controlli rapidi">
-          <button class="icon-btn is-active" type="button" data-action="set-language" data-language="it" aria-pressed="true" aria-label="Italiano" title="Italiano">IT</button>
-          <button class="icon-btn" type="button" data-action="set-language" data-language="en" aria-pressed="false" aria-label="English" title="English">EN</button>
+        <div class="mobileNav__icons" aria-label="Controlli">
+          <div class="segmented" role="group" aria-label="Lingua">
+            <button class="segmented__btn is-active" type="button" data-action="set-language" data-language="it" aria-pressed="true">IT</button>
+            <button class="segmented__btn" type="button" data-action="set-language" data-language="en" aria-pressed="false">EN</button>
+          </div>
+
           <button class="icon-btn" type="button" data-action="toggle-theme" aria-label="Cambia tema (dark/light)" title="Tema">
             <i class="fa-regular fa-sun"></i>
           </button>
@@ -903,345 +987,415 @@
         </button>
       </div>
 
-      <nav class="mobileNav__links" aria-label="Navigazione mobile">
-        <a href="#ritratto" data-action="close-nav"><i class="fa-regular fa-compass"></i> <span lang="it">Scopri</span><span lang="en">Discover</span></a>
-        <a href="#contatti" data-action="close-nav"><i class="fa-regular fa-paper-plane"></i> <span lang="it">Contatti</span><span lang="en">Contact</span></a>
-        <a href="#bio" data-action="close-nav"><i class="fa-regular fa-file-lines"></i> Bio</a>
+      <div class="mobileNav__groupTitle"><span lang="it">Navigazione</span><span lang="en">Navigation</span></div>
+      <nav class="mobileNav__links" aria-label="Navigazione">
+        <a href="/" data-route="/" data-action="close-nav"><i class="fa-regular fa-house"></i> <span lang="it">Home</span><span lang="en">Home</span></a>
+        <a href="#ritratto" data-route="#ritratto" data-action="close-nav"><i class="fa-regular fa-compass"></i> <span lang="it">Scopri</span><span lang="en">Discover</span></a>
+        <a href="#italia" data-route="#italia" data-action="close-nav"><i class="fa-regular fa-images"></i> <span lang="it">Italia</span><span lang="en">Italy</span></a>
+        <a href="#bio" data-route="#bio" data-action="close-nav"><i class="fa-regular fa-file-lines"></i> Bio</a>
+        <a href="/contatti" data-route="/contatti" data-action="close-nav"><i class="fa-regular fa-paper-plane"></i> <span lang="it">Contatti</span><span lang="en">Contact</span></a>
       </nav>
     </aside>
   </div>
 
   <main id="main">
-    <section id="top" class="hero" aria-label="Intro" data-hero>
-      <div class="wrap hero__wrap">
-        <div class="hero__copy reveal">
-          <p class="kicker">
-            <span lang="it">Ritratti e progetti</span>
-            <span lang="en">Portraits and projects</span>
-          </p>
-          <h1 class="hero__title">
-            <span class="hero__titleLine">Emanuele Passarelli</span>
-            <span class="hero__titleLine hero__titleLine--muted">
-              <span lang="it">Artigiano del Ritratto</span>
-              <span lang="en">Portrait Artisan</span>
-            </span>
-          </h1>
-          <p class="lead">
-            <span lang="it">Ritratti in grande formato, tecniche antiche e stampe da custodire. Una sessione fotografica pensata per lasciare una traccia di te.</span>
-            <span lang="en">Large-format portraits, historic techniques, and prints to keep. A photographic session designed to leave a trace of you.</span>
-          </p>
-
-          <div class="hero__cta" data-hero-cta>
-            <a class="btn btn--primary" href="#ritratto">
-              <i class="fa-regular fa-images"></i>
-              <span lang="it">Scopri i ritratti</span>
-              <span lang="en">Explore portraits</span>
-            </a>
-            <a class="btn btn--ghost" href="#contatti">
-              <i class="fa-regular fa-paper-plane"></i>
-              <span lang="it">Contatti</span>
-              <span lang="en">Contact</span>
-            </a>
+    <div class="viewShell" data-view-shell aria-live="polite">
+      <!-- HOME VIEW (default) -->
+      <div data-view="home">
+        <section class="hero" aria-label="Intro">
+          <div class="heroVideo" data-hero-video data-youtube-id="nSSJRcRtqpo" aria-hidden="true">
+            <div class="heroVideo__ph"></div>
+            <img class="heroVideo__thumb" alt="" data-thumb>
+            <div class="heroVideo__mount" data-video-mount></div>
           </div>
-        </div>
 
-        <div class="hero__media reveal">
-          <div class="videoPortal" data-video="youtube" data-youtube-id="nSSJRcRtqpo">
-            <div class="videoPortal__frame" aria-label="Video presentazione progetto">
-              <div class="mediaPlaceholder" aria-hidden="true"></div>
-              <img class="videoPortal__thumb" alt="Italia nel Grande Formato - Presentazione Progetto (thumbnail)" data-thumb>
-              <div class="videoPortal__hoverMask" aria-hidden="true"></div>
+          <div class="wrap hero__wrap">
+            <div class="reveal">
+              <p class="kicker">
+                <span lang="it">Ritratti e progetto</span>
+                <span lang="en">Portraits and project</span>
+              </p>
 
-              <a class="videoPortal__badge" href="https://youtu.be/nSSJRcRtqpo?si=5NLpwZrZA5981h1J" target="_blank" rel="noopener" aria-label="Apri il video su YouTube">
-                <i class="fa-regular fa-circle-play"></i>
-                <span lang="it">Presentazione progetto</span>
-                <span lang="en">Project presentation</span>
-              </a>
+              <h1 class="hero__title">
+                <span lang="it">Artigiano del Ritratto</span>
+                <span lang="en">Portrait Artisan</span>
+              </h1>
 
-              <div class="videoPortal__mount" data-video-mount></div>
+              <p class="hero__sub">
+                <span lang="it">Ritratti in grande formato, tecniche antiche e stampe da custodire. Un lavoro lento e preciso, pensato per restare.</span>
+                <span lang="en">Large-format portraits, historic techniques, and prints to keep. A slow and precise process designed to last.</span>
+              </p>
+
+              <div class="hero__cta">
+                <a class="btn btn--primary" href="#ritratto" data-route="#ritratto">
+                  <i class="fa-regular fa-compass"></i>
+                  <span lang="it">Scopri</span><span lang="en">Discover</span>
+                </a>
+
+                <a class="btn btn--ghost" href="/contatti" data-route="/contatti">
+                  <i class="fa-regular fa-paper-plane"></i>
+                  <span lang="it">Contatti</span><span lang="en">Contact</span>
+                </a>
+              </div>
+
+              <div class="scrollCue" aria-hidden="true">
+                <div><span lang="it">Scorri</span><span lang="en">Scroll</span></div>
+                <div class="scrollCue__arrow"><i class="fa-solid fa-arrow-down"></i></div>
+              </div>
             </div>
           </div>
-          <p class="micro" style="margin-top:.75rem;">
-            <span lang="it">Italia nel Grande Formato - Presentazione Progetto</span>
-            <span lang="en">Italy in Large Format - Project Presentation</span>
-          </p>
-        </div>
-      </div>
+        </section>
 
-      <div class="scrollCueDock" data-scrollcue aria-hidden="true">
-        <div class="scrollCue">
-          <div class="scrollCue__text">
-            <span lang="it">Scopri</span><span lang="en">Discover</span>
+        <section id="ritratto" class="section" aria-label="Ritratto Unico">
+          <div class="wrap split">
+            <div class="reveal">
+              <p class="kicker">
+                <span lang="it">Ritratto in grande formato</span>
+                <span lang="en">Large-format portrait</span>
+              </p>
+
+              <h2 class="h2">
+                <span lang="it">Ritratto Unico</span>
+                <span lang="en">Unique Portrait</span>
+              </h2>
+
+              <p class="lead">
+                <span lang="it">Avere un proprio ritratto stampato è una testimonianza. Una sessione fotografica dedicata per lasciare una traccia di te.</span>
+                <span lang="en">A printed portrait is a testimony. A dedicated session designed to leave a trace of you.</span>
+              </p>
+
+              <div class="pillRow" aria-label="Punti chiave">
+                <article class="pill reveal">
+                  <h3 class="pill__title">
+                    <i class="fa-solid fa-camera-retro"></i>
+                    <span lang="it">Tecniche antiche</span><span lang="en">Historic techniques</span>
+                  </h3>
+                  <p class="pill__text">
+                    <span lang="it">Scatto con banco ottico e processi tradizionali: luce, argento, tempo e precisione.</span>
+                    <span lang="en">Large-format camera and traditional processes: light, silver, time and precision.</span>
+                  </p>
+                </article>
+
+                <article class="pill reveal">
+                  <h3 class="pill__title">
+                    <i class="fa-regular fa-map"></i>
+                    <span lang="it">Italia nel Grande Formato</span><span lang="en">Italy in Large Format</span>
+                  </h3>
+                  <p class="pill__text">
+                    <span lang="it">Un’enciclopedia umana: ritratti raccolti in viaggio, una storia fatta di volti.</span>
+                    <span lang="en">A human encyclopedia: portraits collected on the road, a story made of faces.</span>
+                  </p>
+                </article>
+
+                <article class="pill reveal">
+                  <h3 class="pill__title">
+                    <i class="fa-regular fa-image"></i>
+                    <span lang="it">Opera finita</span><span lang="en">Finished piece</span>
+                  </h3>
+                  <p class="pill__text">
+                    <span lang="it">Alla fine ricevi una stampa da custodire, pensata per durare e tramandare.</span>
+                    <span lang="en">At the end you receive a print to keep, made to last and be passed down.</span>
+                  </p>
+                </article>
+
+                <article class="pill reveal">
+                  <h3 class="pill__title">
+                    <i class="fa-regular fa-clock"></i>
+                    <span lang="it">Tempo e presenza</span><span lang="en">Time and presence</span>
+                  </h3>
+                  <p class="pill__text">
+                    <span lang="it">Poche scelte, tutte intenzionali: ascolto, tempo e un ritratto che resta.</span>
+                    <span lang="en">Few choices, all intentional: listening, time, and a portrait that remains.</span>
+                  </p>
+                </article>
+              </div>
+            </div>
+
+            <div class="reveal">
+              <div class="hScroll" data-hscroll aria-label="Gallery orizzontale Ritratto Unico">
+                <div class="hScroll__rail" data-hscroll-rail>
+                  <div class="hScroll__item" data-component="smart-media">
+                    <div class="media">
+                      <div class="media__ph" aria-hidden="true"></div>
+                      <img class="media__img" data-src="/assets/img/ritratto-unico/01.jpg" alt="Ritratto Unico, foto 01" decoding="async">
+                    </div>
+                  </div>
+
+                  <div class="hScroll__item" data-component="smart-media">
+                    <div class="media">
+                      <div class="media__ph" aria-hidden="true"></div>
+                      <img class="media__img" data-src="/assets/img/ritratto-unico/02.jpg" alt="Ritratto Unico, foto 02" decoding="async">
+                    </div>
+                  </div>
+
+                  <div class="hScroll__item" data-component="smart-media">
+                    <div class="media">
+                      <div class="media__ph" aria-hidden="true"></div>
+                      <img class="media__img" data-src="/assets/img/ritratto-unico/03.jpg" alt="Ritratto Unico, foto 03" decoding="async">
+                    </div>
+                  </div>
+
+                  <div class="hScroll__item" data-component="smart-media">
+                    <div class="media">
+                      <div class="media__ph" aria-hidden="true"></div>
+                      <img class="media__img" data-src="/assets/img/ritratto-unico/04.jpg" alt="Ritratto Unico, foto 04" decoding="async">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hScroll__meta">
+                  <p class="micro" style="margin:0;">
+                    <span lang="it">Gallery orizzontale</span><span lang="en">Horizontal gallery</span>
+                    <span class="emph"> · </span>
+                    <span lang="it">una foto alla volta</span><span lang="en">one photo at a time</span>
+                  </p>
+
+                  <div class="dots" aria-hidden="true" data-hscroll-dots>
+                    <span class="dot is-active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="scrollCue__arrow"><i class="fa-solid fa-arrow-down"></i></div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section id="ritratto" class="section" aria-label="Ritratto Unico">
-      <div class="wrap">
-        <div class="reveal">
-          <p class="kicker">
-            <span lang="it">Diventa un'opera d'arte</span>
-            <span lang="en">Become a work of art</span>
-          </p>
-          <h2 class="h2">
-            <span lang="it">Ritratto Unico</span>
-            <span lang="en">Unique Portrait</span>
-          </h2>
-          <p class="p">
-            <span lang="it">Avere un proprio ritratto stampato è la testimonianza di chi siamo. Ti verrà dedicata una sessione fotografica per poter lasciare una traccia di te.</span>
-            <span lang="en">Having your portrait printed is a testimony of who we are. A dedicated session is designed to leave a trace of you.</span>
-          </p>
-        </div>
+        <section id="italia" class="section" aria-label="Italia nel Grande Formato">
+          <div class="wrap">
+            <div class="reveal">
+              <h2 class="h2">
+                <span lang="it">Italia nel Grande Formato</span>
+                <span lang="en">Italy in Large Format</span>
+              </h2>
 
-        <div class="cards" aria-label="Punti chiave Ritratto Unico">
-          <article class="card reveal">
-            <h3 class="card__title">
-              <i class="fa-solid fa-camera-retro"></i>
-              <span lang="it">Tecniche antiche</span><span lang="en">Historic techniques</span>
-            </h3>
-            <p class="card__text">
-              <span lang="it">Avrai modo di essere scattato con delle tecniche fotografiche antiche tramite un banco ottico: la luce e l’argento scriveranno su supporti di alluminio, vetro e pellicole.</span>
-              <span lang="en">Shot with historic techniques using a large-format camera: light and silver will write on aluminum, glass, and film.</span>
-            </p>
-          </article>
+              <p class="p">
+                <span lang="it">
+                  Italia nel Grande Formato è un’enciclopedia umana: ogni persona è descritta unicamente dal suo ritratto.
+                  Un progetto itinerante che attraversa le regioni italiane, dalle città ai paesi, per raccontare un Paese attraverso i suoi volti.
+                </span>
+                <span lang="en">
+                  Italy in Large Format is a human encyclopedia: each person is described only through their portrait.
+                  An itinerant project crossing Italian regions, from cities to small towns, telling a country through faces.
+                </span>
+              </p>
 
-          <article class="card reveal">
-            <h3 class="card__title">
-              <i class="fa-regular fa-map"></i>
-              <span lang="it">Italia nel Grande Formato</span><span lang="en">Italy in Large Format</span>
-            </h3>
-            <p class="card__text">
-              <span lang="it">Hai la possibilità di far parte di una immensa raccolta di ritratti Passarelliani che negli anni è diventata essa stessa un’opera unica.</span>
-              <span lang="en">You can become part of a vast collection of Passarellian portraits, grown into a single unique work over time.</span>
-            </p>
-          </article>
+              <p class="p" style="margin-bottom: var(--s-4);">
+                <span lang="it">
+                  Tutti i ritratti sono realizzati con un banco ottico e, nel loro insieme, costituiscono un’opera unica.
+                </span>
+                <span lang="en">
+                  All portraits are made with a large-format camera and, together, become a single unique work.
+                </span>
+              </p>
+            </div>
 
-          <article class="card reveal">
-            <h3 class="card__title">
-              <i class="fa-regular fa-image"></i>
-              <span lang="it">Opera finita</span><span lang="en">Finished piece</span>
-            </h3>
-            <p class="card__text">
-              <span lang="it">Alla fine della sessione fotografica riceverai un tuo ritratto stampato da custodire, per poterlo tramandare alle tue future generazioni.</span>
-              <span lang="en">At the end of the session you will receive a printed portrait to keep and pass down to future generations.</span>
-            </p>
-          </article>
+            <div class="grid3" aria-label="Gallery 3x3">
+              <figure class="gridItem reveal" data-component="smart-media">
+                <div class="media__ph" aria-hidden="true"></div>
+                <img class="media__img" data-src="/assets/img/italia-grande-formato/01.jpg" alt="Italia nel Grande Formato, foto 01" decoding="async">
+              </figure>
+              <figure class="gridItem reveal" data-component="smart-media">
+                <div class="media__ph" aria-hidden="true"></div>
+                <img class="media__img" data-src="/assets/img/italia-grande-formato/02.jpg" alt="Italia nel Grande Formato, foto 02" decoding="async">
+              </figure>
+              <figure class="gridItem reveal" data-component="smart-media">
+                <div class="media__ph" aria-hidden="true"></div>
+                <img class="media__img" data-src="/assets/img/italia-grande-formato/03.jpg" alt="Italia nel Grande Formato, foto 03" decoding="async">
+              </figure>
+              <figure class="gridItem reveal" data-component="smart-media">
+                <div class="media__ph" aria-hidden="true"></div>
+                <img class="media__img" data-src="/assets/img/italia-grande-formato/04.jpg" alt="Italia nel Grande Formato, foto 04" decoding="async">
+              </figure>
+              <figure class="gridItem reveal" data-component="smart-media">
+                <div class="media__ph" aria-hidden="true"></div>
+                <img class="media__img" data-src="/assets/img/italia-grande-formato/05.jpg" alt="Italia nel Grande Formato, foto 05" decoding="async">
+              </figure>
+              <figure class="gridItem reveal" data-component="smart-media">
+                <div class="media__ph" aria-hidden="true"></div>
+                <img class="media__img" data-src="/assets/img/italia-grande-formato/06.jpg" alt="Italia nel Grande Formato, foto 06" decoding="async">
+              </figure>
+              <figure class="gridItem reveal" data-component="smart-media">
+                <div class="media__ph" aria-hidden="true"></div>
+                <img class="media__img" data-src="/assets/img/italia-grande-formato/07.jpg" alt="Italia nel Grande Formato, foto 07" decoding="async">
+              </figure>
+              <figure class="gridItem reveal" data-component="smart-media">
+                <div class="media__ph" aria-hidden="true"></div>
+                <img class="media__img" data-src="/assets/img/italia-grande-formato/08.jpg" alt="Italia nel Grande Formato, foto 08" decoding="async">
+              </figure>
+              <figure class="gridItem reveal" data-component="smart-media">
+                <div class="media__ph" aria-hidden="true"></div>
+                <img class="media__img" data-src="/assets/img/italia-grande-formato/09.jpg" alt="Italia nel Grande Formato, foto 09" decoding="async">
+              </figure>
+            </div>
 
-          <article class="card reveal">
-            <h3 class="card__title">
-              <i class="fa-regular fa-clock"></i>
-              <span lang="it">Tempo e presenza</span><span lang="en">Time and presence</span>
-            </h3>
-            <p class="card__text">
-              <span lang="it">Poche scelte, tutte intenzionali: tempo, ascolto e precisione, per un ritratto che resta.</span>
-              <span lang="en">Few choices, all intentional: time, listening, and precision, for a portrait that lasts.</span>
-            </p>
-          </article>
-        </div>
-      </div>
+            <div class="stats" aria-label="Numeri progetto">
+              <div class="stat reveal">
+                <div class="stat__icon" aria-hidden="true"><i class="fa-regular fa-user"></i></div>
+                <div>
+                  <p class="stat__num">200+</p>
+                  <p class="stat__label"><span lang="it">Passarellini</span><span lang="en">Portraits</span></p>
+                </div>
+              </div>
 
-      <div class="fullMedia bleed fullMedia--spaced" aria-label="Gallery Ritratto Unico (estratti)">
-        <div class="fullMedia__wrap">
-          <figure class="media media--wide reveal" data-component="smart-media">
-            <div class="media__ph" aria-hidden="true"></div>
-            <img class="media__img" data-src="/assets/img/ritratto-unico/01.jpg" alt="Ritratto Unico, estratto 01">
-          </figure>
+              <div class="stat reveal">
+                <div class="stat__icon" aria-hidden="true"><i class="fa-regular fa-cake-candles"></i></div>
+                <div>
+                  <p class="stat__num">8</p>
+                  <p class="stat__label"><span lang="it">Compleanni</span><span lang="en">Birthdays</span></p>
+                </div>
+              </div>
 
-          <div class="fullMedia__wrap" style="padding:0; display:grid; grid-template-columns: 1fr 1fr; gap: var(--s-3);">
-            <figure class="media media--portrait reveal" data-component="smart-media">
-              <div class="media__ph" aria-hidden="true"></div>
-              <img class="media__img" data-src="/assets/img/ritratto-unico/02.jpg" alt="Ritratto Unico, estratto 02">
-            </figure>
-            <figure class="media media--portrait reveal" data-component="smart-media">
-              <div class="media__ph" aria-hidden="true"></div>
-              <img class="media__img" data-src="/assets/img/ritratto-unico/03.jpg" alt="Ritratto Unico, estratto 03">
-            </figure>
+              <div class="stat reveal">
+                <div class="stat__icon" aria-hidden="true"><i class="fa-regular fa-map"></i></div>
+                <div>
+                  <p class="stat__num">17</p>
+                  <p class="stat__label"><span lang="it">Regioni visitate</span><span lang="en">Regions</span></p>
+                </div>
+              </div>
+
+              <div class="stat reveal">
+                <div class="stat__icon" aria-hidden="true"><i class="fa-regular fa-compass"></i></div>
+                <div>
+                  <p class="stat__num">5000</p>
+                  <p class="stat__label"><span lang="it">Km percorsi</span><span lang="en">Km traveled</span></p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section id="italia" class="section" aria-label="Italia nel Grande Formato">
-      <div class="wrap">
-        <div class="reveal">
-          <p class="kicker">
-            <span lang="it">Un’enciclopedia umana</span>
-            <span lang="en">A human encyclopedia</span>
-          </p>
-          <h2 class="h2">
-            <span lang="it">Italia nel Grande Formato</span>
-            <span lang="en">Italy in Large Format</span>
-          </h2>
+        <section id="bio" class="section" aria-label="Biografia">
+          <div class="wrap bio">
+            <div class="reveal">
+              <figure class="bioPhoto" data-component="smart-media" aria-label="Foto di Emanuele Passarelli">
+                <div class="media__ph" aria-hidden="true"></div>
+                <img class="media__img" data-src="/assets/img/bio/emanuele.jpg" alt="Ritratto di Emanuele Passarelli" decoding="async">
+              </figure>
+            </div>
 
-          <p class="p">
-            <span lang="it">
-              Italia nel Grande Formato è un’enciclopedia umana, in cui ogni persona è descritta unicamente dal suo ritratto.
-              È un progetto itinerante che ha coinvolto tutte le regioni italiane, dal sud al nord, dalle maggiori città ai più piccoli paesini,
-              raccogliendo più di cento ritratti.
-            </span>
-            <span lang="en">
-              Italy in Large Format is a human encyclopedia, where each person is described only through their portrait.
-              It is an itinerant project that has crossed every Italian region, from south to north, from major cities to the smallest towns,
-              collecting more than one hundred portraits.
-            </span>
-          </p>
+            <div class="reveal">
+              <h2 class="h2"><span lang="it">Biografia</span><span lang="en">Biography</span></h2>
 
-          <p class="p" style="margin-bottom: var(--s-5);">
-            <span lang="it">
-              L’Italia viene raccontata attraverso questa raccolta di ritratti, in un viaggio ideale fra volti e paesaggi che costituiscono la principale ricchezza di questo Paese.
-              Tutti i ritratti sono stati realizzati con un banco ottico e costituiscono nel loro insieme un’opera unica.
-            </span>
-            <span lang="en">
-              Italy is told through this collection of portraits, an ideal journey between faces and landscapes that form the country’s greatest wealth.
-              All portraits are made with a large-format camera and together become a single unique work.
-            </span>
-          </p>
-        </div>
-      </div>
+              <p class="p">
+                <span lang="it">Inizio il mio percorso con la fotografia da autodidatta, all’età di ventun anni.</span>
+                <span lang="en">I began my path in photography as a self-taught author, at the age of twenty-one.</span>
+              </p>
 
-      <div class="fullMedia bleed fullMedia--spaced" aria-label="Gallery Italia nel Grande Formato (estratti)">
-        <div class="fullMedia__wrap">
-          <figure class="media media--cinema reveal" data-component="smart-media">
-            <div class="media__ph" aria-hidden="true"></div>
-            <img class="media__img" data-src="/assets/img/italia-grande-formato/01.jpg" alt="Italia nel Grande Formato, estratto 01">
-          </figure>
+              <p class="p">
+                <span lang="it">
+                  Esordisco con “Solitudo”, nel 2014, progetto fotografico composto da una serie di autoritratti che raccontano le fasi più significative della mia adolescenza.
+                  Nel 2016 con “Night Tour” nascono quelli che verranno chiamati “Ritratti Passarelliani”.
+                  L’idea di trasportare i miei soggetti immersi nel buio in scenari urbani, illuminati solo dalle luci della città in chiave cinematografica,
+                  mi ha fatto premiare con numerosi articoli dedicati e interviste personali.
+                </span>
+                <span lang="en">
+                  I debuted with “Solitudo” in 2014, a project made of self-portraits. In 2016, with “Night Tour”, the “Passarellian Portraits” was born.
+                  A cinematic approach to urban darkness and city light led to awards, articles and interviews.
+                </span>
+              </p>
 
-          <div class="fullMedia__wrap" style="padding:0; display:grid; grid-template-columns: 1fr 1fr; gap: var(--s-3);">
-            <figure class="media media--portrait reveal" data-component="smart-media">
-              <div class="media__ph" aria-hidden="true"></div>
-              <img class="media__img" data-src="/assets/img/italia-grande-formato/02.jpg" alt="Italia nel Grande Formato, estratto 02">
-            </figure>
-            <figure class="media media--portrait reveal" data-component="smart-media">
-              <div class="media__ph" aria-hidden="true"></div>
-              <img class="media__img" data-src="/assets/img/italia-grande-formato/03.jpg" alt="Italia nel Grande Formato, estratto 03">
-            </figure>
+              <p class="p">
+                <span lang="it">
+                  Nel 2018 lancio “Italia nel Grande Formato”, un progetto fotografico che ha riportato al centro l’importanza di avere almeno un proprio ritratto stampato:
+                  un gesto semplice, ma capace di testimoniare l’esistenza e il passare del tempo.
+                </span>
+                <span lang="en">
+                  In 2018 I launched “Italy in Large Format”, bringing back the importance of having at least one printed portrait:
+                  a simple gesture, able to testify existence and time passing.
+                </span>
+              </p>
+
+              <p class="micro">
+                <span lang="it">Per richieste, disponibilità e collaborazioni: pagina contatti</span>
+                <span lang="en">For requests, availability and collaborations: contact page</span>
+              </p>
+
+              <div style="margin-top: var(--s-3);">
+                <a class="btn btn--primary" href="/contatti" data-route="/contatti">
+                  <i class="fa-regular fa-paper-plane"></i>
+                  <span lang="it">Vai ai contatti</span><span lang="en">Go to contact</span>
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
-    </section>
+      <!-- /HOME VIEW -->
+    </div>
 
-    <section id="bio" class="section" aria-label="Bio">
-      <div class="wrap" style="display:grid; grid-template-columns: 1.08fr .92fr; gap: var(--s-5); align-items:start;">
-        <div class="reveal">
-          <p class="kicker"><span lang="it">Biografia</span><span lang="en">Biography</span></p>
-          <h2 class="h2">Emanuele Passarelli</h2>
+    <!-- CONTACT VIEW TEMPLATE -->
+    <template id="tpl-contact">
+      <section class="contactPage" aria-label="Contatti">
+        <div class="wrap">
+          <div class="reveal">
+            <p class="kicker"><span lang="it">Contatti</span><span lang="en">Contact</span></p>
+            <h1 class="hero__title" style="max-width: 26ch; margin-bottom: var(--s-2);">
+              <span lang="it">Scrivimi per disponibilità e collaborazioni</span>
+              <span lang="en">Reach out for availability and collaborations</span>
+            </h1>
 
-          <p class="p">
-            <span lang="it">Inizio il mio percorso con la fotografia da autodidatta, all’età di ventun anni.</span>
-            <span lang="en">I began my path in photography as a self-taught author, at the age of twenty-one.</span>
-          </p>
-
-          <p class="p">
-            <span lang="it">
-              Esordisco con “Solitudo”, nel 2014, progetto fotografico composto da una serie di autoritratti che raccontano le fasi più significative della mia adolescenza.
-              Nel 2016 con “Night Tour” nascono quelli che verranno chiamati “Ritratti Passarelliani”.
-              L’idea di trasportare i miei soggetti immersi nel buio in scenari urbani, illuminati solo dalle luci della città in chiave cinematografica,
-              mi ha fatto premiare con numerosi articoli dedicati e interviste personali.
-              Pochi anni dopo alcuni di questi ritratti diventeranno opere esposte in più città tra Italia e Cina.
-            </span>
-            <span lang="en">
-              I debuted with “Solitudo” in 2014, a project made of self-portraits.
-              In 2016, with “Night Tour”, the “Passarellian Portraits” was born.
-              A cinematic approach to urban darkness and city light led to awards, articles and interviews.
-              Later, some portraits became works exhibited in several cities across Italy and China.
-            </span>
-          </p>
-
-          <p class="p">
-            <span lang="it">
-              Nel 2017 dopo aver partecipato al workshop “Oltre il ritratto” di Mustafa Sabbagh, grande fonte di ispirazione,
-              realizzo il mio secondo progetto “Mattatoio”, un reportage fotografico che attraverso alcuni ritratti notturni su strada,
-              racconta la vita delle prostitute transessuali della periferia romana, con l’intenzione di ridare un’anima e una dignità a queste persone,
-              che vengono dalla società “spersonificate” e ridotte allo status di scarto sociale.
-            </span>
-            <span lang="en">
-              In 2017, after Mustafa Sabbagh’s workshop “Beyond Portrait”, I created “Mattatoio”, a reportage telling the lives of transgender sex workers on the outskirts of Rome.
-            </span>
-          </p>
-
-          <p class="p">
-            <span lang="it">Nello stesso anno inizio a maturare un interesse sempre più forte nei confronti della fotografia analogica e decido dunque di proseguire con gli studi in questo campo.</span>
-            <span lang="en">That same year I developed a growing interest in analog photography and continued studying it.</span>
-          </p>
-
-          <p class="p">
-            <span lang="it">
-              Nel 2018 lancio “Italia nel Grande Formato”, un progetto fotografico che mi ha portato a far riscoprire agli italiani,
-              tramite canali social e interviste cartacee e televisive, l’importanza di avere almeno un proprio ritratto stampato che avesse il compito di testimoniare la loro esistenza.
-              Dopo moltissimi consensi ottenuti finalmente l’iniziativa guadagna i primi 100+ partecipanti tramite una piattaforma crowdfunding,
-              per poi diventare il mio principale impegno fotografico.
-            </span>
-            <span lang="en">
-              In 2018 I launched “Italy in Large Format”, which helped many rediscover the importance of having at least one printed portrait.
-              After strong support, it reached 100+ participants through crowdfunding and became my main commitment.
-            </span>
-          </p>
-        </div>
-
-        <div class="reveal">
-          <figure class="media media--portrait" data-component="smart-media">
-            <div class="media__ph" aria-hidden="true"></div>
-            <img class="media__img" data-src="/assets/img/bio/emanuele.jpg" alt="Ritratto di Emanuele Passarelli">
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section id="contatti" class="section" aria-label="Contatti">
-      <div class="wrap">
-        <div class="reveal">
-          <p class="kicker">Contatti</p>
-          <h2 class="h2">
-            <span lang="it">Scrivimi per disponibilità e collaborazioni</span>
-            <span lang="en">Reach out for availability and collaborations</span>
-          </h2>
-        </div>
-
-        <div class="contactMini reveal">
-          <div class="contactMini__left">
-            <p class="lead" style="margin:0;">
+            <p class="hero__sub" style="margin-bottom: 0;">
               <span lang="it">Mi muovo in Italia e all’estero. Se vuoi un ritratto o portare il progetto nella tua città, scrivimi.</span>
               <span lang="en">Available in Italy and internationally. For portraits or to bring the project to your city, write me.</span>
             </p>
-            <p class="micro" style="margin-top:.35rem;">
+
+            <p class="micro" style="margin-top: .75rem;">
               <span lang="it">Italia · International</span>
               <span lang="en">Italy · International</span>
             </p>
           </div>
 
-          <div class="contactMini__right">
-            <button class="btn btn--primary btnEmail" type="button" data-action="copy-email" aria-label="Vedi email e copia">
-              <span class="btnBadge" aria-hidden="true" data-email-badge>
-                <i class="fa-solid fa-circle-check"></i>
-                <span lang="it">Copiata</span><span lang="en">Copied</span>
-              </span>
+          <div class="contactCard reveal">
+            <div style="max-width: 72ch;">
+              <p class="lead" style="margin:0;">
+                <span lang="it"><span class="emph">Email</span> e <span class="emph">Instagram</span> sono i canali più veloci. Rispondo appena posso.</span>
+                <span lang="en"><span class="emph">Email</span> and <span class="emph">Instagram</span> are the fastest channels. I reply as soon as I can.</span>
+              </p>
+            </div>
 
-              <span class="btnEmail__shell">
-                <i class="fa-regular fa-envelope"></i>
-                <span class="btnEmail__labelText"><span lang="it">Vedi email</span><span lang="en">View email</span></span>
-                <span class="btnEmail__email">contact@emanuelepassarelli.it</span>
-              </span>
-            </button>
+            <div class="contactCard__right" aria-label="Azioni contatto">
+              <button class="btn btn--primary btnEmail" type="button" data-action="copy-email" aria-label="Vedi email e copia">
+                <span class="btnBadge" aria-hidden="true" data-email-badge>
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span lang="it">Copiata</span><span lang="en">Copied</span>
+                </span>
 
-            <a class="btn btn--ghost" href="https://instagram.com/emanuelepassarelli" rel="noopener" target="_blank">
-              <i class="fa-brands fa-instagram"></i>
-              <span>Instagram</span>
-            </a>
+                <span class="btnEmail__shell">
+                  <i class="fa-regular fa-envelope"></i>
+                  <span class="btnEmail__labelText"><span lang="it">Vedi email</span><span lang="en">View email</span></span>
+                  <span class="btnEmail__email">contact@emanuelepassarelli.it</span>
+                </span>
+              </button>
+
+              <a class="btn btn--ghost" href="https://instagram.com/emanuelepassarelli" rel="noopener" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+                <span>Instagram</span>
+              </a>
+
+              <a class="btn btn--ghost" href="/" data-route="/">
+                <i class="fa-regular fa-house"></i>
+                <span lang="it">Torna alla home</span><span lang="en">Back to home</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </template>
+
+    <!-- HOME VIEW TEMPLATE (clone current home markup) -->
+    <template id="tpl-home">
+      <div data-view="home"></div>
+    </template>
   </main>
 
   <footer class="site-footer" data-component="footer">
     <div class="wrap footer__wrap">
       <p class="micro">© <span data-year></span> Emanuele Passarelli</p>
       <div class="footer__links">
-        <a href="#top"><i class="fa-solid fa-arrow-up" style="margin-right:.4rem; opacity:.9;"></i>Top</a>
-        <a href="#ritratto"><span lang="it">Scopri</span><span lang="en">Discover</span></a>
-        <a href="#contatti"><span lang="it">Contatti</span><span lang="en">Contact</span></a>
+        <a href="#main" data-action="back-to-top"><i class="fa-solid fa-arrow-up"></i><span lang="it">Top</span><span lang="en">Top</span></a>
+        <a href="/contatti" data-route="/contatti"><i class="fa-regular fa-paper-plane"></i><span lang="it">Contatti</span><span lang="en">Contact</span></a>
       </div>
     </div>
   </footer>
@@ -1258,10 +1412,10 @@
       const mobileNav = document.querySelector('[data-component="mobile-nav"]');
       const navToggle = document.querySelector('[data-action="toggle-nav"]');
 
-      const hero = document.querySelector('[data-hero]');
-      const heroCta = document.querySelector('[data-hero-cta]');
-      const scrollCueDock = document.querySelector('[data-scrollcue]');
+      const viewShell = document.querySelector('[data-view-shell]');
+      const tplContact = document.getElementById('tpl-contact');
 
+      const heroVideo = document.querySelector('[data-hero-video]');
       const emailValue = "contact@emanuelepassarelli.it";
 
       const prefersReducedMotion = () =>
@@ -1295,7 +1449,6 @@
         lockScroll(false);
       };
 
-      /* Fixed header offset */
       const applyHeaderOffset = () => {
         if(!header) return;
         const h = header.getBoundingClientRect().height;
@@ -1339,14 +1492,13 @@
         applyLanguage(urlLang || saved || 'it');
       };
 
-      /* Header scrolled state (no hide) */
+      /* Header scrolled state */
       const initHeaderScroll = () => {
         if(!header) return;
         let ticking = false;
 
         const onScroll = () => {
-          const y = window.scrollY;
-          header.classList.toggle('is-scrolled', y > 12);
+          header.classList.toggle('is-scrolled', window.scrollY > 12);
           ticking = false;
         };
 
@@ -1359,19 +1511,10 @@
         onScroll();
       };
 
-      /* Position the scroll cue centered to viewport, under CTA, without affecting layout */
-      const placeScrollCue = () => {
-        if(!hero || !heroCta || !scrollCueDock) return;
-        const heroRect = hero.getBoundingClientRect();
-        const ctaRect = heroCta.getBoundingClientRect();
-
-        const top = (ctaRect.bottom - heroRect.top) + 18;
-        scrollCueDock.style.top = Math.max(0, top) + 'px';
-      };
-
       /* Scroll reveal */
-      const initReveals = () => {
-        const els = Array.from(document.querySelectorAll('.reveal'));
+      const revealIn = (scope) => {
+        const rootEl = scope || document;
+        const els = Array.from(rootEl.querySelectorAll('.reveal'));
         if(!els.length) return;
 
         if(prefersReducedMotion()){
@@ -1395,8 +1538,9 @@
       };
 
       /* Smart media */
-      const initSmartMedia = () => {
-        const imgs = Array.from(document.querySelectorAll('img[data-src]'));
+      const smartMediaIn = (scope) => {
+        const rootEl = scope || document;
+        const imgs = Array.from(rootEl.querySelectorAll('img[data-src]'));
         if(!imgs.length) return;
 
         const loadImg = (img) => {
@@ -1425,54 +1569,42 @@
         }
       };
 
-      /* YouTube thumbnail preload */
-      const initYTThumbs = () => {
-        const portals = Array.from(document.querySelectorAll('.videoPortal[data-video="youtube"]'));
-        if(!portals.length) return;
+      /* Hero YouTube thumb + mount */
+      const initHeroVideo = () => {
+        if(!heroVideo) return;
+        const videoId = heroVideo.getAttribute('data-youtube-id');
+        const img = heroVideo.querySelector('[data-thumb]');
+        const mount = heroVideo.querySelector('[data-video-mount]');
+        if(!videoId || !img || !mount) return;
 
-        portals.forEach((portal) => {
-          const id = portal.getAttribute('data-youtube-id');
-          const img = portal.querySelector('[data-thumb]');
-          if(!id || !img) return;
+        const candidates = [
+          `https://i.ytimg.com/vi/${encodeURIComponent(videoId)}/maxresdefault.jpg`,
+          `https://i.ytimg.com/vi/${encodeURIComponent(videoId)}/hqdefault.jpg`
+        ];
 
-          const candidates = [
-            `https://i.ytimg.com/vi/${encodeURIComponent(id)}/maxresdefault.jpg`,
-            `https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`
-          ];
+        let idx = 0;
+        const tryLoad = () => {
+          img.onload = () => heroVideo.classList.add('is-thumb-loaded');
+          img.onerror = () => { idx += 1; if(idx < candidates.length) tryLoad(); };
+          img.src = candidates[idx];
+        };
+        tryLoad();
 
-          let idx = 0;
-          const tryLoad = () => {
-            const src = candidates[idx];
-            img.onload = () => portal.classList.add('is-thumb-loaded');
-            img.onerror = () => { idx += 1; if(idx < candidates.length) tryLoad(); };
-            img.src = src;
-          };
-          tryLoad();
-        });
-      };
-
-      /* YouTube autoplay embed */
-      const initVideoPortals = () => {
-        const portals = Array.from(document.querySelectorAll('.videoPortal[data-video="youtube"]'));
-        if(!portals.length) return;
-
-        portals.forEach((portal) => {
-          const mount = portal.querySelector('[data-video-mount]');
-          const videoId = portal.getAttribute('data-youtube-id');
-          if(!mount || !videoId) return;
+        const mountIframe = () => {
+          if(heroVideo.classList.contains('is-mounted')) return;
 
           const reduce = prefersReducedMotion();
           const start = 8;
 
           const cover = document.createElement('div');
-          cover.className = 'videoPortal__cover';
+          cover.className = 'heroVideo__cover';
 
           const iframe = document.createElement('iframe');
           iframe.title = "Italia nel Grande Formato - Presentazione Progetto";
-          iframe.loading = "lazy";
-          iframe.allowFullscreen = true;
+          iframe.loading = "eager";
+          iframe.allowFullscreen = false;
           iframe.referrerPolicy = "strict-origin-when-cross-origin";
-          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+          iframe.allow = "autoplay; encrypted-media; picture-in-picture; web-share";
 
           const params = new URLSearchParams({
             autoplay: reduce ? "0" : "1",
@@ -1493,7 +1625,49 @@
 
           cover.appendChild(iframe);
           mount.appendChild(cover);
-        });
+          heroVideo.classList.add('is-mounted');
+        };
+
+        const delayed = () => window.setTimeout(mountIframe, 260);
+        if('requestIdleCallback' in window){
+          window.requestIdleCallback(delayed, { timeout: 1200 });
+        } else {
+          delayed();
+        }
+      };
+
+      /* HScroll dots */
+      const initHScroll = () => {
+        const box = document.querySelector('[data-hscroll]');
+        if(!box) return;
+        const rail = box.querySelector('[data-hscroll-rail]');
+        const dotsWrap = box.querySelector('[data-hscroll-dots]');
+        if(!rail || !dotsWrap) return;
+
+        const dots = Array.from(dotsWrap.querySelectorAll('.dot'));
+        const items = Array.from(rail.children);
+
+        const setActive = (idx) => {
+          dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+        };
+
+        const onScroll = () => {
+          const w = rail.getBoundingClientRect().width || 1;
+          const idx = Math.round(rail.scrollLeft / w);
+          setActive(Math.max(0, Math.min(dots.length - 1, idx)));
+        };
+
+        rail.addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
+        setActive(0);
+
+        if('IntersectionObserver' in window){
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if(entry.isIntersecting) onScroll();
+            });
+          }, { threshold: 0.25 });
+          items.forEach(it => io.observe(it));
+        }
       };
 
       /* Clipboard */
@@ -1529,9 +1703,116 @@
         badge._t = window.setTimeout(() => badge.classList.remove('is-show'), 1100);
       };
 
-      /* Actions */
+      /* Minimal router: home <-> /contatti */
+      const getPath = () => window.location.pathname.replace(/\/+$/, '') || '/';
+
+      const setDocForRoute = (route) => {
+        if(route === '/contatti'){
+          document.title = (root.getAttribute('data-language') === 'en')
+            ? "Contact | Emanuele Passarelli"
+            : "Contatti | Emanuele Passarelli";
+          return;
+        }
+        document.title = "Emanuele Passarelli | Artigiano del Ritratto";
+      };
+
+      const swapView = async (route, opts) => {
+        if(!viewShell) return;
+
+        const routeNorm = (route || '/').startsWith('/') ? route : '/';
+        const current = viewShell.querySelector('[data-view]')?.getAttribute('data-view') || 'home';
+        const target = (routeNorm === '/contatti') ? 'contact' : 'home';
+        if(current === target) return;
+
+        const reduce = prefersReducedMotion();
+        const doAnim = !reduce;
+
+        viewShell.classList.add('is-swapping');
+        if(doAnim){
+          viewShell.classList.add('is-leaving');
+          await new Promise(r => window.setTimeout(r, 220));
+        }
+
+        viewShell.innerHTML = '';
+
+        if(target === 'contact'){
+          const frag = tplContact.content.cloneNode(true);
+          viewShell.appendChild(frag);
+        } else {
+          const home = document.querySelector('[data-view="home"]');
+          if(home){
+            viewShell.appendChild(home.cloneNode(true));
+          }
+        }
+
+        setDocForRoute(routeNorm);
+
+        viewShell.classList.remove('is-leaving');
+        if(doAnim){
+          viewShell.classList.add('is-entering');
+          void viewShell.offsetHeight;
+          viewShell.classList.remove('is-entering');
+          viewShell.classList.add('is-entered');
+          window.setTimeout(() => viewShell.classList.remove('is-entered'), 740);
+        }
+
+        revealIn(viewShell);
+        smartMediaIn(viewShell);
+
+        if(target === 'home'){
+          initHScroll();
+          initHeroVideo();
+        }
+
+        if(opts && opts.scrollTo){
+          const id = opts.scrollTo;
+          const el = document.querySelector(id);
+          if(el) el.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
+        } else {
+          window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+        }
+
+        viewShell.classList.remove('is-swapping');
+      };
+
+      const navigate = async (to, options) => {
+        const target = to || '/';
+        const isHash = target.startsWith('#');
+
+        if(isHash){
+          const path = getPath();
+          if(path === '/'){
+            const el = document.querySelector(target);
+            if(el) el.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
+            return;
+          }
+          history.pushState({ route: '/' }, "", "/");
+          await swapView('/', { scrollTo: target });
+          return;
+        }
+
+        const route = (target === '/contatti') ? '/contatti' : '/';
+        history.pushState({ route }, "", route);
+        await swapView(route, options);
+      };
+
+      /* Actions + routing */
       const initActions = () => {
         document.addEventListener('click', async (e) => {
+          const routeLink = e.target.closest('[data-route]');
+          if(routeLink){
+            const to = routeLink.getAttribute('data-route');
+            const href = routeLink.getAttribute('href') || to || '';
+            const dest = to || href;
+
+            if(dest && (dest.startsWith('/') || dest.startsWith('#'))){
+              e.preventDefault();
+              closeNav();
+              await navigate(dest);
+              return;
+            }
+          }
+
           const btn = e.target.closest('[data-action]');
           if(!btn) return;
           const action = btn.getAttribute('data-action');
@@ -1546,11 +1827,18 @@
 
           if(action === 'set-language'){
             applyLanguage(btn.getAttribute('data-language') || 'it');
+            setDocForRoute(getPath());
             return;
           }
 
           if(action === 'toggle-nav'){ openNav(); return; }
           if(action === 'close-nav'){ closeNav(); return; }
+
+          if(action === 'back-to-top'){
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+            return;
+          }
 
           if(action === 'copy-email'){
             const ok = await copyToClipboard(emailValue);
@@ -1567,7 +1855,11 @@
           if(e.key === 'Escape') closeNav();
         });
 
-        window.addEventListener('hashchange', () => closeNav(), { passive: true });
+        window.addEventListener('popstate', async () => {
+          closeNav();
+          const p = getPath();
+          await swapView(p === '/contatti' ? '/contatti' : '/');
+        });
       };
 
       const initYear = () => {
@@ -1575,35 +1867,36 @@
         if(el) el.textContent = String(new Date().getFullYear());
       };
 
-      const initVideoEntrance = () => {
-        if(prefersReducedMotion()) return;
-        window.setTimeout(() => root.classList.add('is-video-enter'), 120);
+      const initFirstRoute = async () => {
+        const p = getPath();
+        setDocForRoute(p);
+        if(p === '/contatti'){
+          const home = viewShell.querySelector('[data-view="home"]');
+          if(home) home.remove();
+          await swapView('/contatti', { });
+          return;
+        }
       };
 
       /* Init */
-      const init = () => {
+      const init = async () => {
         initTheme();
         initLanguage();
+
         initActions();
         initHeaderScroll();
-        initReveals();
-        initSmartMedia();
-        initYTThumbs();
-        initVideoPortals();
         initYear();
 
         applyHeaderOffset();
-        placeScrollCue();
-        initVideoEntrance();
+        window.addEventListener('resize', applyHeaderOffset, { passive: true });
 
-        window.addEventListener('resize', () => {
-          applyHeaderOffset();
-          placeScrollCue();
-        }, { passive: true });
+        revealIn(document);
+        smartMediaIn(document);
 
-        window.addEventListener('scroll', () => {
-          placeScrollCue();
-        }, { passive: true });
+        initHScroll();
+        initHeroVideo();
+
+        await initFirstRoute();
       };
 
       if(document.readyState === 'loading'){
