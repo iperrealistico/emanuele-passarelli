@@ -11,9 +11,12 @@
   <meta name="theme-color" content="#0b0c0f">
   <meta name="format-detection" content="telephone=no">
 
+  <!-- TODO: quando avrai il dominio, aggiorna canonical/og. Non blocca nulla ora. -->
   <link rel="canonical" href="https://emanuelepassarelli.it/">
-  <link rel="icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- Evita /... su GitHub Pages project-site -->
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
   <meta property="og:locale" content="it_IT">
   <meta property="og:type" content="website">
@@ -555,9 +558,7 @@
     .pill__text{ margin: 0; color: var(--muted); max-width: 66ch; }
 
     /* Photo frames: square corners (no rounding) */
-    .hScroll, .gridItem, .bioPhoto{
-      border-radius: 0;
-    }
+    .hScroll, .gridItem, .bioPhoto{ border-radius: 0; }
 
     .hScroll{
       border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
@@ -614,7 +615,6 @@
       will-change: opacity, transform, filter;
       pointer-events:none;
     }
-    /* Works for both direct and nested images */
     .is-loaded .media__img{
       opacity: 1;
       transform: scale(1);
@@ -836,43 +836,6 @@
       filter: blur(0);
     }
   </style>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://emanuelepassarelli.it/#website",
-        "url": "https://emanuelepassarelli.it/",
-        "name": "Emanuele Passarelli · Artigiano del Ritratto",
-        "inLanguage": ["it-IT","en"]
-      },
-      {
-        "@type": "Person",
-        "@id": "https://emanuelepassarelli.it/#person",
-        "name": "Emanuele Passarelli",
-        "jobTitle": [
-          { "@value": "Fotografo", "@language": "it" },
-          { "@value": "Portrait Photographer", "@language": "en" }
-        ],
-        "url": "https://emanuelepassarelli.it/",
-        "email": "mailto:contact@emanuelepassarelli.it",
-        "sameAs": ["https://instagram.com/emanuelepassarelli"],
-        "knowsAbout": ["ritratto", "fotografia analogica", "banco ottico", "grande formato", "tecniche antiche"]
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://emanuelepassarelli.it/#webpage",
-        "url": "https://emanuelepassarelli.it/",
-        "name": "Emanuele Passarelli | Artigiano del Ritratto",
-        "isPartOf": { "@id": "https://emanuelepassarelli.it/#website" },
-        "about": { "@id": "https://emanuelepassarelli.it/#person" },
-        "inLanguage": ["it-IT","en"]
-      }
-    ]
-  }
-  </script>
 </head>
 
 <body>
@@ -886,11 +849,11 @@
         </button>
 
         <div class="popMenu" data-popmenu aria-hidden="true">
-          <a class="icon-btn" href="/" data-route="/" aria-label="Home" title="Home">
+          <a class="icon-btn" href="./" data-route="/" aria-label="Home" title="Home">
             <i class="fa-solid fa-house"></i>
           </a>
 
-          <a class="icon-btn" href="/contatti" data-route="/contatti" aria-label="Contatti" title="Contatti">
+          <a class="icon-btn" href="./contatti" data-route="/contatti" aria-label="Contatti" title="Contatti">
             <i class="fa-solid fa-paper-plane"></i>
           </a>
 
@@ -937,7 +900,7 @@
                   <span lang="it">Scopri</span><span lang="en">Discover</span>
                 </a>
 
-                <a class="btn btn--ghost" href="/contatti" data-route="/contatti">
+                <a class="btn btn--ghost" href="./contatti" data-route="/contatti">
                   <i class="fa-solid fa-paper-plane"></i>
                   <span lang="it">Contatti</span><span lang="en">Contact</span>
                 </a>
@@ -1022,28 +985,28 @@
                   <div class="hScroll__item" data-component="smart-media">
                     <div class="media">
                       <div class="media__ph" aria-hidden="true"></div>
-                      <img class="media__img" data-src="/img/EmanuelePassarelli01.jpg" alt="Ritratto Unico, foto 01" decoding="async" loading="lazy">
+                      <img class="media__img" data-src="img/EmanuelePassarelli01.jpg" alt="Ritratto Unico, foto 01" decoding="async" loading="lazy">
                     </div>
                   </div>
 
                   <div class="hScroll__item" data-component="smart-media">
                     <div class="media">
                       <div class="media__ph" aria-hidden="true"></div>
-                      <img class="media__img" data-src="/img/EmanuelePassarelli03.jpg" alt="Ritratto Unico, foto 02" decoding="async" loading="lazy">
+                      <img class="media__img" data-src="img/EmanuelePassarelli03.jpg" alt="Ritratto Unico, foto 02" decoding="async" loading="lazy">
                     </div>
                   </div>
 
                   <div class="hScroll__item" data-component="smart-media">
                     <div class="media">
                       <div class="media__ph" aria-hidden="true"></div>
-                      <img class="media__img" data-src="/img/EmanuelePassarelli02.jpg" alt="Ritratto Unico, foto 03" decoding="async" loading="lazy">
+                      <img class="media__img" data-src="img/EmanuelePassarelli02.jpg" alt="Ritratto Unico, foto 03" decoding="async" loading="lazy">
                     </div>
                   </div>
 
                   <div class="hScroll__item" data-component="smart-media">
                     <div class="media">
                       <div class="media__ph" aria-hidden="true"></div>
-                      <img class="media__img" data-src="/img/EmanuelePasserelli00.jpg" alt="Ritratto Unico, foto 04" decoding="async" loading="lazy">
+                      <img class="media__img" data-src="img/EmanuelePasserelli00.jpg" alt="Ritratto Unico, foto 04" decoding="async" loading="lazy">
                     </div>
                   </div>
                 </div>
@@ -1089,47 +1052,47 @@
             <div class="grid3" aria-label="Gallery 3x3">
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" alt="Italia nel Grande Formato, foto 01" decoding="async" loading="lazy">
+                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" alt="Italia nel Grande Formato, foto 01" decoding="async" loading="lazy">
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" alt="Italia nel Grande Formato, foto 02" decoding="async" loading="lazy">
+                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" alt="Italia nel Grande Formato, foto 02" decoding="async" loading="lazy">
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n2.jpg" alt="Italia nel Grande Formato, foto 03" decoding="async" loading="lazy">
+                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n2.jpg" alt="Italia nel Grande Formato, foto 03" decoding="async" loading="lazy">
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" alt="Italia nel Grande Formato, foto 04" decoding="async" loading="lazy">
+                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" alt="Italia nel Grande Formato, foto 04" decoding="async" loading="lazy">
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n4.jpg" alt="Italia nel Grande Formato, foto 05" decoding="async" loading="lazy">
+                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n4.jpg" alt="Italia nel Grande Formato, foto 05" decoding="async" loading="lazy">
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" alt="Italia nel Grande Formato, foto 06" decoding="async" loading="lazy">
+                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" alt="Italia nel Grande Formato, foto 06" decoding="async" loading="lazy">
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n6.jpg" alt="Italia nel Grande Formato, foto 07" decoding="async" loading="lazy">
+                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n6.jpg" alt="Italia nel Grande Formato, foto 07" decoding="async" loading="lazy">
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n7.jpg" alt="Italia nel Grande Formato, foto 08" decoding="async" loading="lazy">
+                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n7.jpg" alt="Italia nel Grande Formato, foto 08" decoding="async" loading="lazy">
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" alt="Italia nel Grande Formato, foto 09" decoding="async" loading="lazy">
+                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" alt="Italia nel Grande Formato, foto 09" decoding="async" loading="lazy">
               </figure>
             </div>
 
@@ -1143,7 +1106,7 @@
               </div>
 
               <div class="stat reveal">
-                <div class="stat__icon" aria-hidden="true"><i class="fa-solid fa-cake-candles"></i></div>
+                <div class="stat__icon" aria-hidden="true"><i class="fa-solid fa-calendar-day"></i></div>
                 <div>
                   <p class="stat__num">8</p>
                   <p class="stat__label"><span lang="it">Compleanni</span><span lang="en">Birthdays</span></p>
@@ -1174,7 +1137,7 @@
             <div class="reveal">
               <figure class="bioPhoto" data-component="smart-media" aria-label="Foto di Emanuele Passarelli">
                 <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="/img/EmanuelePasserelliBio.jpg" alt="Ritratto di Emanuele Passarelli" decoding="async" loading="lazy">
+                <img class="media__img" data-src="img/EmanuelePasserelliBio.jpg" alt="Ritratto di Emanuele Passarelli" decoding="async" loading="lazy">
               </figure>
             </div>
 
@@ -1186,37 +1149,13 @@
                 <span lang="en">I began my path in photography as a self-taught author, at the age of twenty-one.</span>
               </p>
 
-              <p class="p">
-                <span lang="it">
-                  Esordisco con “Solitudo”, nel 2014, progetto fotografico composto da una serie di autoritratti che raccontano le fasi più significative della mia adolescenza.
-                  Nel 2016 con “Night Tour” nascono quelli che verranno chiamati “Ritratti Passarelliani”.
-                  L’idea di trasportare i miei soggetti immersi nel buio in scenari urbani, illuminati solo dalle luci della città in chiave cinematografica,
-                  mi ha fatto premiare con numerosi articoli dedicati e interviste personali.
-                </span>
-                <span lang="en">
-                  I debuted with “Solitudo” in 2014, a project made of self-portraits. In 2016, with “Night Tour”, the “Passarellian Portraits” was born.
-                  A cinematic approach to urban darkness and city light led to awards, articles and interviews.
-                </span>
-              </p>
-
-              <p class="p">
-                <span lang="it">
-                  Nel 2018 lancio “Italia nel Grande Formato”, un progetto fotografico che ha riportato al centro l’importanza di avere almeno un proprio ritratto stampato:
-                  un gesto semplice, ma capace di testimoniare l’esistenza e il passare del tempo.
-                </span>
-                <span lang="en">
-                  In 2018 I launched “Italy in Large Format”, bringing back the importance of having at least one printed portrait:
-                  a simple gesture, able to testify existence and time passing.
-                </span>
-              </p>
-
               <p class="micro">
                 <span lang="it">Per richieste, disponibilità e collaborazioni:</span>
                 <span lang="en">For requests, availability and collaborations:</span>
               </p>
 
               <div style="margin-top: var(--s-3);">
-                <a class="btn btn--primary" href="/contatti" data-route="/contatti">
+                <a class="btn btn--primary" href="./contatti" data-route="/contatti">
                   <i class="fa-solid fa-paper-plane"></i>
                   <span lang="it">Vai ai contatti</span><span lang="en">Go to contact</span>
                 </a>
@@ -1275,7 +1214,7 @@
                 <span>Instagram</span>
               </a>
 
-              <a class="btn btn--ghost" href="/" data-route="/">
+              <a class="btn btn--ghost" href="./" data-route="/">
                 <i class="fa-solid fa-house"></i>
                 <span lang="it">Torna alla home</span><span lang="en">Back to home</span>
               </a>
@@ -1291,7 +1230,7 @@
       <p class="micro">© <span data-year></span> Emanuele Passarelli</p>
       <div class="footer__links">
         <a href="#main" data-action="back-to-top"><i class="fa-solid fa-arrow-up"></i><span lang="it">Top</span><span lang="en">Top</span></a>
-        <a href="/contatti" data-route="/contatti"><i class="fa-solid fa-paper-plane"></i><span lang="it">Contatti</span><span lang="en">Contact</span></a>
+        <a href="./contatti" data-route="/contatti"><i class="fa-solid fa-paper-plane"></i><span lang="it">Contatti</span><span lang="en">Contact</span></a>
       </div>
     </div>
   </footer>
@@ -1313,8 +1252,12 @@
 
       const emailValue = "contact@emanuelepassarelli.it";
       let HOME_HTML = "";
-
       let heroIO = null;
+
+      // GitHub Pages project-site base path
+      const GITHUB_REPO = "emanuele-passarelli";
+      const isGithubHost = window.location.hostname.toLowerCase().endsWith(".github.io");
+      const BASE_PATH = isGithubHost ? ("/" + GITHUB_REPO) : "";
 
       const prefersReducedMotion = () =>
         window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1325,6 +1268,29 @@
       };
 
       const announce = (msg) => { if(announcer) announcer.textContent = msg; };
+
+      const normalizeRoute = (p) => {
+        let s = (p || '/');
+        s = s.replace(/\/+$/, '');
+        if(s === '') s = '/';
+        if(!s.startsWith('/')) s = '/' + s;
+        return s;
+      };
+
+      const routeFromLocation = () => {
+        let p = window.location.pathname || '/';
+        if(BASE_PATH && p.startsWith(BASE_PATH)){
+          p = p.slice(BASE_PATH.length) || '/';
+        }
+        return normalizeRoute(p);
+      };
+
+      const withBase = (route) => {
+        const r = normalizeRoute(route);
+        if(!BASE_PATH) return r;
+        if(r === '/') return BASE_PATH + '/';
+        return BASE_PATH + r;
+      };
 
       const isMenuOpen = () => popMenu && popMenu.classList.contains('is-open');
 
@@ -1617,8 +1583,6 @@
         badge._t = window.setTimeout(() => badge.classList.remove('is-show'), 1100);
       };
 
-      const getPath = () => window.location.pathname.replace(/\/+$/, '') || '/';
-
       const setDocForRoute = (route) => {
         if(route === '/contatti'){
           document.title = (root.getAttribute('data-language') === 'en')
@@ -1632,7 +1596,7 @@
       const swapView = async (route, opts) => {
         if(!viewShell) return;
 
-        const routeNorm = (route || '/').startsWith('/') ? route : '/';
+        const routeNorm = normalizeRoute(route || '/');
         const current = viewShell.querySelector('[data-view]')?.getAttribute('data-view') || 'home';
         const target = (routeNorm === '/contatti') ? 'contact' : 'home';
         if(current === target) return;
@@ -1692,19 +1656,19 @@
         const isHash = target.startsWith('#');
 
         if(isHash){
-          const path = getPath();
-          if(path === '/'){
+          const r = routeFromLocation();
+          if(r === '/'){
             const el = document.querySelector(target);
             if(el) el.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
             return;
           }
-          history.pushState({ route: '/' }, "", "/");
+          history.pushState({ route: '/' }, "", withBase('/'));
           await swapView('/', { scrollTo: target });
           return;
         }
 
         const route = (target === '/contatti') ? '/contatti' : '/';
-        history.pushState({ route }, "", route);
+        history.pushState({ route }, "", withBase(route));
         await swapView(route, options);
       };
 
@@ -1746,7 +1710,7 @@
             const current = (root.getAttribute('data-language') === 'en') ? 'en' : 'it';
             const next = (current === 'it') ? 'en' : 'it';
             applyLanguage(next);
-            setDocForRoute(getPath());
+            setDocForRoute(routeFromLocation());
             return;
           }
 
@@ -1779,8 +1743,7 @@
 
         window.addEventListener('popstate', async () => {
           closeMenu();
-          const p = getPath();
-          await swapView(p === '/contatti' ? '/contatti' : '/');
+          await swapView(routeFromLocation());
         });
       };
 
@@ -1796,9 +1759,9 @@
       };
 
       const initFirstRoute = async () => {
-        const p = getPath();
-        setDocForRoute(p);
-        if(p === '/contatti'){
+        const r = routeFromLocation();
+        setDocForRoute(r);
+        if(r === '/contatti'){
           await swapView('/contatti', {});
         } else {
           initHeaderHeroSense();
