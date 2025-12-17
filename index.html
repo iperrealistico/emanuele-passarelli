@@ -38,7 +38,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@200..900&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome (free) -->
+  <!-- Font Awesome -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer">
 
@@ -188,33 +188,22 @@
       letter-spacing: .03em;
       margin: 0 0 var(--s-2);
     }
-    .h3{
-      font-family: var(--font-display);
-      font-size: var(--fs-2);
-      line-height: 1.12;
-      letter-spacing: .03em;
-      margin: 0 0 var(--s-1);
-    }
     .lead{ font-size: var(--fs-1); color: var(--muted); margin: 0 0 var(--s-3); max-width: 70ch; }
     .p{ margin: 0 0 var(--s-2); color: var(--muted); max-width: 78ch; }
     .micro{ font-size: .90em; color: var(--muted-2); margin: 0; letter-spacing: .08em; text-transform: uppercase; }
 
     .emph{ color: var(--accent); font-weight: 900; }
-    .softLine{ height:1px; background: color-mix(in oklab, var(--border) 80%, transparent); }
-
     :focus-visible{ outline: 2px solid color-mix(in oklab, var(--text) 55%, transparent); outline-offset: 3px; }
-    *{ word-wrap: break-word; }
 
-    /* Header: transparent, only home + contact + menu */
+    /* Header: ONLY hamburger. Over video. Then background on scroll. */
     .site-header{
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 70;
       background: transparent;
       border-bottom: 1px solid transparent;
       transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), backdrop-filter var(--dur-2) var(--ease-out);
+      pointer-events: auto;
     }
     .site-header.is-scrolled{
       backdrop-filter: blur(14px);
@@ -225,55 +214,10 @@
     .header__wrap{
       display:flex;
       align-items:center;
-      justify-content: space-between;
-      gap: var(--s-2);
+      justify-content: flex-end;
+      gap: .65rem;
       padding: .90rem 0;
-      min-width: 0;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: .75rem;
-      min-width:0;
-    }
-    .brand__mark{
-      width: 42px;
-      height: 42px;
-      border-radius: 999px;
-      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
-      background: color-mix(in oklab, var(--surface) 92%, transparent);
-      display:grid;
-      place-items:center;
-      box-shadow: 0 16px 70px var(--shadow);
-      flex: 0 0 auto;
-    }
-    .brand__mark span{
-      font-family: var(--font-display);
-      letter-spacing: .06em;
-      font-weight: 900;
-      color: var(--accent);
-      font-size: .95rem;
-    }
-    .brand__text{ display:grid; gap: .12rem; min-width:0; }
-    .brand__name{
-      display:block;
-      font-weight: 900;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      font-size: .84em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .brand__tagline{
-      display:block;
-      font-size: .90em;
-      color: var(--muted-2);
-      letter-spacing: .08em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      position: relative;
     }
 
     .icon-btn{
@@ -287,25 +231,44 @@
       display:grid;
       place-items:center;
       cursor:pointer;
-      transition: transform var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+      transition: transform var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
       box-shadow: 0 18px 80px var(--shadow);
     }
     .icon-btn:hover{ transform: translateY(-1px); border-color: var(--border-2); }
     .icon-btn:active{ transform: translateY(0); }
     .icon-btn.is-active{ border-color: color-mix(in oklab, var(--accent) 70%, transparent); }
 
-    .header__right{
-      display:flex;
-      align-items:center;
-      gap: .55rem;
-    }
-
     @media (max-width: 520px){
-      .brand__tagline{ display:none; }
-      .brand__mark{ width:40px; height:40px; }
       .icon-btn{ width:40px; height:40px; }
     }
 
+    /* Compact pop menu: no drawer, no side panel */
+    .popMenu{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      display:flex;
+      align-items:center;
+      gap: .55rem;
+      padding: .55rem;
+      border-radius: 18px;
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+      background: color-mix(in oklab, var(--bg) 70%, transparent);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 26px 120px var(--shadow);
+      transform-origin: top right;
+      transform: translateY(-6px) scale(.98);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+    }
+    .popMenu.is-open{
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* Sections */
     .section{ padding: var(--s-6) 0; }
 
     .btn{
@@ -339,9 +302,7 @@
       min-height: 60vh;
       will-change: opacity, transform, filter;
     }
-    .viewShell.is-swapping{
-      pointer-events: none;
-    }
+    .viewShell.is-swapping{ pointer-events: none; }
     .viewShell.is-leaving{
       opacity: 0;
       transform: translateY(10px);
@@ -521,15 +482,16 @@
       .pillRow{ grid-template-columns: 1fr; }
     }
 
+    /* Pills: no rounded colored boxes */
     .pill{
-      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
-      border-radius: var(--r-3);
-      padding: var(--s-4);
-      background: color-mix(in oklab, var(--surface) 92%, transparent);
-      box-shadow: 0 22px 110px var(--shadow);
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
     }
     .pill__title{
-      margin: 0 0 .45rem;
+      margin: 0 0 .35rem;
       font-weight: 950;
       letter-spacing: .14em;
       text-transform: uppercase;
@@ -557,11 +519,13 @@
       scrollbar-width: none;
     }
     .hScroll__rail::-webkit-scrollbar{ display:none; }
+
+    /* Make the horizontal gallery taller (vertical photo feel) */
     .hScroll__item{
       flex: 0 0 100%;
       scroll-snap-align: start;
       position: relative;
-      aspect-ratio: 16/10;
+      aspect-ratio: 4 / 5;
       background: linear-gradient(180deg, var(--bg-3), var(--bg));
       border-right: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
       overflow:hidden;
@@ -598,12 +562,12 @@
     .is-loaded > .media__img{ opacity: 1; transform: scale(1); }
     .has-error .media__img{ display:none; }
 
+    /* Keep only dots */
     .hScroll__meta{
       padding: .85rem 1.05rem;
       display:flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items:center;
-      gap: .75rem;
       border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
       background: color-mix(in oklab, var(--surface) 92%, transparent);
     }
@@ -645,11 +609,11 @@
       position: relative;
     }
 
-    /* Stats row */
+    /* Stats row: no boxed background */
     .stats{
       display:grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: var(--s-3);
+      gap: var(--s-4);
       margin-top: var(--s-5);
     }
     @media (max-width: 980px){
@@ -659,25 +623,26 @@
       .stats{ grid-template-columns: 1fr; }
     }
     .stat{
-      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
-      border-radius: var(--r-3);
-      padding: var(--s-4);
-      background: color-mix(in oklab, var(--surface) 92%, transparent);
-      box-shadow: 0 24px 110px var(--shadow);
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
       display:flex;
       align-items:center;
       gap: 1rem;
-      min-height: 86px;
+      min-height: 0;
     }
     .stat__icon{
       width: 46px;
       height: 46px;
       border-radius: 16px;
       border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
-      background: color-mix(in oklab, var(--surface-2) 80%, transparent);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
       display:grid;
       place-items:center;
       flex: 0 0 auto;
+      box-shadow: 0 18px 80px var(--shadow);
     }
     .stat__icon i{
       color: var(--accent);
@@ -820,84 +785,6 @@
       transform: translateY(0);
       filter: blur(0);
     }
-
-    /* Drawer menu (settings + quick nav) */
-    .mobileNav{
-      position: fixed;
-      inset: 0;
-      z-index: 90;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity var(--dur-2) var(--ease-out);
-    }
-    .mobileNav.is-open{ opacity: 1; pointer-events: auto; }
-    .mobileNav__backdrop{ position:absolute; inset:0; background: rgba(0,0,0,.62); }
-    .mobileNav__panel{
-      position:absolute;
-      top: 0; right: 0;
-      height: 100%;
-      width: min(420px, 88vw);
-      background: var(--bg);
-      border-left: 1px solid var(--border);
-      transform: translateX(102%);
-      transition: transform var(--dur-3) var(--ease-out);
-      padding: 1rem;
-      display:flex;
-      flex-direction: column;
-      gap: 1.0rem;
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    .mobileNav.is-open .mobileNav__panel{ transform: translateX(0); }
-
-    .mobileNav__top{ display:flex; align-items:center; justify-content: space-between; gap: .75rem; }
-    .mobileNav__groupTitle{
-      color: var(--muted-2);
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      font-size: .78em;
-      margin: .25rem 0 .15rem;
-    }
-    .mobileNav__icons{ display:flex; gap: .5rem; align-items:center; flex-wrap: wrap; }
-
-    .segmented{
-      display:flex;
-      align-items:center;
-      padding: 4px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--surface) 92%, transparent);
-    }
-    .segmented__btn{
-      appearance:none;
-      border:0;
-      background: transparent;
-      color: var(--muted);
-      padding: .40rem .70rem;
-      border-radius: 999px;
-      font-weight: 900;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      cursor:pointer;
-      transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
-    }
-    .segmented__btn.is-active{ color: var(--text); background: color-mix(in oklab, var(--surface-2) 85%, transparent); }
-
-    .mobileNav__links{ display:grid; gap: .55rem; }
-    .mobileNav__links a{
-      padding: .9rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--text);
-      background: color-mix(in oklab, var(--surface) 92%, transparent);
-      white-space: nowrap;
-      display:flex;
-      align-items:center;
-      gap: .6rem;
-    }
-    .mobileNav__links i{ color: var(--accent); opacity: .95; }
   </style>
 
   <script type="application/ld+json">
@@ -943,65 +830,39 @@
 
   <header class="site-header" data-component="header">
     <div class="wrap header__wrap">
-      <a class="brand" href="/" data-route="/" aria-label="Home">
-        <span class="brand__mark" aria-hidden="true"><span>EP</span></span>
-        <span class="brand__text">
-          <span class="brand__name">Emanuele Passarelli</span>
-          <span class="brand__tagline">
-            <span lang="it">Artigiano del Ritratto</span>
-            <span lang="en">Portrait Artisan</span>
-          </span>
-        </span>
-      </a>
+      <button class="icon-btn" type="button" data-action="toggle-menu" aria-label="Menu" aria-expanded="false" title="Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
 
-      <div class="header__right" aria-label="Azioni">
+      <div class="popMenu" data-popmenu aria-hidden="true">
+        <a class="icon-btn" href="/" data-route="/" aria-label="Home" title="Home">
+          <i class="fa-regular fa-house"></i>
+        </a>
         <a class="icon-btn" href="/contatti" data-route="/contatti" aria-label="Contatti" title="Contatti">
           <i class="fa-regular fa-paper-plane"></i>
         </a>
 
-        <button class="icon-btn" type="button" data-action="toggle-nav" aria-label="Apri menu" aria-expanded="false" title="Menu">
-          <i class="fa-solid fa-bars"></i>
+        <button class="icon-btn" type="button" data-action="toggle-theme" aria-label="Cambia tema (dark/light)" title="Tema">
+          <i class="fa-regular fa-sun"></i>
+        </button>
+
+        <button class="icon-btn" type="button" data-action="set-language" data-language="it" aria-label="Lingua italiana" title="IT">
+          <i class="fa-solid fa-language"></i>
+          <span class="sr-only">IT</span>
+        </button>
+
+        <button class="icon-btn" type="button" data-action="set-language" data-language="en" aria-label="English language" title="EN">
+          <i class="fa-solid fa-language"></i>
+          <span class="sr-only">EN</span>
         </button>
       </div>
     </div>
   </header>
 
-  <div class="mobileNav" data-component="mobile-nav" aria-hidden="true">
-    <div class="mobileNav__backdrop" data-action="close-nav" aria-hidden="true"></div>
-
-    <aside class="mobileNav__panel" role="dialog" aria-modal="true" aria-label="Menu">
-      <div class="mobileNav__top">
-        <div class="mobileNav__icons" aria-label="Controlli">
-          <div class="segmented" role="group" aria-label="Lingua">
-            <button class="segmented__btn is-active" type="button" data-action="set-language" data-language="it" aria-pressed="true">IT</button>
-            <button class="segmented__btn" type="button" data-action="set-language" data-language="en" aria-pressed="false">EN</button>
-          </div>
-
-          <button class="icon-btn" type="button" data-action="toggle-theme" aria-label="Cambia tema (dark/light)" title="Tema">
-            <i class="fa-regular fa-sun"></i>
-          </button>
-        </div>
-
-        <button class="icon-btn" type="button" data-action="close-nav" aria-label="Chiudi menu" title="Chiudi">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div class="mobileNav__groupTitle"><span lang="it">Navigazione</span><span lang="en">Navigation</span></div>
-      <nav class="mobileNav__links" aria-label="Navigazione">
-        <a href="/" data-route="/" data-action="close-nav"><i class="fa-regular fa-house"></i> <span lang="it">Home</span><span lang="en">Home</span></a>
-        <a href="#ritratto" data-route="#ritratto" data-action="close-nav"><i class="fa-regular fa-compass"></i> <span lang="it">Scopri</span><span lang="en">Discover</span></a>
-        <a href="#italia" data-route="#italia" data-action="close-nav"><i class="fa-regular fa-images"></i> <span lang="it">Italia</span><span lang="en">Italy</span></a>
-        <a href="#bio" data-route="#bio" data-action="close-nav"><i class="fa-regular fa-file-lines"></i> Bio</a>
-        <a href="/contatti" data-route="/contatti" data-action="close-nav"><i class="fa-regular fa-paper-plane"></i> <span lang="it">Contatti</span><span lang="en">Contact</span></a>
-      </nav>
-    </aside>
-  </div>
-
   <main id="main">
     <div class="viewShell" data-view-shell aria-live="polite">
       <!-- HOME VIEW (default) -->
-      <div data-view="home">
+      <div data-view="home" data-home-view>
         <section class="hero" aria-label="Intro">
           <div class="heroVideo" data-hero-video data-youtube-id="nSSJRcRtqpo" aria-hidden="true">
             <div class="heroVideo__ph"></div>
@@ -1011,10 +872,7 @@
 
           <div class="wrap hero__wrap">
             <div class="reveal">
-              <p class="kicker">
-                <span lang="it">Ritratti e progetto</span>
-                <span lang="en">Portraits and project</span>
-              </p>
+              <p class="kicker">Emanuele Passarelli</p>
 
               <h1 class="hero__title">
                 <span lang="it">Artigiano del Ritratto</span>
@@ -1144,12 +1002,6 @@
                 </div>
 
                 <div class="hScroll__meta">
-                  <p class="micro" style="margin:0;">
-                    <span lang="it">Gallery orizzontale</span><span lang="en">Horizontal gallery</span>
-                    <span class="emph"> · </span>
-                    <span lang="it">una foto alla volta</span><span lang="en">one photo at a time</span>
-                  </p>
-
                   <div class="dots" aria-hidden="true" data-hscroll-dots>
                     <span class="dot is-active"></span>
                     <span class="dot"></span>
@@ -1182,12 +1034,8 @@
               </p>
 
               <p class="p" style="margin-bottom: var(--s-4);">
-                <span lang="it">
-                  Tutti i ritratti sono realizzati con un banco ottico e, nel loro insieme, costituiscono un’opera unica.
-                </span>
-                <span lang="en">
-                  All portraits are made with a large-format camera and, together, become a single unique work.
-                </span>
+                <span lang="it">Tutti i ritratti sono realizzati con un banco ottico e, nel loro insieme, costituiscono un’opera unica.</span>
+                <span lang="en">All portraits are made with a large-format camera and, together, become a single unique work.</span>
               </p>
             </div>
 
@@ -1383,11 +1231,6 @@
         </div>
       </section>
     </template>
-
-    <!-- HOME VIEW TEMPLATE (clone current home markup) -->
-    <template id="tpl-home">
-      <div data-view="home"></div>
-    </template>
   </main>
 
   <footer class="site-footer" data-component="footer">
@@ -1409,14 +1252,14 @@
       const root = document.documentElement;
       const header = document.querySelector('[data-component="header"]');
       const announcer = document.querySelector('[data-announcer]');
-      const mobileNav = document.querySelector('[data-component="mobile-nav"]');
-      const navToggle = document.querySelector('[data-action="toggle-nav"]');
-
       const viewShell = document.querySelector('[data-view-shell]');
       const tplContact = document.getElementById('tpl-contact');
 
-      const heroVideo = document.querySelector('[data-hero-video]');
+      const popMenu = document.querySelector('[data-popmenu]');
+      const menuToggle = document.querySelector('[data-action="toggle-menu"]');
+
       const emailValue = "contact@emanuelepassarelli.it";
+      let HOME_HTML = "";
 
       const prefersReducedMotion = () =>
         window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1428,32 +1271,26 @@
 
       const announce = (msg) => { if(announcer) announcer.textContent = msg; };
 
-      const lockScroll = (lock) => {
-        document.documentElement.style.overflow = lock ? 'hidden' : '';
-        document.body.style.overflow = lock ? 'hidden' : '';
+      /* Menu popover */
+      const isMenuOpen = () => popMenu && popMenu.classList.contains('is-open');
+
+      const openMenu = () => {
+        if(!popMenu || !menuToggle) return;
+        popMenu.classList.add('is-open');
+        popMenu.setAttribute('aria-hidden', 'false');
+        menuToggle.classList.add('is-active');
+        menuToggle.setAttribute('aria-expanded', 'true');
       };
 
-      const openNav = () => {
-        if(!mobileNav) return;
-        mobileNav.classList.add('is-open');
-        mobileNav.setAttribute('aria-hidden', 'false');
-        if(navToggle) navToggle.setAttribute('aria-expanded', 'true');
-        lockScroll(true);
+      const closeMenu = () => {
+        if(!popMenu || !menuToggle) return;
+        popMenu.classList.remove('is-open');
+        popMenu.setAttribute('aria-hidden', 'true');
+        menuToggle.classList.remove('is-active');
+        menuToggle.setAttribute('aria-expanded', 'false');
       };
 
-      const closeNav = () => {
-        if(!mobileNav) return;
-        mobileNav.classList.remove('is-open');
-        mobileNav.setAttribute('aria-hidden', 'true');
-        if(navToggle) navToggle.setAttribute('aria-expanded', 'false');
-        lockScroll(false);
-      };
-
-      const applyHeaderOffset = () => {
-        if(!header) return;
-        const h = header.getBoundingClientRect().height;
-        document.body.style.paddingTop = h + 'px';
-      };
+      const toggleMenu = () => { isMenuOpen() ? closeMenu() : openMenu(); };
 
       /* Theme (default always dark) */
       const THEME_KEY = 'ep_theme';
@@ -1478,11 +1315,6 @@
         root.setAttribute('data-language', l);
         safeStorage.set(LANG_KEY, l);
         document.documentElement.setAttribute('lang', l);
-        document.querySelectorAll('[data-action="set-language"]').forEach((btn) => {
-          const active = btn.getAttribute('data-language') === l;
-          btn.classList.toggle('is-active', active);
-          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-        });
         announce(l === 'it' ? 'Lingua impostata su Italiano' : 'Language set to English');
       };
       const initLanguage = () => {
@@ -1569,9 +1401,11 @@
         }
       };
 
-      /* Hero YouTube thumb + mount */
+      /* Hero YouTube thumb + mount (always query fresh DOM) */
       const initHeroVideo = () => {
+        const heroVideo = document.querySelector('[data-hero-video]');
         if(!heroVideo) return;
+
         const videoId = heroVideo.getAttribute('data-youtube-id');
         const img = heroVideo.querySelector('[data-thumb]');
         const mount = heroVideo.querySelector('[data-video-mount]');
@@ -1636,7 +1470,7 @@
         }
       };
 
-      /* HScroll dots */
+      /* HScroll dots (always query fresh DOM) */
       const initHScroll = () => {
         const box = document.querySelector('[data-hscroll]');
         if(!box) return;
@@ -1645,7 +1479,6 @@
         if(!rail || !dotsWrap) return;
 
         const dots = Array.from(dotsWrap.querySelectorAll('.dot'));
-        const items = Array.from(rail.children);
 
         const setActive = (idx) => {
           dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
@@ -1659,15 +1492,6 @@
 
         rail.addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
         setActive(0);
-
-        if('IntersectionObserver' in window){
-          const io = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-              if(entry.isIntersecting) onScroll();
-            });
-          }, { threshold: 0.25 });
-          items.forEach(it => io.observe(it));
-        }
       };
 
       /* Clipboard */
@@ -1739,10 +1563,7 @@
           const frag = tplContact.content.cloneNode(true);
           viewShell.appendChild(frag);
         } else {
-          const home = document.querySelector('[data-view="home"]');
-          if(home){
-            viewShell.appendChild(home.cloneNode(true));
-          }
+          viewShell.innerHTML = HOME_HTML;
         }
 
         setDocForRoute(routeNorm);
@@ -1807,7 +1628,7 @@
 
             if(dest && (dest.startsWith('/') || dest.startsWith('#'))){
               e.preventDefault();
-              closeNav();
+              closeMenu();
               await navigate(dest);
               return;
             }
@@ -1816,6 +1637,12 @@
           const btn = e.target.closest('[data-action]');
           if(!btn) return;
           const action = btn.getAttribute('data-action');
+
+          if(action === 'toggle-menu'){
+            e.preventDefault();
+            toggleMenu();
+            return;
+          }
 
           if(action === 'toggle-theme'){
             const current = root.getAttribute('data-theme') || 'dark';
@@ -1830,9 +1657,6 @@
             setDocForRoute(getPath());
             return;
           }
-
-          if(action === 'toggle-nav'){ openNav(); return; }
-          if(action === 'close-nav'){ closeNav(); return; }
 
           if(action === 'back-to-top'){
             e.preventDefault();
@@ -1852,11 +1676,17 @@
         });
 
         document.addEventListener('keydown', (e) => {
-          if(e.key === 'Escape') closeNav();
+          if(e.key === 'Escape') closeMenu();
         });
 
+        document.addEventListener('pointerdown', (e) => {
+          if(!isMenuOpen()) return;
+          const inside = e.target.closest('[data-popmenu]') || e.target.closest('[data-action="toggle-menu"]');
+          if(!inside) closeMenu();
+        }, { passive: true });
+
         window.addEventListener('popstate', async () => {
-          closeNav();
+          closeMenu();
           const p = getPath();
           await swapView(p === '/contatti' ? '/contatti' : '/');
         });
@@ -1867,14 +1697,17 @@
         if(el) el.textContent = String(new Date().getFullYear());
       };
 
+      const initHomeSnapshot = () => {
+        if(!viewShell) return;
+        const home = viewShell.querySelector('[data-home-view]');
+        if(home) HOME_HTML = home.outerHTML;
+      };
+
       const initFirstRoute = async () => {
         const p = getPath();
         setDocForRoute(p);
         if(p === '/contatti'){
-          const home = viewShell.querySelector('[data-view="home"]');
-          if(home) home.remove();
-          await swapView('/contatti', { });
-          return;
+          await swapView('/contatti', {});
         }
       };
 
@@ -1883,12 +1716,10 @@
         initTheme();
         initLanguage();
 
+        initHomeSnapshot();
         initActions();
         initHeaderScroll();
         initYear();
-
-        applyHeaderOffset();
-        window.addEventListener('resize', applyHeaderOffset, { passive: true });
 
         revealIn(document);
         smartMediaIn(document);
