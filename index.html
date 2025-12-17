@@ -15,7 +15,6 @@
   <link rel="icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <!-- Open Graph -->
   <meta property="og:locale" content="it_IT">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Emanuele Passarelli · Artigiano del Ritratto">
@@ -28,17 +27,14 @@
   <meta property="og:image:alt" content="Emanuele Passarelli · Artigiano del Ritratto">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- hreflang -->
   <link rel="alternate" hreflang="it" href="https://emanuelepassarelli.it/">
   <link rel="alternate" hreflang="en" href="https://emanuelepassarelli.it/?lang=en">
   <link rel="alternate" hreflang="x-default" href="https://emanuelepassarelli.it/">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@200..900&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer">
 
@@ -195,29 +191,57 @@
     .emph{ color: var(--accent); font-weight: 900; }
     :focus-visible{ outline: 2px solid color-mix(in oklab, var(--text) 55%, transparent); outline-offset: 3px; }
 
-    /* Header: ONLY hamburger. Over video. Then background on scroll. */
+    /* Header: only the small pill behind the hamburger (and its pop menu) */
     .site-header{
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 70;
       background: transparent;
-      border-bottom: 1px solid transparent;
-      transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), backdrop-filter var(--dur-2) var(--ease-out);
       pointer-events: auto;
-    }
-    .site-header.is-scrolled{
-      backdrop-filter: blur(14px);
-      background: color-mix(in oklab, var(--bg) 62%, transparent);
-      border-bottom-color: color-mix(in oklab, var(--border) 80%, transparent);
     }
 
     .header__wrap{
       display:flex;
       align-items:center;
       justify-content: flex-end;
-      gap: .65rem;
       padding: .90rem 0;
       position: relative;
+    }
+
+    .headerPill{
+      display:inline-flex;
+      align-items:center;
+      gap: .65rem;
+      position: relative;
+      border-radius: 22px;
+      padding: 0;
+      background: transparent;
+      border: 1px solid transparent;
+      backdrop-filter: none;
+      transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), backdrop-filter var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), padding var(--dur-2) var(--ease-out);
+    }
+
+    /* On scroll: show only a compact blurred background behind the hamburger area */
+    .site-header.is-scrolled .headerPill{
+      padding: .35rem;
+      backdrop-filter: blur(14px);
+      background: color-mix(in oklab, var(--bg) 70%, transparent);
+      border-color: color-mix(in oklab, var(--border) 85%, transparent);
+      box-shadow: 0 22px 110px var(--shadow);
+    }
+
+    /* When the header is over the hero video: force white for readability (both themes) */
+    .site-header.is-over-hero .icon-btn,
+    .site-header.is-over-hero .chip-btn{
+      color: rgba(255,255,255,.93);
+      border-color: rgba(255,255,255,.20);
+      background: rgba(0,0,0,.18);
+    }
+
+    /* If scrolling while still over hero: keep the pill dark (even in light mode) */
+    .site-header.is-over-hero.is-scrolled .headerPill{
+      background: rgba(0,0,0,.32);
+      border-color: rgba(255,255,255,.18);
     }
 
     .icon-btn{
@@ -238,11 +262,37 @@
     .icon-btn:active{ transform: translateY(0); }
     .icon-btn.is-active{ border-color: color-mix(in oklab, var(--accent) 70%, transparent); }
 
+    /* Wider compact button for language (IT/EN) */
+    .chip-btn{
+      appearance:none;
+      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      color: var(--text);
+      height: 42px;
+      padding: 0 .75rem;
+      border-radius: 16px;
+      display:inline-flex;
+      align-items:center;
+      gap: .55rem;
+      cursor:pointer;
+      transition: transform var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
+      box-shadow: 0 18px 80px var(--shadow);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 950;
+      font-size: .78em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .chip-btn:hover{ transform: translateY(-1px); border-color: var(--border-2); }
+    .chip-btn:active{ transform: translateY(0); }
+    .chip-label{ opacity: .95; }
+
     @media (max-width: 520px){
       .icon-btn{ width:40px; height:40px; }
+      .chip-btn{ height:40px; }
     }
 
-    /* Compact pop menu: no drawer, no side panel */
     .popMenu{
       position: absolute;
       top: calc(100% + 10px);
@@ -268,7 +318,6 @@
       pointer-events: auto;
     }
 
-    /* Sections */
     .section{ padding: var(--s-6) 0; }
 
     .btn{
@@ -296,7 +345,6 @@
     .btn:active{ transform: translateY(0); }
     .btn i{ opacity: .9; font-size: 1em; }
 
-    /* App view container: swap animation */
     .viewShell{
       position: relative;
       min-height: 60vh;
@@ -321,12 +369,23 @@
       transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out), filter var(--dur-3) var(--ease-out);
     }
 
-    /* Hero: background YouTube */
+    /* Hero: always readable (white) over the video, even in light mode */
     .hero{
       position: relative;
       padding: clamp(7.5rem, 12vh, 10.5rem) 0 var(--s-6);
       overflow: hidden;
+      color: rgba(255,255,255,.93);
     }
+    .hero .kicker{ color: rgba(255,255,255,.70); }
+    .hero .hero__sub{ color: rgba(255,255,255,.76); }
+    .hero .btn{
+      color: rgba(255,255,255,.92);
+      border-color: rgba(255,255,255,.20);
+      background: rgba(0,0,0,.16);
+    }
+    .hero .btn--primary{ background: rgba(255,255,255,.10); }
+    .hero .btn:hover{ border-color: rgba(255,255,255,.32); }
+
     .hero::after{
       content:"";
       position:absolute;
@@ -420,7 +479,6 @@
     }
     .hero__sub{
       margin: 0 0 var(--s-3);
-      color: var(--muted);
       max-width: 72ch;
       font-size: var(--fs-1);
     }
@@ -433,7 +491,7 @@
       align-items: flex-start;
       gap: .60rem;
       width: fit-content;
-      color: var(--muted-2);
+      color: rgba(255,255,255,.60);
       letter-spacing: .14em;
       text-transform: uppercase;
       font-size: .78em;
@@ -442,18 +500,18 @@
     .scrollCue__arrow{
       width: 46px;
       height: 46px;
-      border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+      border: 1px solid rgba(255,255,255,.18);
       border-radius: 999px;
       display:grid;
       place-items:center;
-      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      background: rgba(0,0,0,.18);
       overflow: hidden;
-      box-shadow: 0 18px 90px var(--shadow);
+      box-shadow: 0 18px 90px rgba(0,0,0,.60);
     }
     .scrollCue__arrow i{
       animation: arrowDrop 1.45s var(--ease-soft) infinite;
-      opacity: .9;
-      color: var(--accent);
+      opacity: .95;
+      color: rgba(255,255,255,.92);
     }
     @keyframes arrowDrop{
       0%{ transform: translateY(-2px); opacity: .55; }
@@ -461,7 +519,6 @@
       100%{ transform: translateY(-2px); opacity: .55; }
     }
 
-    /* Ritratto Unico: text left, horizontal gallery right */
     .split{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
@@ -482,7 +539,6 @@
       .pillRow{ grid-template-columns: 1fr; }
     }
 
-    /* Pills: no rounded colored boxes */
     .pill{
       border: 0;
       border-radius: 0;
@@ -520,7 +576,6 @@
     }
     .hScroll__rail::-webkit-scrollbar{ display:none; }
 
-    /* Make the horizontal gallery taller (vertical photo feel) */
     .hScroll__item{
       flex: 0 0 100%;
       scroll-snap-align: start;
@@ -562,7 +617,6 @@
     .is-loaded > .media__img{ opacity: 1; transform: scale(1); }
     .has-error .media__img{ display:none; }
 
-    /* Keep only dots */
     .hScroll__meta{
       padding: .85rem 1.05rem;
       display:flex;
@@ -586,7 +640,6 @@
       transform: scale(1.15);
     }
 
-    /* Italia nel Grande Formato: 3x3 grid */
     .grid3{
       margin-top: var(--s-5);
       display:grid;
@@ -609,7 +662,6 @@
       position: relative;
     }
 
-    /* Stats row: no boxed background */
     .stats{
       display:grid;
       grid-template-columns: repeat(4, 1fr);
@@ -631,7 +683,6 @@
       display:flex;
       align-items:center;
       gap: 1rem;
-      min-height: 0;
     }
     .stat__icon{
       width: 46px;
@@ -666,7 +717,6 @@
       font-size: .78em;
     }
 
-    /* Bio: photo left, text right */
     .bio{
       display:grid;
       grid-template-columns: .90fr 1.10fr;
@@ -686,7 +736,6 @@
       position: relative;
     }
 
-    /* Contact page */
     .contactPage{
       padding: clamp(7.5rem, 12vh, 10.5rem) 0 var(--s-6);
     }
@@ -741,7 +790,6 @@
       transform: translateX(-50%) translateY(-16px);
     }
 
-    /* Footer socket */
     .site-footer{
       padding: var(--s-4) 0 var(--s-5);
       border-top: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
@@ -773,7 +821,6 @@
     }
     .footer__links i{ color: var(--accent); opacity: .95; }
 
-    /* Scroll reveal */
     .reveal{
       opacity: 0;
       transform: translateY(14px);
@@ -830,40 +877,37 @@
 
   <header class="site-header" data-component="header">
     <div class="wrap header__wrap">
-      <button class="icon-btn" type="button" data-action="toggle-menu" aria-label="Menu" aria-expanded="false" title="Menu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-
-      <div class="popMenu" data-popmenu aria-hidden="true">
-        <a class="icon-btn" href="/" data-route="/" aria-label="Home" title="Home">
-          <i class="fa-regular fa-house"></i>
-        </a>
-        <a class="icon-btn" href="/contatti" data-route="/contatti" aria-label="Contatti" title="Contatti">
-          <i class="fa-regular fa-paper-plane"></i>
-        </a>
-
-        <button class="icon-btn" type="button" data-action="toggle-theme" aria-label="Cambia tema (dark/light)" title="Tema">
-          <i class="fa-regular fa-sun"></i>
+      <div class="headerPill" data-header-pill>
+        <button class="icon-btn" type="button" data-action="toggle-menu" aria-label="Menu" aria-expanded="false" title="Menu">
+          <i class="fa-solid fa-bars"></i>
         </button>
 
-        <button class="icon-btn" type="button" data-action="set-language" data-language="it" aria-label="Lingua italiana" title="IT">
-          <i class="fa-solid fa-language"></i>
-          <span class="sr-only">IT</span>
-        </button>
+        <div class="popMenu" data-popmenu aria-hidden="true">
+          <a class="icon-btn" href="/" data-route="/" aria-label="Home" title="Home">
+            <i class="fa-solid fa-house"></i>
+          </a>
 
-        <button class="icon-btn" type="button" data-action="set-language" data-language="en" aria-label="English language" title="EN">
-          <i class="fa-solid fa-language"></i>
-          <span class="sr-only">EN</span>
-        </button>
+          <a class="icon-btn" href="/contatti" data-route="/contatti" aria-label="Contatti" title="Contatti">
+            <i class="fa-solid fa-paper-plane"></i>
+          </a>
+
+          <button class="icon-btn" type="button" data-action="toggle-theme" aria-label="Cambia tema (dark/light)" title="Tema">
+            <i class="fa-solid fa-sun"></i>
+          </button>
+
+          <button class="chip-btn" type="button" data-action="toggle-language" title="Lingua">
+            <i class="fa-solid fa-globe"></i>
+            <span class="chip-label" data-lang-label>IT</span>
+          </button>
+        </div>
       </div>
     </div>
   </header>
 
   <main id="main">
     <div class="viewShell" data-view-shell aria-live="polite">
-      <!-- HOME VIEW (default) -->
       <div data-view="home" data-home-view>
-        <section class="hero" aria-label="Intro">
+        <section class="hero" aria-label="Intro" data-hero>
           <div class="heroVideo" data-hero-video data-youtube-id="nSSJRcRtqpo" aria-hidden="true">
             <div class="heroVideo__ph"></div>
             <img class="heroVideo__thumb" alt="" data-thumb>
@@ -886,12 +930,12 @@
 
               <div class="hero__cta">
                 <a class="btn btn--primary" href="#ritratto" data-route="#ritratto">
-                  <i class="fa-regular fa-compass"></i>
+                  <i class="fa-solid fa-compass"></i>
                   <span lang="it">Scopri</span><span lang="en">Discover</span>
                 </a>
 
                 <a class="btn btn--ghost" href="/contatti" data-route="/contatti">
-                  <i class="fa-regular fa-paper-plane"></i>
+                  <i class="fa-solid fa-paper-plane"></i>
                   <span lang="it">Contatti</span><span lang="en">Contact</span>
                 </a>
               </div>
@@ -936,7 +980,7 @@
 
                 <article class="pill reveal">
                   <h3 class="pill__title">
-                    <i class="fa-regular fa-map"></i>
+                    <i class="fa-solid fa-map"></i>
                     <span lang="it">Italia nel Grande Formato</span><span lang="en">Italy in Large Format</span>
                   </h3>
                   <p class="pill__text">
@@ -947,7 +991,7 @@
 
                 <article class="pill reveal">
                   <h3 class="pill__title">
-                    <i class="fa-regular fa-image"></i>
+                    <i class="fa-solid fa-image"></i>
                     <span lang="it">Opera finita</span><span lang="en">Finished piece</span>
                   </h3>
                   <p class="pill__text">
@@ -958,7 +1002,7 @@
 
                 <article class="pill reveal">
                   <h3 class="pill__title">
-                    <i class="fa-regular fa-clock"></i>
+                    <i class="fa-solid fa-clock"></i>
                     <span lang="it">Tempo e presenza</span><span lang="en">Time and presence</span>
                   </h3>
                   <p class="pill__text">
@@ -1080,7 +1124,7 @@
 
             <div class="stats" aria-label="Numeri progetto">
               <div class="stat reveal">
-                <div class="stat__icon" aria-hidden="true"><i class="fa-regular fa-user"></i></div>
+                <div class="stat__icon" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
                 <div>
                   <p class="stat__num">200+</p>
                   <p class="stat__label"><span lang="it">Passarellini</span><span lang="en">Portraits</span></p>
@@ -1088,7 +1132,7 @@
               </div>
 
               <div class="stat reveal">
-                <div class="stat__icon" aria-hidden="true"><i class="fa-regular fa-cake-candles"></i></div>
+                <div class="stat__icon" aria-hidden="true"><i class="fa-solid fa-cake-candles"></i></div>
                 <div>
                   <p class="stat__num">8</p>
                   <p class="stat__label"><span lang="it">Compleanni</span><span lang="en">Birthdays</span></p>
@@ -1096,7 +1140,7 @@
               </div>
 
               <div class="stat reveal">
-                <div class="stat__icon" aria-hidden="true"><i class="fa-regular fa-map"></i></div>
+                <div class="stat__icon" aria-hidden="true"><i class="fa-solid fa-map"></i></div>
                 <div>
                   <p class="stat__num">17</p>
                   <p class="stat__label"><span lang="it">Regioni visitate</span><span lang="en">Regions</span></p>
@@ -1104,7 +1148,7 @@
               </div>
 
               <div class="stat reveal">
-                <div class="stat__icon" aria-hidden="true"><i class="fa-regular fa-compass"></i></div>
+                <div class="stat__icon" aria-hidden="true"><i class="fa-solid fa-compass"></i></div>
                 <div>
                   <p class="stat__num">5000</p>
                   <p class="stat__label"><span lang="it">Km percorsi</span><span lang="en">Km traveled</span></p>
@@ -1162,7 +1206,7 @@
 
               <div style="margin-top: var(--s-3);">
                 <a class="btn btn--primary" href="/contatti" data-route="/contatti">
-                  <i class="fa-regular fa-paper-plane"></i>
+                  <i class="fa-solid fa-paper-plane"></i>
                   <span lang="it">Vai ai contatti</span><span lang="en">Go to contact</span>
                 </a>
               </div>
@@ -1170,10 +1214,8 @@
           </div>
         </section>
       </div>
-      <!-- /HOME VIEW -->
     </div>
 
-    <!-- CONTACT VIEW TEMPLATE -->
     <template id="tpl-contact">
       <section class="contactPage" aria-label="Contatti">
         <div class="wrap">
@@ -1184,7 +1226,7 @@
               <span lang="en">Reach out for availability and collaborations</span>
             </h1>
 
-            <p class="hero__sub" style="margin-bottom: 0;">
+            <p class="hero__sub" style="margin-bottom: 0; color: var(--muted);">
               <span lang="it">Mi muovo in Italia e all’estero. Se vuoi un ritratto o portare il progetto nella tua città, scrivimi.</span>
               <span lang="en">Available in Italy and internationally. For portraits or to bring the project to your city, write me.</span>
             </p>
@@ -1211,7 +1253,7 @@
                 </span>
 
                 <span class="btnEmail__shell">
-                  <i class="fa-regular fa-envelope"></i>
+                  <i class="fa-solid fa-envelope"></i>
                   <span class="btnEmail__labelText"><span lang="it">Vedi email</span><span lang="en">View email</span></span>
                   <span class="btnEmail__email">contact@emanuelepassarelli.it</span>
                 </span>
@@ -1223,7 +1265,7 @@
               </a>
 
               <a class="btn btn--ghost" href="/" data-route="/">
-                <i class="fa-regular fa-house"></i>
+                <i class="fa-solid fa-house"></i>
                 <span lang="it">Torna alla home</span><span lang="en">Back to home</span>
               </a>
             </div>
@@ -1238,7 +1280,7 @@
       <p class="micro">© <span data-year></span> Emanuele Passarelli</p>
       <div class="footer__links">
         <a href="#main" data-action="back-to-top"><i class="fa-solid fa-arrow-up"></i><span lang="it">Top</span><span lang="en">Top</span></a>
-        <a href="/contatti" data-route="/contatti"><i class="fa-regular fa-paper-plane"></i><span lang="it">Contatti</span><span lang="en">Contact</span></a>
+        <a href="/contatti" data-route="/contatti"><i class="fa-solid fa-paper-plane"></i><span lang="it">Contatti</span><span lang="en">Contact</span></a>
       </div>
     </div>
   </footer>
@@ -1261,6 +1303,8 @@
       const emailValue = "contact@emanuelepassarelli.it";
       let HOME_HTML = "";
 
+      let heroIO = null;
+
       const prefersReducedMotion = () =>
         window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1271,7 +1315,6 @@
 
       const announce = (msg) => { if(announcer) announcer.textContent = msg; };
 
-      /* Menu popover */
       const isMenuOpen = () => popMenu && popMenu.classList.contains('is-open');
 
       const openMenu = () => {
@@ -1292,14 +1335,13 @@
 
       const toggleMenu = () => { isMenuOpen() ? closeMenu() : openMenu(); };
 
-      /* Theme (default always dark) */
       const THEME_KEY = 'ep_theme';
       const applyTheme = (theme) => {
         const t = theme === 'light' ? 'light' : 'dark';
         root.setAttribute('data-theme', t);
         safeStorage.set(THEME_KEY, t);
         document.querySelectorAll('[data-action="toggle-theme"] i').forEach((icon) => {
-          icon.className = (t === 'dark') ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+          icon.className = (t === 'dark') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
         });
       };
       const initTheme = () => {
@@ -1308,15 +1350,32 @@
         applyTheme('dark');
       };
 
-      /* Language */
       const LANG_KEY = 'ep_lang';
+
+      const updateLangToggleUI = () => {
+        const l = (root.getAttribute('data-language') === 'en') ? 'en' : 'it';
+        const next = (l === 'it') ? 'en' : 'it';
+
+        document.querySelectorAll('[data-lang-label]').forEach(el => {
+          el.textContent = l.toUpperCase();
+        });
+
+        document.querySelectorAll('[data-action="toggle-language"]').forEach(btn => {
+          const aria = (next === 'en') ? 'Cambia lingua in inglese' : 'Switch language to Italian';
+          btn.setAttribute('aria-label', aria);
+          btn.setAttribute('title', (next === 'en') ? 'EN' : 'IT');
+        });
+      };
+
       const applyLanguage = (lang) => {
         const l = lang === 'en' ? 'en' : 'it';
         root.setAttribute('data-language', l);
         safeStorage.set(LANG_KEY, l);
         document.documentElement.setAttribute('lang', l);
+        updateLangToggleUI();
         announce(l === 'it' ? 'Lingua impostata su Italiano' : 'Language set to English');
       };
+
       const initLanguage = () => {
         const params = new URLSearchParams(window.location.search);
         const urlLang = params.get('lang');
@@ -1324,7 +1383,6 @@
         applyLanguage(urlLang || saved || 'it');
       };
 
-      /* Header scrolled state */
       const initHeaderScroll = () => {
         if(!header) return;
         let ticking = false;
@@ -1343,7 +1401,28 @@
         onScroll();
       };
 
-      /* Scroll reveal */
+      const initHeaderHeroSense = () => {
+        if(!header) return;
+
+        header.classList.remove('is-over-hero');
+        if(heroIO){ try{ heroIO.disconnect(); }catch{} heroIO = null; }
+
+        const hero = document.querySelector('[data-hero]');
+        if(!hero) return;
+
+        if('IntersectionObserver' in window){
+          heroIO = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            if(!entry) return;
+            header.classList.toggle('is-over-hero', !!entry.isIntersecting);
+          }, { threshold: 0.15 });
+
+          heroIO.observe(hero);
+        } else {
+          header.classList.add('is-over-hero');
+        }
+      };
+
       const revealIn = (scope) => {
         const rootEl = scope || document;
         const els = Array.from(rootEl.querySelectorAll('.reveal'));
@@ -1369,7 +1448,6 @@
         }
       };
 
-      /* Smart media */
       const smartMediaIn = (scope) => {
         const rootEl = scope || document;
         const imgs = Array.from(rootEl.querySelectorAll('img[data-src]'));
@@ -1401,7 +1479,6 @@
         }
       };
 
-      /* Hero YouTube thumb + mount (always query fresh DOM) */
       const initHeroVideo = () => {
         const heroVideo = document.querySelector('[data-hero-video]');
         if(!heroVideo) return;
@@ -1470,7 +1547,6 @@
         }
       };
 
-      /* HScroll dots (always query fresh DOM) */
       const initHScroll = () => {
         const box = document.querySelector('[data-hscroll]');
         if(!box) return;
@@ -1494,14 +1570,13 @@
         setActive(0);
       };
 
-      /* Clipboard */
       const copyToClipboard = async (text) => {
         try{
           if(navigator.clipboard && navigator.clipboard.writeText){
             await navigator.clipboard.writeText(text);
             return true;
           }
-        }catch{ /* fallback below */ }
+        }catch{}
 
         try{
           const ta = document.createElement('textarea');
@@ -1527,7 +1602,6 @@
         badge._t = window.setTimeout(() => badge.classList.remove('is-show'), 1100);
       };
 
-      /* Minimal router: home <-> /contatti */
       const getPath = () => window.location.pathname.replace(/\/+$/, '') || '/';
 
       const setDocForRoute = (route) => {
@@ -1585,6 +1659,8 @@
           initHeroVideo();
         }
 
+        initHeaderHeroSense();
+
         if(opts && opts.scrollTo){
           const id = opts.scrollTo;
           const el = document.querySelector(id);
@@ -1617,7 +1693,6 @@
         await swapView(route, options);
       };
 
-      /* Actions + routing */
       const initActions = () => {
         document.addEventListener('click', async (e) => {
           const routeLink = e.target.closest('[data-route]');
@@ -1652,8 +1727,10 @@
             return;
           }
 
-          if(action === 'set-language'){
-            applyLanguage(btn.getAttribute('data-language') || 'it');
+          if(action === 'toggle-language'){
+            const current = (root.getAttribute('data-language') === 'en') ? 'en' : 'it';
+            const next = (current === 'it') ? 'en' : 'it';
+            applyLanguage(next);
             setDocForRoute(getPath());
             return;
           }
@@ -1708,10 +1785,11 @@
         setDocForRoute(p);
         if(p === '/contatti'){
           await swapView('/contatti', {});
+        } else {
+          initHeaderHeroSense();
         }
       };
 
-      /* Init */
       const init = async () => {
         initTheme();
         initLanguage();
@@ -1726,6 +1804,7 @@
 
         initHScroll();
         initHeroVideo();
+        initHeaderHeroSense();
 
         await initFirstRoute();
       };
