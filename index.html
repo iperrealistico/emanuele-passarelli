@@ -11,10 +11,8 @@
   <meta name="theme-color" content="#0b0c0f">
   <meta name="format-detection" content="telephone=no">
 
-  <!-- TODO: quando avrai il dominio, aggiorna canonical/og. Non blocca nulla ora. -->
   <link rel="canonical" href="https://emanuelepassarelli.it/">
 
-  <!-- Evita /... su GitHub Pages project-site -->
   <link rel="icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
@@ -40,6 +38,9 @@
 
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer">
+
+  <!-- Lightbox (CDN, niente download) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 
   <style>
     :root{ color-scheme: dark light; }
@@ -557,7 +558,6 @@
     .pill__title i{ color: var(--accent); opacity: .95; }
     .pill__text{ margin: 0; color: var(--muted); max-width: 66ch; }
 
-    /* Photo frames: square corners (no rounding) */
     .hScroll, .gridItem, .bioPhoto{ border-radius: 0; }
 
     .hScroll{
@@ -586,12 +586,19 @@
     }
     .hScroll__item:last-child{ border-right: 0; }
 
+    /* Media link (clickable for lightbox) */
     .media{
       position:absolute;
       inset:0;
       overflow:hidden;
       background: linear-gradient(180deg, var(--bg-3), var(--bg));
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      cursor: zoom-in;
+      -webkit-tap-highlight-color: transparent;
     }
+
     .media__ph{
       position:absolute;
       inset:0;
@@ -630,20 +637,25 @@
       border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
       background: color-mix(in oklab, var(--surface) 92%, transparent);
     }
+
     .dots{ display:flex; align-items:center; gap: .45rem; }
     .dot{
-      width: 8px;
-      height: 8px;
+      appearance:none;
+      width: 10px;
+      height: 10px;
       border-radius: 999px;
       background: color-mix(in oklab, var(--border) 70%, transparent);
       border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
       transition: transform var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+      cursor: pointer;
+      padding: 0;
     }
     .dot.is-active{
       background: var(--accent);
       border-color: color-mix(in oklab, var(--accent) 70%, transparent);
       transform: scale(1.15);
     }
+    .dot:focus-visible{ outline: 2px solid color-mix(in oklab, var(--text) 55%, transparent); outline-offset: 4px; }
 
     .grid3{
       margin-top: var(--s-5);
@@ -835,6 +847,10 @@
       transform: translateY(0);
       filter: blur(0);
     }
+
+    /* Lightbox: minimale, niente corners strani */
+    .glightbox-clean .gdesc-inner,
+    .glightbox-clean .gslide-description{ display:none !important; }
   </style>
 </head>
 
@@ -983,40 +999,40 @@
               <div class="hScroll" data-hscroll aria-label="Gallery orizzontale Ritratto Unico">
                 <div class="hScroll__rail" data-hscroll-rail>
                   <div class="hScroll__item" data-component="smart-media">
-                    <div class="media">
+                    <a class="media glightbox" href="img/EmanuelePassarelli01.jpg" data-gallery="ritratto" data-type="image" aria-label="Apri immagine 1">
                       <div class="media__ph" aria-hidden="true"></div>
                       <img class="media__img" data-src="img/EmanuelePassarelli01.jpg" alt="Ritratto Unico, foto 01" decoding="async" loading="lazy">
-                    </div>
+                    </a>
                   </div>
 
                   <div class="hScroll__item" data-component="smart-media">
-                    <div class="media">
+                    <a class="media glightbox" href="img/EmanuelePassarelli03.jpg" data-gallery="ritratto" data-type="image" aria-label="Apri immagine 2">
                       <div class="media__ph" aria-hidden="true"></div>
                       <img class="media__img" data-src="img/EmanuelePassarelli03.jpg" alt="Ritratto Unico, foto 02" decoding="async" loading="lazy">
-                    </div>
+                    </a>
                   </div>
 
                   <div class="hScroll__item" data-component="smart-media">
-                    <div class="media">
+                    <a class="media glightbox" href="img/EmanuelePassarelli02.jpg" data-gallery="ritratto" data-type="image" aria-label="Apri immagine 3">
                       <div class="media__ph" aria-hidden="true"></div>
                       <img class="media__img" data-src="img/EmanuelePassarelli02.jpg" alt="Ritratto Unico, foto 03" decoding="async" loading="lazy">
-                    </div>
+                    </a>
                   </div>
 
                   <div class="hScroll__item" data-component="smart-media">
-                    <div class="media">
+                    <a class="media glightbox" href="img/EmanuelePasserelli00.jpg" data-gallery="ritratto" data-type="image" aria-label="Apri immagine 4">
                       <div class="media__ph" aria-hidden="true"></div>
                       <img class="media__img" data-src="img/EmanuelePasserelli00.jpg" alt="Ritratto Unico, foto 04" decoding="async" loading="lazy">
-                    </div>
+                    </a>
                   </div>
                 </div>
 
                 <div class="hScroll__meta">
-                  <div class="dots" aria-hidden="true" data-hscroll-dots>
-                    <span class="dot is-active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
+                  <div class="dots" aria-label="Navigazione gallery" data-hscroll-dots>
+                    <button class="dot is-active" type="button" data-dot="0" aria-label="Vai a foto 1"></button>
+                    <button class="dot" type="button" data-dot="1" aria-label="Vai a foto 2"></button>
+                    <button class="dot" type="button" data-dot="2" aria-label="Vai a foto 3"></button>
+                    <button class="dot" type="button" data-dot="3" aria-label="Vai a foto 4"></button>
                   </div>
                 </div>
               </div>
@@ -1051,48 +1067,66 @@
 
             <div class="grid3" aria-label="Gallery 3x3">
               <figure class="gridItem reveal" data-component="smart-media">
-                <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" alt="Italia nel Grande Formato, foto 01" decoding="async" loading="lazy">
+                <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 1">
+                  <div class="media__ph" aria-hidden="true"></div>
+                  <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" alt="Italia nel Grande Formato, foto 01" decoding="async" loading="lazy">
+                </a>
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
-                <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" alt="Italia nel Grande Formato, foto 02" decoding="async" loading="lazy">
+                <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 2">
+                  <div class="media__ph" aria-hidden="true"></div>
+                  <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" alt="Italia nel Grande Formato, foto 02" decoding="async" loading="lazy">
+                </a>
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
-                <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n2.jpg" alt="Italia nel Grande Formato, foto 03" decoding="async" loading="lazy">
+                <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n2.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 3">
+                  <div class="media__ph" aria-hidden="true"></div>
+                  <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n2.jpg" alt="Italia nel Grande Formato, foto 03" decoding="async" loading="lazy">
+                </a>
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
-                <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" alt="Italia nel Grande Formato, foto 04" decoding="async" loading="lazy">
+                <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 4">
+                  <div class="media__ph" aria-hidden="true"></div>
+                  <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" alt="Italia nel Grande Formato, foto 04" decoding="async" loading="lazy">
+                </a>
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
-                <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n4.jpg" alt="Italia nel Grande Formato, foto 05" decoding="async" loading="lazy">
+                <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n4.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 5">
+                  <div class="media__ph" aria-hidden="true"></div>
+                  <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n4.jpg" alt="Italia nel Grande Formato, foto 05" decoding="async" loading="lazy">
+                </a>
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
-                <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" alt="Italia nel Grande Formato, foto 06" decoding="async" loading="lazy">
+                <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 6">
+                  <div class="media__ph" aria-hidden="true"></div>
+                  <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" alt="Italia nel Grande Formato, foto 06" decoding="async" loading="lazy">
+                </a>
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
-                <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n6.jpg" alt="Italia nel Grande Formato, foto 07" decoding="async" loading="lazy">
+                <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n6.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 7">
+                  <div class="media__ph" aria-hidden="true"></div>
+                  <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n6.jpg" alt="Italia nel Grande Formato, foto 07" decoding="async" loading="lazy">
+                </a>
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
-                <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n7.jpg" alt="Italia nel Grande Formato, foto 08" decoding="async" loading="lazy">
+                <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n7.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 8">
+                  <div class="media__ph" aria-hidden="true"></div>
+                  <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n7.jpg" alt="Italia nel Grande Formato, foto 08" decoding="async" loading="lazy">
+                </a>
               </figure>
 
               <figure class="gridItem reveal" data-component="smart-media">
-                <div class="media__ph" aria-hidden="true"></div>
-                <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" alt="Italia nel Grande Formato, foto 09" decoding="async" loading="lazy">
+                <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 9">
+                  <div class="media__ph" aria-hidden="true"></div>
+                  <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" alt="Italia nel Grande Formato, foto 09" decoding="async" loading="lazy">
+                </a>
               </figure>
             </div>
 
@@ -1167,61 +1201,64 @@
     </div>
 
     <template id="tpl-contact">
-      <section class="contactPage" aria-label="Contatti">
-        <div class="wrap">
-          <div class="reveal">
-            <p class="kicker"><span lang="it">Contatti</span><span lang="en">Contact</span></p>
-            <h1 class="hero__title" style="max-width: 26ch; margin-bottom: var(--s-2);">
-              <span lang="it">Scrivimi per disponibilità e collaborazioni</span>
-              <span lang="en">Reach out for availability and collaborations</span>
-            </h1>
+      <!-- FIX: wrapper con data-view="contact" -->
+      <div data-view="contact" data-contact-view>
+        <section class="contactPage" aria-label="Contatti">
+          <div class="wrap">
+            <div class="reveal">
+              <p class="kicker"><span lang="it">Contatti</span><span lang="en">Contact</span></p>
+              <h1 class="hero__title" style="max-width: 26ch; margin-bottom: var(--s-2);">
+                <span lang="it">Scrivimi per disponibilità e collaborazioni</span>
+                <span lang="en">Reach out for availability and collaborations</span>
+              </h1>
 
-            <p class="hero__sub" style="margin-bottom: 0; color: var(--muted);">
-              <span lang="it">Mi muovo in Italia e all’estero. Se vuoi un ritratto o portare il progetto nella tua città, scrivimi.</span>
-              <span lang="en">Available in Italy and internationally. For portraits or to bring the project to your city, write me.</span>
-            </p>
+              <p class="hero__sub" style="margin-bottom: 0; color: var(--muted);">
+                <span lang="it">Mi muovo in Italia e all’estero. Se vuoi un ritratto o portare il progetto nella tua città, scrivimi.</span>
+                <span lang="en">Available in Italy and internationally. For portraits or to bring the project to your city, write me.</span>
+              </p>
 
-            <p class="micro" style="margin-top: .75rem;">
-              <span lang="it">Italia · International</span>
-              <span lang="en">Italy · International</span>
-            </p>
-          </div>
-
-          <div class="contactCard reveal">
-            <div style="max-width: 72ch;">
-              <p class="lead" style="margin:0;">
-                <span lang="it"><span class="emph">Email</span> e <span class="emph">Instagram</span> sono i canali più veloci. Rispondo appena posso.</span>
-                <span lang="en"><span class="emph">Email</span> and <span class="emph">Instagram</span> are the fastest channels. I reply as soon as I can.</span>
+              <p class="micro" style="margin-top: .75rem;">
+                <span lang="it">Italia · International</span>
+                <span lang="en">Italy · International</span>
               </p>
             </div>
 
-            <div class="contactCard__right" aria-label="Azioni contatto">
-              <button class="btn btn--primary btnEmail" type="button" data-action="copy-email" aria-label="Vedi email e copia">
-                <span class="btnBadge" aria-hidden="true" data-email-badge>
-                  <i class="fa-solid fa-circle-check"></i>
-                  <span lang="it">Copiata</span><span lang="en">Copied</span>
-                </span>
+            <div class="contactCard reveal">
+              <div style="max-width: 72ch;">
+                <p class="lead" style="margin:0;">
+                  <span lang="it"><span class="emph">Email</span> e <span class="emph">Instagram</span> sono i canali più veloci. Rispondo appena posso.</span>
+                  <span lang="en"><span class="emph">Email</span> and <span class="emph">Instagram</span> are the fastest channels. I reply as soon as I can.</span>
+                </p>
+              </div>
 
-                <span class="btnEmail__shell">
-                  <i class="fa-solid fa-envelope"></i>
-                  <span class="btnEmail__labelText"><span lang="it">Vedi email</span><span lang="en">View email</span></span>
-                  <span class="btnEmail__email">contact@emanuelepassarelli.it</span>
-                </span>
-              </button>
+              <div class="contactCard__right" aria-label="Azioni contatto">
+                <button class="btn btn--primary btnEmail" type="button" data-action="copy-email" aria-label="Vedi email e copia">
+                  <span class="btnBadge" aria-hidden="true" data-email-badge>
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span lang="it">Copiata</span><span lang="en">Copied</span>
+                  </span>
 
-              <a class="btn btn--ghost" href="https://instagram.com/emanuelepassarelli" rel="noopener" target="_blank">
-                <i class="fa-brands fa-instagram"></i>
-                <span>Instagram</span>
-              </a>
+                  <span class="btnEmail__shell">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span class="btnEmail__labelText"><span lang="it">Vedi email</span><span lang="en">View email</span></span>
+                    <span class="btnEmail__email">contact@emanuelepassarelli.it</span>
+                  </span>
+                </button>
 
-              <a class="btn btn--ghost" href="./" data-route="/">
-                <i class="fa-solid fa-house"></i>
-                <span lang="it">Torna alla home</span><span lang="en">Back to home</span>
-              </a>
+                <a class="btn btn--ghost" href="https://instagram.com/emanuelepassarelli" rel="noopener" target="_blank">
+                  <i class="fa-brands fa-instagram"></i>
+                  <span>Instagram</span>
+                </a>
+
+                <a class="btn btn--ghost" href="./" data-route="/">
+                  <i class="fa-solid fa-house"></i>
+                  <span lang="it">Torna alla home</span><span lang="en">Back to home</span>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </template>
   </main>
 
@@ -1236,6 +1273,9 @@
   </footer>
 
   <div class="sr-only" aria-live="polite" aria-atomic="true" data-announcer></div>
+
+  <!-- Lightbox JS (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 
   <script>
     (function(){
@@ -1254,6 +1294,9 @@
       let HOME_HTML = "";
       let heroIO = null;
 
+      // Lightbox instance
+      let lightbox = null;
+
       // GitHub Pages project-site base path
       const GITHUB_REPO = "emanuele-passarelli";
       const isGithubHost = window.location.hostname.toLowerCase().endsWith(".github.io");
@@ -1264,7 +1307,7 @@
 
       const safeStorage = {
         get(key){ try{ return localStorage.getItem(key); }catch{ return null; } },
-        set(key,val){ try{ localStorage.setItem(key,val); }catch{ /* ignore */ } }
+        set(key,val){ try{ localStorage.setItem(key,val); }catch{ } }
       };
 
       const announce = (msg) => { if(announcer) announcer.textContent = msg; };
@@ -1460,6 +1503,27 @@
         }
       };
 
+      const initLightbox = () => {
+        if(!window.GLightbox) return;
+        if(lightbox){
+          try{ lightbox.destroy(); }catch{}
+          lightbox = null;
+        }
+        lightbox = window.GLightbox({
+          selector: '.glightbox',
+          touchNavigation: true,
+          keyboardNavigation: true,
+          closeButton: true,
+          loop: true,
+          zoomable: false,
+          draggable: true,
+          openEffect: 'fade',
+          closeEffect: 'fade',
+          slideEffect: 'slide',
+          skin: 'clean'
+        });
+      };
+
       const initHeroVideo = () => {
         const heroVideo = document.querySelector('[data-hero-video]');
         if(!heroVideo) return;
@@ -1536,18 +1600,39 @@
         if(!rail || !dotsWrap) return;
 
         const dots = Array.from(dotsWrap.querySelectorAll('.dot'));
+        const max = dots.length;
 
         const setActive = (idx) => {
           dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
         };
 
+        const snapWidth = () => rail.getBoundingClientRect().width || 1;
+
+        const goTo = (idx) => {
+          const w = snapWidth();
+          const target = Math.max(0, Math.min(max - 1, idx));
+          rail.scrollTo({
+            left: target * w,
+            behavior: prefersReducedMotion() ? 'auto' : 'smooth'
+          });
+          setActive(target);
+        };
+
         const onScroll = () => {
-          const w = rail.getBoundingClientRect().width || 1;
+          const w = snapWidth();
           const idx = Math.round(rail.scrollLeft / w);
-          setActive(Math.max(0, Math.min(dots.length - 1, idx)));
+          setActive(Math.max(0, Math.min(max - 1, idx)));
         };
 
         rail.addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
+
+        dotsWrap.addEventListener('click', (e) => {
+          const btn = e.target.closest('.dot[data-dot]');
+          if(!btn) return;
+          const idx = Number(btn.getAttribute('data-dot'));
+          if(Number.isFinite(idx)) goTo(idx);
+        });
+
         setActive(0);
       };
 
@@ -1638,6 +1723,7 @@
           initHeroVideo();
         }
 
+        initLightbox();
         initHeaderHeroSense();
 
         if(opts && opts.scrollTo){
@@ -1782,6 +1868,7 @@
 
         initHScroll();
         initHeroVideo();
+        initLightbox();
         initHeaderHeroSense();
 
         await initFirstRoute();
