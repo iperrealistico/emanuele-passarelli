@@ -9,7 +9,7 @@
   <meta name="description" content="Ritratto Unico in grande formato, tecniche antiche e stampe da custodire. Italia nel Grande Formato, biografia e contatti di Emanuele Passarelli.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#212121">
+  <meta name="theme-color" content="#0b0c0f">
   <meta name="format-detection" content="telephone=no">
 
   <link rel="canonical" href="https://emanuelepassarelli.it/">
@@ -87,11 +87,11 @@
       --accent-soft: rgba(232,223,214,.14);
       --ph-breath: 2.6s;
 
-      /* DARK THEME BACKGROUND
-         Modifica questi valori per cambiare velocemente lo sfondo del dark theme. */
-      --dark-bg: #212121;   /* <-- scrivi qui il colore del dark theme */
-      --dark-bg-2: #1d1d1d; /* opzionale: sfondo secondario */
-      --dark-bg-3: #242424; /* opzionale: sfondo terziario */
+      /* DARK THEME BACKGROUND (MODIFICA QUI)
+         Cambia questi valori per variare facilmente il colore di sfondo del tema scuro. */
+      --dark-bg: #212121;
+      --dark-bg-2: #1b1b1b;
+      --dark-bg-3: #151515;
     }
 
     :root[data-theme="dark"]{
@@ -668,26 +668,14 @@
       margin-top: var(--s-5);
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--s-3);
+      gap: var(--s-2);
     }
-    
-    /* RIMOSSO: breakpoint a 2 colonne */
-    
-    /* Mobile e schermi stretti: una sopra l'altra */
+    @media (max-width: 980px){
+      .grid3{ grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 560px){
       .grid3{ grid-template-columns: 1fr; }
     }
-
-    /* Italia nel Grande Formato: foto più grandi e meno spazio tra le immagini */
-    #italia .grid3{
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: var(--s-2);
-    }
-    
-    @media (max-width: 560px){
-      #italia .grid3{ grid-template-columns: 1fr; }
-    }
-
     .gridItem{
       border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
       overflow:hidden;
@@ -962,53 +950,48 @@
                 <span lang="en">Unique Portrait</span>
               </h2>
 
-              <p class="lead">
-                <span lang="it">Avere un proprio ritratto stampato è la testimonianza di chi siamo, ti verrà dedicata una sessione fotografica per poter lasciare una traccia di te.</span>
-                <span lang="en">Having your own printed portrait is a testimony of who we are; a dedicated photo session will be devoted to you so you can leave a trace of yourself.</span>
-              </p>
-
               <div class="pillRow" aria-label="Punti chiave">
                 <article class="pill reveal">
                   <h3 class="pill__title">
-                    <i class="fa-solid fa-camera-retro"></i>
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
                     <span lang="it">Diventa un'opera d'arte</span><span lang="en">Become a work of art</span>
                   </h3>
                   <p class="pill__text">
                     <span lang="it">Avere un proprio ritratto stampato è la testimonianza di chi siamo, ti verrà dedicata una sessione fotografica per poter lasciare una traccia di te.</span>
-                    <span lang="en">Having your own printed portrait is a testimony of who we are; a dedicated photo session will be devoted to you so you can leave a trace of yourself.</span>
+                    <span lang="en">Having your own printed portrait is a testimony of who you are. You will be given a dedicated photo session to leave a trace of yourself.</span>
+                  </p>
+                </article>
+
+                <article class="pill reveal">
+                  <h3 class="pill__title">
+                    <i class="fa-solid fa-camera-retro"></i>
+                    <span lang="it">Tecniche antiche</span><span lang="en">Historic techniques</span>
+                  </h3>
+                  <p class="pill__text">
+                    <span lang="it">Avrai modo di essere scattato con delle tecniche fotografiche antiche tramite un banco ottico, la luce e l'argento scriveranno su supporti di alluminio, vetro e pellicole.</span>
+                    <span lang="en">You can be photographed using historic techniques with a large-format camera; light and silver will write on aluminum, glass, and film.</span>
                   </p>
                 </article>
 
                 <article class="pill reveal">
                   <h3 class="pill__title">
                     <i class="fa-solid fa-map"></i>
-                    <span lang="it">Tecniche antiche</span><span lang="en">Ancient techniques</span>
+                    <span lang="it">Italia nel Grande Formato</span><span lang="en">Italy in Large Format</span>
                   </h3>
                   <p class="pill__text">
-                    <span lang="it">Avrai modo di essere scattato con delle tecniche fotografiche antiche tramite un banco ottico, la luce e l'argento scriveranno su supporti di alluminio, vetro e pellicole.</span>
-                    <span lang="en">You will be photographed using ancient photographic techniques with a large-format camera; light and silver will write on aluminum, glass and film.</span>
+                    <span lang="it">Hai la possibilità di far parte di una immensa raccolta di ritratti Passarelliani che negli anni è diventata essa stessa un'opera unica.</span>
+                    <span lang="en">You have the chance to become part of an immense collection of Passarellian portraits that, over the years, has itself become a unique work.</span>
                   </p>
                 </article>
 
                 <article class="pill reveal">
                   <h3 class="pill__title">
                     <i class="fa-solid fa-image"></i>
-                    <span lang="it">Italia nel Grande Formato</span><span lang="en">Italy in Large Format</span>
-                  </h3>
-                  <p class="pill__text">
-                    <span lang="it">Hai la possibilità di far parte di una immensa raccolta di ritratti Passarelliani che negli anni è diventata essa stessa un'opera unica.</span>
-                    <span lang="en">You can become part of an immense collection of Passarellian portraits that over the years has become a unique work in itself.</span>
-                  </p>
-                </article>
-
-                <article class="pill reveal">
-                  <h3 class="pill__title">
-                    <i class="fa-solid fa-clock"></i>
                     <span lang="it">Opera finita</span><span lang="en">Finished piece</span>
                   </h3>
                   <p class="pill__text">
                     <span lang="it">Alla fine della sessione fotografica riceverai un tuo ritratto stampato da custodire, per poterlo tramandare alle tue future generazioni.</span>
-                    <span lang="en">At the end of the photo session you will receive a printed portrait to keep, so you can pass it down to your future generations.</span>
+                    <span lang="en">At the end of the photo session you will receive a printed portrait to keep, to pass down to future generations.</span>
                   </p>
                 </article>
               </div>
@@ -1067,18 +1050,9 @@
                 <span lang="en">Italy in Large Format</span>
               </h2>
 
-              <p class="p">
-                <span lang="it">
-                  Italia nel Grande Formato è un'enciclopedia umana, in cui ogni persona è descritta unicamente dal suo ritratto. È un progetto itinerante che ha coinvolto tutte le regioni italiane, dal sud al nord, dalle maggiori città ai più piccoli paesini, raccogliendo più di cento ritratti.
-                </span>
-                <span lang="en">
-                  Italy in Large Format is a human encyclopedia in which each person is described solely through their portrait. It is a traveling project that has involved all Italian regions, from south to north, from major cities to the smallest villages, gathering more than one hundred portraits.
-                </span>
-              </p>
-
               <p class="p" style="margin-bottom: var(--s-4);">
-                <span lang="it">L'Italia viene raccontata attraverso questa raccolta di ritratti, in un viaggio ideale fra volti e paesaggi che costituiscono la principale ricchezza di questo Paese. Tutti i ritratti sono stati realizzati con un banco ottico e costituiscono nel loro insieme un'opera unica.</span>
-                <span lang="en">Italy is told through this collection of portraits, in an ideal journey among faces and landscapes that make up the main wealth of this country. All portraits were made with a large-format camera and together form a unique work.</span>
+                <span lang="it">Italia nel Grande Formato è un'enciclopedia umana, in cui ogni persona è descritta unicamente dal suo ritratto. È un progetto itinerante che ha coinvolto tutte le regioni italiane, dal sud al nord, dalle maggiori città ai più piccoli paesini, raccogliendo più di cento ritratti. L'Italia viene raccontata attraverso questa raccolta di ritratti, in un viaggio ideale fra volti e paesaggi che costituiscono la principale ricchezza di questo Paese. Tutti i ritratti sono stati realizzati con un banco ottico e costituiscono nel loro insieme un'opera unica.</span>
+                <span lang="en">Italy in Large Format is a human encyclopedia, where each person is described solely by their portrait. It is a traveling project that has involved every Italian region, from south to north, from major cities to the smallest villages, collecting more than a hundred portraits. Italy is told through this collection of portraits, an ideal journey among faces and landscapes that make up the country’s greatest wealth. All portraits were made with a large-format camera and together form a single unique work.</span>
               </p>
             </div>
 
@@ -1197,22 +1171,22 @@
 
               <p class="p">
                 <span lang="it">Inizio il mio percorso con la fotografia da autodidatta, all'età di ventun anni. Esordisco con "Solitude", nel 2014, progetto fotografico composto da una serie di autoritratti che raccontano le fasi più significative della mia adolescenza. Nel 2016 con "Night Tour" nascono quelli che verranno chiamati "Ritratti Passarelliani". L'idea di trasportare i miei soggetti immersi nel buio in scenari urbani, illuminati solo dalle luci della città in chiave cinematografica, mi ha fatto premiare con numerosi articoli dedicati e interviste personali. Pochi anni dopo alcuni di questi ritratti diventeranno opere esposte in più città tra Italia e Cina.</span>
-                <span lang="en">I began my journey in photography as a self-taught author at the age of twenty-one. I debuted with “Solitude” in 2014, a photographic project made up of a series of self-portraits that recount the most significant phases of my adolescence. In 2016, with “Night Tour”, what would be called the “Passarellian Portraits” were born. The idea of moving my subjects, immersed in darkness, into urban settings lit only by the city lights with a cinematic approach led to awards, dedicated articles and personal interviews. A few years later, some of these portraits became works exhibited in several cities between Italy and China.</span>
+                <span lang="en">I began my journey in photography as a self-taught artist at the age of twenty-one. I debuted with "Solitude" in 2014, a photographic project made of self-portraits that recount the most significant phases of my adolescence. In 2016, with "Night Tour", what would be called the "Passarellian Portraits" were born. The idea of placing my subjects, immersed in darkness, within urban scenes lit only by city lights in a cinematic key earned me numerous dedicated articles and personal interviews. A few years later, some of these portraits became works exhibited in several cities in Italy and China.</span>
               </p>
 
               <p class="p">
                 <span lang="it">Nel 2017 dopo aver partecipato al workshop "Oltre il ritratto" di Mustafa Sabbagh, grande fonte di ispirazione, realizzo il mio secondo progetto "Mattatoio", un reportage fotografico che attraverso alcuni ritratti notturni su strada, racconta la vita delle prostitute transessuali della periferia romana, con l'intenzione di ridare un'anima e una dignità a queste persone, che vengono dalla società "spersonalificate" e ridotte allo status di scarto sociale.</span>
-                <span lang="en">In 2017, after taking part in Mustafa Sabbagh’s workshop “Beyond the Portrait”, a great source of inspiration, I created my second project, “Mattatoio”, a photographic report that, through a series of nighttime street portraits, tells the lives of transgender sex workers on the outskirts of Rome, with the intention of giving back a soul and dignity to people who are “depersonalized” by society and reduced to social outcasts.</span>
+                <span lang="en">In 2017, after taking part in Mustafa Sabbagh’s workshop "Beyond the Portrait", a major source of inspiration, I created my second project, "Mattatoio": a photographic reportage that, through a series of nocturnal street portraits, tells the lives of transgender sex workers on the outskirts of Rome, with the intention of giving these people back a soul and dignity, after society has "depersonalized" them and reduced them to the status of social waste.</span>
               </p>
 
               <p class="p">
                 <span lang="it">Nello stesso anno inizio a maturare un interesse sempre più forte nei confronti della fotografia analogica e decido dunque di proseguire con gli studi in questo campo.</span>
-                <span lang="en">In the same year I began to develop an ever-stronger interest in analog photography and decided to continue my studies in this field.</span>
+                <span lang="en">That same year I developed an ever-stronger interest in analog photography, and I decided to continue my studies in this field.</span>
               </p>
 
               <p class="p">
                 <span lang="it">Nel 2018 lancio "Italia nel Grande Formato", un progetto fotografico che mi ha portato a far riscoprire agli italiani, tramite canali social e interviste cartacee e televisive, l'importanza di avere almeno un proprio ritratto stampato che avesse il compito di testimoniare la loro esistenza. Dopo moltissimi consensi ottenuti finalmente l'iniziativa guadagna i primi 100+ partecipanti tramite una piattaforma crowdfunding, per poi diventare il mio principale impegno fotografico.</span>
-                <span lang="en">In 2018 I launched “Italy in Large Format”, a photographic project that led Italians, through social channels and print and TV interviews, to rediscover the importance of having at least one printed portrait whose task is to bear witness to their existence. After receiving a great deal of support, the initiative gained its first 100-plus participants through a crowdfunding platform, and then became my main photographic commitment.</span>
+                <span lang="en">In 2018 I launched "Italy in Large Format", a photographic project that led Italians, through social channels and print and TV interviews, to rediscover the importance of having at least one printed portrait whose role is to bear witness to their existence. After receiving a great deal of support, the initiative finally reached its first 100+ participants through a crowdfunding platform, and then became my main photographic commitment.</span>
               </p>
 
               <p class="micro">
