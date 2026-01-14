@@ -918,16 +918,16 @@
 .techPage{
   height: 100vh;
   overflow: hidden;
-  padding-top: calc(var(--s-6) + 30px);
+  padding-top: 0;
 }
-.techTop{
-  padding: var(--s-5) 0 var(--s-3);
+.techPage--full{
+  height: 100vh;
+  overflow: hidden;
 }
 
 .techDeck{
   position: relative;
-  height: calc(100vh - (var(--s-6) + 30px) - var(--s-5) - var(--s-3));
-  min-height: 520px;
+  height: 100vh;
   overflow: hidden;
   border-top: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
   border-bottom: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
@@ -962,6 +962,43 @@
   border-color: color-mix(in oklab, var(--accent) 65%, var(--border));
 }
 .techDeck__hint{ color: var(--muted); }
+.techDeck__nav{
+  position:absolute;
+  right: 18px;
+  top: 18px;
+  z-index: 6;
+}
+.techDeck__nav .icon-btn{
+  width: 42px;
+  height: 42px;
+  display:grid;
+  place-items:center;
+}
+
+/* Hero background: click-to-play affordance (only when autoplay=0) */
+.heroVideo.is-clickable{
+  cursor: pointer;
+}
+.heroVideo.is-clickable::after{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(500px 300px at 70% 30%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 55%);
+  pointer-events: none;
+}
+
+/* TECH TEASER: larger, no flicker */
+.techCard__media{
+  aspect-ratio: 16/10;
+  height: clamp(220px, 26vw, 360px);
+}
+.techCard__media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+}
+
 
 .techSlide{
   position: absolute;
@@ -1081,7 +1118,7 @@
     <div class="viewShell" data-view-shell aria-live="polite">
       <div data-view="home" data-home-view>
         <section class="hero" aria-label="Intro" data-hero>
-          <div class="heroVideo" data-hero-video data-video-url="https://www.youtube.com/watch?v=nSSJRcRtqpo" data-video-start="8" aria-hidden="true">
+          <div class="heroVideo" data-hero-video data-video-url="https://www.youtube.com/watch?v=nSSJRcRtqpo" data-video-start="8" data-video-autoplay="0" aria-hidden="true">
             <div class="heroVideo__ph"></div>
             <img class="heroVideo__thumb" alt="" data-thumb>
             <div class="heroVideo__mount" data-video-mount></div>
@@ -1189,28 +1226,28 @@
             <div class="reveal">
               <div class="hScroll" data-hscroll aria-label="Gallery orizzontale Ritratto Unico">
                 <div class="hScroll__rail" data-hscroll-rail>
-                  <div class="hScroll__item" data-component="smart-media">
+                  <div class="hScroll__item" >
                     <a class="media glightbox" href="img/EmanuelePassarelli01.jpg" data-gallery="ritratto" data-type="image" aria-label="Apri immagine 1">
                       <div class="media__ph" aria-hidden="true"></div>
                       <img class="media__img" data-src="img/EmanuelePassarelli01.jpg" alt="Ritratto Unico, foto 01" decoding="async" loading="lazy">
                     </a>
                   </div>
 
-                  <div class="hScroll__item" data-component="smart-media">
+                  <div class="hScroll__item" >
                     <a class="media glightbox" href="img/EmanuelePassarelli03.jpg" data-gallery="ritratto" data-type="image" aria-label="Apri immagine 2">
                       <div class="media__ph" aria-hidden="true"></div>
                       <img class="media__img" data-src="img/EmanuelePassarelli03.jpg" alt="Ritratto Unico, foto 02" decoding="async" loading="lazy">
                     </a>
                   </div>
 
-                  <div class="hScroll__item" data-component="smart-media">
+                  <div class="hScroll__item" >
                     <a class="media glightbox" href="img/EmanuelePassarelli02.jpg" data-gallery="ritratto" data-type="image" aria-label="Apri immagine 3">
                       <div class="media__ph" aria-hidden="true"></div>
                       <img class="media__img" data-src="img/EmanuelePassarelli02.jpg" alt="Ritratto Unico, foto 03" decoding="async" loading="lazy">
                     </a>
                   </div>
 
-                  <div class="hScroll__item" data-component="smart-media">
+                  <div class="hScroll__item" >
                     <a class="media glightbox" href="img/EmanuelePasserelli00.jpg" data-gallery="ritratto" data-type="image" aria-label="Apri immagine 4">
                       <div class="media__ph" aria-hidden="true"></div>
                       <img class="media__img" data-src="img/EmanuelePasserelli00.jpg" alt="Ritratto Unico, foto 04" decoding="async" loading="lazy">
@@ -1253,10 +1290,7 @@
 
             <div class="techStrip reveal" aria-label="Anteprima tecniche">
               <figure class="techCard">
-                <div class="techCard__media" data-component="smart-media">
-                  <div class="media__ph"></div>
-                  <img data-src="img/EmanuelePassarelli01.jpg" alt="Stampa fine art digitale">
-                </div>
+                <div class="techCard__media"><img src="\1" loading="lazy" decoding="async" alt="\2"></div>
                 <figcaption class="techCard__cap">
                   <strong><span lang="it">Fine art digitale</span><span lang="en">Fine art digital</span></strong>
                   <span class="micro"><span lang="it">Precisione e controllo</span><span lang="en">Precision and control</span></span>
@@ -1264,10 +1298,7 @@
               </figure>
 
               <figure class="techCard">
-                <div class="techCard__media" data-component="smart-media">
-                  <div class="media__ph"></div>
-                  <img data-src="img/EmanuelePassarelli02.jpg" alt="Pellicola e stampa">
-                </div>
+                <div class="techCard__media"><img src="\1" loading="lazy" decoding="async" alt="\2"></div>
                 <figcaption class="techCard__cap">
                   <strong><span lang="it">Pellicola</span><span lang="en">Film</span></strong>
                   <span class="micro"><span lang="it">Grana e risposta organica</span><span lang="en">Grain and organic response</span></span>
@@ -1275,10 +1306,7 @@
               </figure>
 
               <figure class="techCard">
-                <div class="techCard__media" data-component="smart-media">
-                  <div class="media__ph"></div>
-                  <img data-src="img/EmanuelePassarelli03.jpg" alt="Collodio e lastre">
-                </div>
+                <div class="techCard__media"><img src="\1" loading="lazy" decoding="async" alt="\2"></div>
                 <figcaption class="techCard__cap">
                   <strong><span lang="it">Tecniche antiche</span><span lang="en">Historic processes</span></strong>
                   <span class="micro"><span lang="it">Vetro e metallo, pezzi unici</span><span lang="en">Glass and metal, one of a kind</span></span>
@@ -1323,63 +1351,63 @@
             </div>
 
             <div class="grid3" aria-label="Gallery 3x3">
-              <figure class="gridItem reveal" data-component="smart-media">
+              <figure class="gridItem reveal" >
                 <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 1">
                   <div class="media__ph" aria-hidden="true"></div>
                   <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" alt="Italia nel Grande Formato, foto 01" decoding="async" loading="lazy">
                 </a>
               </figure>
 
-              <figure class="gridItem reveal" data-component="smart-media">
+              <figure class="gridItem reveal" >
                 <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 2">
                   <div class="media__ph" aria-hidden="true"></div>
                   <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" alt="Italia nel Grande Formato, foto 02" decoding="async" loading="lazy">
                 </a>
               </figure>
 
-              <figure class="gridItem reveal" data-component="smart-media">
+              <figure class="gridItem reveal" >
                 <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n2.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 3">
                   <div class="media__ph" aria-hidden="true"></div>
                   <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n2.jpg" alt="Italia nel Grande Formato, foto 03" decoding="async" loading="lazy">
                 </a>
               </figure>
 
-              <figure class="gridItem reveal" data-component="smart-media">
+              <figure class="gridItem reveal" >
                 <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 4">
                   <div class="media__ph" aria-hidden="true"></div>
                   <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" alt="Italia nel Grande Formato, foto 04" decoding="async" loading="lazy">
                 </a>
               </figure>
 
-              <figure class="gridItem reveal" data-component="smart-media">
+              <figure class="gridItem reveal" >
                 <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n4.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 5">
                   <div class="media__ph" aria-hidden="true"></div>
                   <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n4.jpg" alt="Italia nel Grande Formato, foto 05" decoding="async" loading="lazy">
                 </a>
               </figure>
 
-              <figure class="gridItem reveal" data-component="smart-media">
+              <figure class="gridItem reveal" >
                 <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 6">
                   <div class="media__ph" aria-hidden="true"></div>
                   <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" alt="Italia nel Grande Formato, foto 06" decoding="async" loading="lazy">
                 </a>
               </figure>
 
-              <figure class="gridItem reveal" data-component="smart-media">
+              <figure class="gridItem reveal" >
                 <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n6.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 7">
                   <div class="media__ph" aria-hidden="true"></div>
                   <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n6.jpg" alt="Italia nel Grande Formato, foto 07" decoding="async" loading="lazy">
                 </a>
               </figure>
 
-              <figure class="gridItem reveal" data-component="smart-media">
+              <figure class="gridItem reveal" >
                 <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n7.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 8">
                   <div class="media__ph" aria-hidden="true"></div>
                   <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n7.jpg" alt="Italia nel Grande Formato, foto 08" decoding="async" loading="lazy">
                 </a>
               </figure>
 
-              <figure class="gridItem reveal" data-component="smart-media">
+              <figure class="gridItem reveal" >
                 <a class="media glightbox" href="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" data-gallery="italia" data-type="image" aria-label="Apri foto 9">
                   <div class="media__ph" aria-hidden="true"></div>
                   <img class="media__img" data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" alt="Italia nel Grande Formato, foto 09" decoding="async" loading="lazy">
@@ -1426,7 +1454,7 @@
         <section id="bio" class="section" aria-label="Biografia">
           <div class="wrap bio">
             <div class="reveal">
-              <figure class="bioPhoto" data-component="smart-media" aria-label="Foto di Emanuele Passarelli">
+              <figure class="bioPhoto"  aria-label="Foto di Emanuele Passarelli">
                 <div class="media__ph" aria-hidden="true"></div>
                 <img class="media__img" data-src="img/EmanuelePasserelliBio.jpg" alt="Ritratto di Emanuele Passarelli" decoding="async" loading="lazy">
               </figure>
@@ -1536,34 +1564,11 @@
 
     <template id="tpl-techniques">
   <div data-view="techniques" data-techniques-view>
-    <section class="techPage" aria-label="Tecniche fotografiche">
-      <div class="wrap techTop">
-        <div class="reveal">
-          <p class="kicker"><span lang="it">Tecniche</span><span lang="en">Techniques</span></p>
-          <h1 class="hero__title" style="max-width: 34ch; margin-bottom: var(--s-2);">
-            <span lang="it">Confronta i processi, uno swipe alla volta</span>
-            <span lang="en">Compare processes, one swipe at a time</span>
-          </h1>
-          <p class="hero__sub" style="max-width: 74ch;">
-            <span lang="it">Rotellina, trackpad o swipe: passi da una tecnica all'altra senza scrolling verticale. È pensato per essere visto come una sequenza.</span>
-            <span lang="en">Wheel, trackpad or swipe: move between techniques without vertical scrolling. It’s designed as a sequence.</span>
-          </p>
-
-          <div class="techTop__actions" style="margin-top: var(--s-3); display:flex; gap:.75rem; flex-wrap:wrap;">
-            <a class="btn btn--ghost" href="./" data-route="/">
-              <i class="fa-solid fa-house"></i>
-              <span lang="it">Home</span><span lang="en">Home</span>
-            </a>
-            <a class="btn btn--ghost" href="./contatti" data-route="/contatti">
-              <i class="fa-solid fa-paper-plane"></i>
-              <span lang="it">Contatti</span><span lang="en">Contact</span>
-            </a>
-          </div>
+    <section class="techPage techPage--full" aria-label="Confronto tecniche">
+      \1
+        <div class="techDeck__nav">
+          <a class="icon-btn" href="./" data-route="/" aria-label="Home" title="Home"><i class="fa-solid fa-xmark"></i></a>
         </div>
-      </div>
-
-      <!-- DECK: no vertical scroll -->
-      <div class="techDeck" data-tech-deck aria-label="Confronto tecniche">
         <div class="techDeck__hud" aria-hidden="true">
           <div class="techDeck__dots" data-tech-dots></div>
           <div class="micro techDeck__hint"><span lang="it">rotellina o swipe</span><span lang="en">wheel or swipe</span></div>
@@ -2000,7 +2005,7 @@ const initTechniquesDeck = (scope) => {
           const src = img.getAttribute('data-src');
           if(!src) return;
 
-          const holder = img.closest('[data-component="smart-media"]');
+          const holder = img.closest('[]');
           const onLoad = () => holder && holder.classList.add('is-loaded');
           const onError = () => holder && holder.classList.add('has-error');
 
@@ -2048,130 +2053,154 @@ const initTechniquesDeck = (scope) => {
       };
 
       const initHeroVideo = () => {
-        const heroVideo = document.querySelector('[data-hero-video]');
-        if(!heroVideo) return;
+  const heroVideo = document.querySelector('[data-hero-video]');
+  if(!heroVideo) return;
 
-        const videoUrl = (heroVideo.getAttribute('data-video-url') || '').trim();
-        const start = Number(heroVideo.getAttribute('data-video-start') || '0') || 0;
+  const videoUrl = (heroVideo.getAttribute('data-video-url') || '').trim();
+  const startAt = Number(heroVideo.getAttribute('data-video-start') || '0') || 0;
+  const autoplay = String(heroVideo.getAttribute('data-video-autoplay') || '0') === '1';
 
-        const img = heroVideo.querySelector('[data-thumb]');
-        const mount = heroVideo.querySelector('[data-video-mount]');
-        if(!videoUrl || !img || !mount) return;
+  const img = heroVideo.querySelector('[data-thumb]');
+  const mount = heroVideo.querySelector('[data-video-mount]');
+  if(!videoUrl || !img || !mount) return;
 
-        const isYouTube = /youtube\.com|youtu\.be/i.test(videoUrl);
+  const reduce = prefersReducedMotion();
+  const isYouTube = /youtube\.com|youtu\.be/i.test(videoUrl);
 
-        const getYouTubeId = (url) => {
-          try{
-            const u = new URL(url);
-            if(u.hostname.includes('youtu.be')) return u.pathname.replace('/', '') || '';
-            if(u.searchParams.get('v')) return u.searchParams.get('v') || '';
-            const m = u.pathname.match(/\/embed\/([^/]+)/);
-            return m ? (m[1] || '') : '';
-          }catch{
-            const m = String(url).match(/(?:v=|youtu\.be\/|\/embed\/)([A-Za-z0-9_-]{6,})/);
-            return m ? m[1] : '';
-          }
-        };
+  const getYouTubeId = (url) => {
+    try{
+      const u = new URL(url);
+      if(u.hostname.includes('youtu.be')) return u.pathname.replace('/', '') || '';
+      if(u.searchParams.get('v')) return u.searchParams.get('v') || '';
+      const m = u.pathname.match(/\/embed\/([^/]+)/);
+      return m ? (m[1] || '') : '';
+    }catch{
+      const m = String(url).match(/(?:v=|youtu\.be\/|\/embed\/)([A-Za-z0-9_-]{6,})/);
+      return m ? m[1] : '';
+    }
+  };
 
-        const mountYouTube = (videoId) => {
-          if(heroVideo.classList.contains('is-mounted')) return;
+  const mountYouTube = (videoId) => {
+    if(heroVideo.classList.contains('is-mounted')) return;
 
-          const reduce = prefersReducedMotion();
+    const cover = document.createElement('div');
+    cover.className = 'heroVideo__cover';
 
-          const cover = document.createElement('div');
-          cover.className = 'heroVideo__cover';
+    const iframe = document.createElement('iframe');
+    iframe.title = "Hero video";
+    iframe.loading = "eager";
+    iframe.allowFullscreen = false;
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.allow = "autoplay; encrypted-media; picture-in-picture; web-share";
 
-          const iframe = document.createElement('iframe');
-          iframe.title = "Hero video";
-          iframe.loading = "eager";
-          iframe.allowFullscreen = false;
-          iframe.referrerPolicy = "strict-origin-when-cross-origin";
-          iframe.allow = "autoplay; encrypted-media; picture-in-picture; web-share";
+    // Use youtube-nocookie to reduce tracking/cookies.
+    const params = new URLSearchParams({
+      autoplay: (autoplay && !reduce) ? "1" : "0",
+      mute: "1",
+      playsinline: "1",
+      rel: "0",
+      modestbranding: "1",
+      controls: "0",
+      disablekb: "1",
+      fs: "0",
+      iv_load_policy: "3",
+      start: String(Math.max(0, startAt)),
+      loop: "1",
+      playlist: videoId
+    });
 
-          const params = new URLSearchParams({
-            autoplay: reduce ? "0" : "1",
-            mute: "1",
-            playsinline: "1",
-            rel: "0",
-            modestbranding: "1",
-            controls: "0",
-            disablekb: "1",
-            fs: "0",
-            iv_load_policy: "3",
-            start: String(Math.max(0, start)),
-            loop: "1",
-            playlist: videoId
-          });
+    iframe.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(videoId) + "?" + params.toString();
 
-          iframe.src = "https://www.youtube.com/embed/" + encodeURIComponent(videoId) + "?" + params.toString();
+    cover.appendChild(iframe);
+    mount.appendChild(cover);
+    heroVideo.classList.add('is-mounted');
+  };
 
-          cover.appendChild(iframe);
-          mount.appendChild(cover);
-          heroVideo.classList.add('is-mounted');
-        };
+  const mountMP4 = (srcUrl) => {
+    if(heroVideo.classList.contains('is-mounted')) return;
 
-        const mountMP4 = (srcUrl) => {
-          if(heroVideo.classList.contains('is-mounted')) return;
+    const v = document.createElement('video');
+    v.className = 'heroVideo__mp4';
+    v.autoplay = autoplay && !reduce;
+    v.muted = true;
+    v.loop = true;
+    v.playsInline = true;
+    v.preload = 'metadata';
 
-          const v = document.createElement('video');
-          v.className = 'heroVideo__mp4';
-          v.autoplay = !prefersReducedMotion();
-          v.muted = true;
-          v.loop = true;
-          v.playsInline = true;
-          v.preload = 'metadata';
+    const s = document.createElement('source');
+    s.src = srcUrl;
+    s.type = 'video/mp4';
+    v.appendChild(s);
 
-          const s = document.createElement('source');
-          s.src = srcUrl;
-          s.type = 'video/mp4';
-          v.appendChild(s);
+    v.addEventListener('loadedmetadata', () => {
+      if(startAt > 0 && Number.isFinite(startAt)){
+        try{ v.currentTime = Math.max(0, startAt); }catch{}
+      }
+      if(autoplay && !reduce){
+        v.play().catch(() => {});
+      }
+    }, { once: true });
 
-          v.addEventListener('loadedmetadata', () => {
-            if(start > 0 && Number.isFinite(start)){
-              try{ v.currentTime = Math.max(0, start); }catch{}
-            }
-            if(!prefersReducedMotion()){
-              v.play().catch(() => {});
-            }
-          }, { once: true });
+    mount.appendChild(v);
+    heroVideo.classList.add('is-mounted');
+  };
 
-          mount.appendChild(v);
-          heroVideo.classList.add('is-mounted');
-        };
+  const enableClickToPlay = (fn) => {
+    // Click-to-play avoids console spam from blocked trackers and keeps the page quiet by default.
+    const onClick = () => {
+      fn();
+      heroVideo.removeEventListener('click', onClick);
+      heroVideo.classList.remove('is-clickable');
+    };
+    heroVideo.classList.add('is-clickable');
+    heroVideo.addEventListener('click', onClick, { once: true });
+  };
 
-        if(isYouTube){
-          const id = getYouTubeId(videoUrl);
-          if(!id) return;
+  if(isYouTube){
+    const id = getYouTubeId(videoUrl);
+    if(!id) return;
 
-          const candidates = [
-            `https://i.ytimg.com/vi/${encodeURIComponent(id)}/maxresdefault.jpg`,
-            `https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`
-          ];
+    const candidates = [
+      `https://i.ytimg.com/vi/${encodeURIComponent(id)}/maxresdefault.jpg`,
+      `https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`
+    ];
 
-          let idx = 0;
-          const tryLoad = () => {
-            img.onload = () => heroVideo.classList.add('is-thumb-loaded');
-            img.onerror = () => { idx += 1; if(idx < candidates.length) tryLoad(); };
-            img.src = candidates[idx];
-          };
-          tryLoad();
+    let idx = 0;
+    const tryLoad = () => {
+      img.onload = () => heroVideo.classList.add('is-thumb-loaded');
+      img.onerror = () => { idx += 1; if(idx < candidates.length) tryLoad(); };
+      img.src = candidates[idx];
+    };
+    tryLoad();
 
-          const delayed = () => window.setTimeout(() => mountYouTube(id), 260);
-          if('requestIdleCallback' in window){
-            window.requestIdleCallback(delayed, { timeout: 1200 });
-          } else {
-            delayed();
-          }
-        } else {
-          heroVideo.classList.add('is-thumb-loaded');
-          const delayed = () => window.setTimeout(() => mountMP4(videoUrl), 120);
-          if('requestIdleCallback' in window){
-            window.requestIdleCallback(delayed, { timeout: 1200 });
-          } else {
-            delayed();
-          }
-        }
-      };
+    if(autoplay && !reduce){
+      // If autoplay is enabled, mount immediately.
+      const delayed = () => window.setTimeout(() => mountYouTube(id), 260);
+      if('requestIdleCallback' in window){
+        window.requestIdleCallback(delayed, { timeout: 1200 });
+      } else {
+        delayed();
+      }
+    } else {
+      // Default: no iframe until user clicks (prevents blocked tracking errors in console)
+      enableClickToPlay(() => mountYouTube(id));
+    }
+  } else {
+    heroVideo.classList.add('is-thumb-loaded');
+
+    if(autoplay && !reduce){
+      const delayed = () => window.setTimeout(() => mountMP4(videoUrl), 120);
+      if('requestIdleCallback' in window){
+        window.requestIdleCallback(delayed, { timeout: 1200 });
+      } else {
+        delayed();
+      }
+    } else {
+      enableClickToPlay(() => mountMP4(videoUrl));
+    }
+  }
+};
+
       const initHScroll = () => {
         const box = document.querySelector('[data-hscroll]');
         if(!box) return;
