@@ -909,110 +909,136 @@
       gap: .25rem;
     }
 
-    /* TECH PAGE (scrollytelling) */
-    .techPage{ padding-top: calc(var(--s-6) + 30px); }
-    .techTop{ padding: var(--s-5) 0 var(--s-4); }
+    
+/* TECH PAGE (comparison deck, no vertical scroll) */
+[data-view="techniques"]{
+  height: 100vh;
+  overflow: hidden;
+}
+.techPage{
+  height: 100vh;
+  overflow: hidden;
+  padding-top: calc(var(--s-6) + 30px);
+}
+.techTop{
+  padding: var(--s-5) 0 var(--s-3);
+}
 
-    .techStory{
-      margin-top: var(--s-4);
-    }
-    .techStory__pin{
-      position: relative;
-      height: 100vh;
-      min-height: 560px;
-      overflow: hidden;
-      border-top: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
-      border-bottom: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
-      background: radial-gradient(1200px 600px at 70% 20%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 55%);
-    }
-    .techStory__track{
-      height: 100%;
-      display:flex;
-      will-change: transform;
-    }
-    .techPanel{
-      width: 100vw;
-      height: 100%;
-      position: relative;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: var(--s-3);
-      padding: clamp(16px, 3vw, 44px);
-      align-items: end;
-    }
-    @media (max-width: 900px){
-      .techPanel{ grid-template-columns: 1fr; align-content: end; }
-    }
+.techDeck{
+  position: relative;
+  height: calc(100vh - (var(--s-6) + 30px) - var(--s-5) - var(--s-3));
+  min-height: 520px;
+  overflow: hidden;
+  border-top: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
+  border-bottom: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
+  background: radial-gradient(1200px 600px at 70% 20%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 55%);
+}
+@media (max-width: 900px){
+  .techDeck{ min-height: 540px; }
+}
 
-    .techPanel__media{
-      position: relative;
-      height: 70vh;
-      min-height: 320px;
-      border: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
-      overflow:hidden;
-      background: color-mix(in oklab, var(--surface) 80%, transparent);
-    }
-    .techPanel__media img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-      transform: scale(1.02);
-      filter: contrast(1.03);
-    }
-    .techPanel__copy{
-      align-self: end;
-      max-width: 46ch;
-      background: color-mix(in oklab, var(--bg) 72%, transparent);
-      border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
-      padding: 1rem 1rem 1.05rem;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 20px 60px color-mix(in oklab, #000 30%, transparent);
-    }
-    .techPanel__title{
-      font-family: var(--serif);
-      font-size: clamp(1.35rem, 2.4vw, 2.1rem);
-      margin: 0 0 .45rem;
-      letter-spacing: .02em;
-    }
-    .techPanel__text{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.55;
-    }
+.techDeck__hud{
+  position:absolute;
+  left: 18px;
+  top: 18px;
+  z-index: 10;
+  display:flex;
+  gap: .75rem;
+  align-items:center;
+  padding: .55rem .7rem;
+  background: color-mix(in oklab, var(--bg) 60%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+  backdrop-filter: blur(10px);
+}
+.techDeck__dots{ display:flex; gap: .45rem; align-items:center; }
+.techDeck__dot{
+  width: 10px;
+  height: 10px;
+  border: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
+}
+.techDeck__dot.is-active{
+  background: color-mix(in oklab, var(--accent) 70%, var(--surface));
+  border-color: color-mix(in oklab, var(--accent) 65%, var(--border));
+}
+.techDeck__hint{ color: var(--muted); }
 
-    .techStory__hud{
-      position:absolute;
-      left: 18px;
-      top: 18px;
-      z-index: 5;
-      display:flex;
-      gap: .75rem;
-      align-items:center;
-      padding: .55rem .7rem;
-      background: color-mix(in oklab, var(--bg) 60%, transparent);
-      border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
-      backdrop-filter: blur(10px);
-    }
-    .techStory__dots{ display:flex; gap: .45rem; align-items:center; }
-    .techStory__dot{
-      width: 10px;
-      height: 10px;
-      border: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
-      background: color-mix(in oklab, var(--surface) 70%, transparent);
-    }
-    .techStory__dot.is-active{
-      background: color-mix(in oklab, var(--accent) 70%, var(--surface));
-      border-color: color-mix(in oklab, var(--accent) 65%, var(--border));
-    }
-    .techStory__hint{ color: var(--muted); }
-    /* Lightbox: minimale, niente corners strani */
+.techSlide{
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(10px) scale(1.01);
+  transition: opacity .35s ease, transform .55s ease;
+  pointer-events: none;
+
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: var(--s-3);
+  padding: clamp(16px, 3vw, 44px);
+  align-items: end;
+}
+.techSlide.is-active{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+@media (max-width: 900px){
+  .techSlide{ grid-template-columns: 1fr; align-content: end; }
+}
+
+.techSlide__media{
+  position: relative;
+  height: 70%;
+  min-height: 280px;
+  border: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
+  overflow:hidden;
+  background: color-mix(in oklab, var(--surface) 80%, transparent);
+}
+.techSlide__media img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  display:block;
+  transform: scale(1.02);
+  filter: contrast(1.03);
+}
+.techSlide__copy{
+  align-self: end;
+  max-width: 48ch;
+  background: color-mix(in oklab, var(--bg) 72%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+  padding: 1rem 1rem 1.05rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 60px color-mix(in oklab, #000 30%, transparent);
+}
+.techSlide__title{
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 2.4vw, 2.1rem);
+  margin: 0 0 .45rem;
+  letter-spacing: .02em;
+}
+.techSlide__text{
+  margin: 0 0 .75rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.techSlide__bullets{
+  margin: 0;
+  padding-left: 1.05rem;
+  color: var(--muted);
+  display:grid;
+  gap: .25rem;
+}
+
+
+/* Lightbox: minimale, niente corners strani */
     .glightbox-clean .gdesc-inner,
     .glightbox-clean .gslide-description{ display:none !important; }
   </style>
 
-  <link rel="prefetch" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js">
-  <link rel="prefetch" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js">
+  
+
 </head>
 
 <body>
@@ -1229,7 +1255,7 @@
               <figure class="techCard">
                 <div class="techCard__media" data-component="smart-media">
                   <div class="media__ph"></div>
-                  <img data-src="img/tech-digital.jpg" alt="Stampa fine art digitale">
+                  <img data-src="img/EmanuelePassarelli01.jpg" alt="Stampa fine art digitale">
                 </div>
                 <figcaption class="techCard__cap">
                   <strong><span lang="it">Fine art digitale</span><span lang="en">Fine art digital</span></strong>
@@ -1240,7 +1266,7 @@
               <figure class="techCard">
                 <div class="techCard__media" data-component="smart-media">
                   <div class="media__ph"></div>
-                  <img data-src="img/tech-film.jpg" alt="Pellicola e stampa">
+                  <img data-src="img/EmanuelePassarelli02.jpg" alt="Pellicola e stampa">
                 </div>
                 <figcaption class="techCard__cap">
                   <strong><span lang="it">Pellicola</span><span lang="en">Film</span></strong>
@@ -1251,7 +1277,7 @@
               <figure class="techCard">
                 <div class="techCard__media" data-component="smart-media">
                   <div class="media__ph"></div>
-                  <img data-src="img/tech-plate.jpg" alt="Collodio e lastre">
+                  <img data-src="img/EmanuelePassarelli03.jpg" alt="Collodio e lastre">
                 </div>
                 <figcaption class="techCard__cap">
                   <strong><span lang="it">Tecniche antiche</span><span lang="en">Historic processes</span></strong>
@@ -1509,115 +1535,135 @@
 
 
     <template id="tpl-techniques">
-      <div data-view="techniques" data-techniques-view>
-        <section class="techPage" aria-label="Tecniche fotografiche">
-          <div class="wrap techTop">
-            <div class="reveal">
-              <p class="kicker"><span lang="it">Tecniche</span><span lang="en">Techniques</span></p>
-              <h1 class="hero__title" style="max-width: 30ch; margin-bottom: var(--s-2);">
-                <span lang="it">Scorri per vedere differenze reali</span>
-                <span lang="en">Scroll to feel real differences</span>
-              </h1>
-              <p class="hero__sub" style="max-width: 72ch;">
-                <span lang="it">La rotellina e lo swipe avanzano tra metodi diversi. Texture, profondità, unicità, tempo.</span>
-                <span lang="en">Wheel and swipe advance across different methods. Texture, depth, uniqueness, time.</span>
-              </p>
+  <div data-view="techniques" data-techniques-view>
+    <section class="techPage" aria-label="Tecniche fotografiche">
+      <div class="wrap techTop">
+        <div class="reveal">
+          <p class="kicker"><span lang="it">Tecniche</span><span lang="en">Techniques</span></p>
+          <h1 class="hero__title" style="max-width: 34ch; margin-bottom: var(--s-2);">
+            <span lang="it">Confronta i processi, uno swipe alla volta</span>
+            <span lang="en">Compare processes, one swipe at a time</span>
+          </h1>
+          <p class="hero__sub" style="max-width: 74ch;">
+            <span lang="it">Rotellina, trackpad o swipe: passi da una tecnica all'altra senza scrolling verticale. È pensato per essere visto come una sequenza.</span>
+            <span lang="en">Wheel, trackpad or swipe: move between techniques without vertical scrolling. It’s designed as a sequence.</span>
+          </p>
 
-              <div class="techTop__actions" style="margin-top: var(--s-3);">
-                <a class="btn btn--ghost" href="./" data-route="/">
-                  <i class="fa-solid fa-house"></i>
-                  <span lang="it">Home</span><span lang="en">Home</span>
-                </a>
-                <a class="btn btn--ghost" href="./contatti" data-route="/contatti">
-                  <i class="fa-solid fa-paper-plane"></i>
-                  <span lang="it">Contatti</span><span lang="en">Contact</span>
-                </a>
-              </div>
-            </div>
+          <div class="techTop__actions" style="margin-top: var(--s-3); display:flex; gap:.75rem; flex-wrap:wrap;">
+            <a class="btn btn--ghost" href="./" data-route="/">
+              <i class="fa-solid fa-house"></i>
+              <span lang="it">Home</span><span lang="en">Home</span>
+            </a>
+            <a class="btn btn--ghost" href="./contatti" data-route="/contatti">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span lang="it">Contatti</span><span lang="en">Contact</span>
+            </a>
           </div>
-
-          <div class="techStory" data-tech-story>
-            <div class="techStory__pin" data-tech-pin>
-              <div class="techStory__hud" aria-hidden="true">
-                <div class="techStory__dots" data-tech-dots></div>
-                <div class="micro techStory__hint"><span lang="it">rotellina o swipe</span><span lang="en">wheel or swipe</span></div>
-              </div>
-
-              <div class="techStory__track" data-tech-track>
-                <article class="techPanel" data-tech-panel>
-                  <div class="techPanel__media">
-                    <img data-src="img/tech-slide-digital.jpg" alt="Stampa fine art digitale">
-                  </div>
-                  <div class="techPanel__copy">
-                    <h2 class="techPanel__title">
-                      <span lang="it">Fine art digitale</span><span lang="en">Fine art digital</span>
-                    </h2>
-                    <p class="techPanel__text">
-                      <span lang="it">Massimo controllo su tono e dettaglio. Carta e inchiostri pigmentati, stabilità, coerenza tra copie.</span>
-                      <span lang="en">Maximum control over tone and detail. Pigment inks on fine art paper, stable and consistent across copies.</span>
-                    </p>
-                  </div>
-                </article>
-
-                <article class="techPanel" data-tech-panel>
-                  <div class="techPanel__media">
-                    <img data-src="img/tech-slide-film.jpg" alt="Pellicola e stampa">
-                  </div>
-                  <div class="techPanel__copy">
-                    <h2 class="techPanel__title">
-                      <span lang="it">Pellicola</span><span lang="en">Film</span>
-                    </h2>
-                    <p class="techPanel__text">
-                      <span lang="it">Grana, micro-imperfezioni, risposta alla luce più “fisica”. Ogni scansione o stampa ha carattere.</span>
-                      <span lang="en">Grain, micro-imperfections, a more physical response to light. Each scan or print carries character.</span>
-                    </p>
-                  </div>
-                </article>
-
-                <article class="techPanel" data-tech-panel>
-                  <div class="techPanel__media">
-                    <img data-src="img/tech-slide-fp100.jpg" alt="FP-100 peel apart">
-                  </div>
-                  <div class="techPanel__copy">
-                    <h2 class="techPanel__title">FP-100</h2>
-                    <p class="techPanel__text">
-                      <span lang="it">Istantanea peel-apart: colori e difetti irripetibili, bordi, chimica visibile. Oggetto unico.</span>
-                      <span lang="en">Peel-apart instant: unrepeatable colors and artifacts, borders, visible chemistry. A unique object.</span>
-                    </p>
-                  </div>
-                </article>
-
-                <article class="techPanel" data-tech-panel>
-                  <div class="techPanel__media">
-                    <img data-src="img/tech-slide-tintype.jpg" alt="Collodio Tintype su metallo">
-                  </div>
-                  <div class="techPanel__copy">
-                    <h2 class="techPanel__title">Collodio Tintype</h2>
-                    <p class="techPanel__text">
-                      <span lang="it">Collodio su metallo: profondità e materia. Un solo esemplare, fatto a mano, con segni del processo.</span>
-                      <span lang="en">Collodion on metal: depth and materiality. A single handmade piece, with process marks.</span>
-                    </p>
-                  </div>
-                </article>
-
-                <article class="techPanel" data-tech-panel>
-                  <div class="techPanel__media">
-                    <img data-src="img/tech-slide-ambrotype.jpg" alt="Ambrotype su vetro">
-                  </div>
-                  <div class="techPanel__copy">
-                    <h2 class="techPanel__title">Ambrotype</h2>
-                    <p class="techPanel__text">
-                      <span lang="it">Collodio su vetro: luce interna e tridimensionalità. Delicato, prezioso, impossibile da replicare identico.</span>
-                      <span lang="en">Collodion on glass: inner light and dimensionality. Delicate, precious, impossible to replicate identically.</span>
-                    </p>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-        </section>
+        </div>
       </div>
-    </template>
+
+      <!-- DECK: no vertical scroll -->
+      <div class="techDeck" data-tech-deck aria-label="Confronto tecniche">
+        <div class="techDeck__hud" aria-hidden="true">
+          <div class="techDeck__dots" data-tech-dots></div>
+          <div class="micro techDeck__hint"><span lang="it">rotellina o swipe</span><span lang="en">wheel or swipe</span></div>
+        </div>
+
+        <!-- Slides -->
+        <article class="techSlide is-active" data-tech-slide data-title="Fine art digitale">
+          <div class="techSlide__media">
+            <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" alt="Stampa fine art digitale">
+          </div>
+          <div class="techSlide__copy">
+            <h2 class="techSlide__title"><span lang="it">Fine art digitale</span><span lang="en">Fine art digital</span></h2>
+            <p class="techSlide__text">
+              <span lang="it">Massimo controllo su tono e dettaglio. Carta e inchiostri pigmentati, stabilità e coerenza tra copie.</span>
+              <span lang="en">Maximum control over tone and detail. Pigment inks on fine art paper, stable and consistent across copies.</span>
+            </p>
+            <ul class="techSlide__bullets">
+              <li><span lang="it">Replicabile con coerenza</span><span lang="en">Repeatable and consistent</span></li>
+              <li><span lang="it">Neri profondi e micro-dettaglio</span><span lang="en">Deep blacks and micro-detail</span></li>
+              <li><span lang="it">Ideale per edizioni</span><span lang="en">Ideal for editions</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="techSlide" data-tech-slide data-title="Pellicola">
+          <div class="techSlide__media">
+            <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" alt="Pellicola e stampa">
+          </div>
+          <div class="techSlide__copy">
+            <h2 class="techSlide__title"><span lang="it">Pellicola</span><span lang="en">Film</span></h2>
+            <p class="techSlide__text">
+              <span lang="it">Grana, risposta organica alla luce, micro-imperfezioni. Ogni stampa ha carattere e presenza fisica.</span>
+              <span lang="en">Grain, organic response to light, micro-imperfections. Each print carries character and physical presence.</span>
+            </p>
+            <ul class="techSlide__bullets">
+              <li><span lang="it">Texture naturale</span><span lang="en">Natural texture</span></li>
+              <li><span lang="it">Transizioni morbide</span><span lang="en">Gentle tonal transitions</span></li>
+              <li><span lang="it">Feeling “analogico”</span><span lang="en">Analog feel</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="techSlide" data-tech-slide data-title="FP-100">
+          <div class="techSlide__media">
+            <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" alt="FP-100 peel apart">
+          </div>
+          <div class="techSlide__copy">
+            <h2 class="techSlide__title">FP-100</h2>
+            <p class="techSlide__text">
+              <span lang="it">Istantanea peel-apart: chimica visibile, bordi, difetti irripetibili. È un oggetto unico, non una replica.</span>
+              <span lang="en">Peel-apart instant: visible chemistry, borders, unrepeatable artifacts. A unique object, not a replica.</span>
+            </p>
+            <ul class="techSlide__bullets">
+              <li><span lang="it">Pezzo unico</span><span lang="en">One of a kind</span></li>
+              <li><span lang="it">Artefatti chimici</span><span lang="en">Chemical artifacts</span></li>
+              <li><span lang="it">Estetica “viva”</span><span lang="en">Living aesthetic</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="techSlide" data-tech-slide data-title="Tintype">
+          <div class="techSlide__media">
+            <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" alt="Collodio Tintype su metallo">
+          </div>
+          <div class="techSlide__copy">
+            <h2 class="techSlide__title">Collodio Tintype</h2>
+            <p class="techSlide__text">
+              <span lang="it">Collodio su metallo: profondità e materia. Un solo esemplare, fatto a mano, con segni del processo.</span>
+              <span lang="en">Collodion on metal: depth and materiality. A single handmade piece, with process marks.</span>
+            </p>
+            <ul class="techSlide__bullets">
+              <li><span lang="it">Metallo, tridimensionalità</span><span lang="en">Metal, dimensional look</span></li>
+              <li><span lang="it">Oggetto fisico</span><span lang="en">Physical object</span></li>
+              <li><span lang="it">Irreplicabile</span><span lang="en">Impossible to replicate</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="techSlide" data-tech-slide data-title="Ambrotype">
+          <div class="techSlide__media">
+            <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" alt="Ambrotype su vetro">
+          </div>
+          <div class="techSlide__copy">
+            <h2 class="techSlide__title">Ambrotype</h2>
+            <p class="techSlide__text">
+              <span lang="it">Collodio su vetro: luce interna e delicatezza. Un oggetto prezioso, impossibile da replicare identico.</span>
+              <span lang="en">Collodion on glass: inner light and delicacy. A precious object, impossible to replicate identically.</span>
+            </p>
+            <ul class="techSlide__bullets">
+              <li><span lang="it">Vetro, “luce interna”</span><span lang="en">Glass, “inner light”</span></li>
+              <li><span lang="it">Delicato e raro</span><span lang="en">Delicate and rare</span></li>
+              <li><span lang="it">Pezzo unico</span><span lang="en">One of a kind</span></li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </div>
+</template>
   </main>
 
   <footer class="site-footer" data-component="footer">
@@ -1656,84 +1702,120 @@
 
       let cleanupView = null;
 
-      // GSAP (lazy) via cdnjs (3.13.0)
-      const GSAP_SRC = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js";
-      const ST_SRC   = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js";
+const initTechniquesDeck = (scope) => {
+  const rootEl = scope || document;
+  const view = rootEl.querySelector('[data-view="techniques"]');
+  const deck = rootEl.querySelector('[data-tech-deck]');
+  const slides = Array.from(rootEl.querySelectorAll('[data-tech-slide]'));
+  const dotsWrap = rootEl.querySelector('[data-tech-dots]');
 
-      const loadScriptOnce = (src) => new Promise((resolve, reject) => {
-        const existing = Array.from(document.scripts).find(s => (s.src || '') === src);
-        if(existing) return resolve();
+  if(!deck || slides.length < 2) return () => {};
 
-        const s = document.createElement('script');
-        s.src = src;
-        s.async = true;
-        s.crossOrigin = "anonymous";
-        s.onload = () => resolve();
-        s.onerror = () => reject(new Error("Failed to load " + src));
-        document.head.appendChild(s);
-      });
+  // Build dots
+  if(dotsWrap){
+    dotsWrap.innerHTML = slides.map((_, i) =>
+      `<span class="techDeck__dot ${i===0?'is-active':''}" data-dot="${i}"></span>`
+    ).join('');
+  }
+  const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.techDeck__dot')) : [];
 
-      const ensureGSAP = async () => {
-        if(window.gsap && window.ScrollTrigger) return;
-        await loadScriptOnce(GSAP_SRC);
-        await loadScriptOnce(ST_SRC);
-        if(window.gsap && window.ScrollTrigger){
-          window.gsap.registerPlugin(window.ScrollTrigger);
-        }
-      };
+  let idx = 0;
+  let locked = false;
+  let touchY = null;
 
-      const initTechniquesStory = async (scope) => {
-        const rootEl = scope || document;
-        const story = rootEl.querySelector('[data-tech-story]');
-        const pin = rootEl.querySelector('[data-tech-pin]');
-        const track = rootEl.querySelector('[data-tech-track]');
-        const panels = Array.from(rootEl.querySelectorAll('[data-tech-panel]'));
-        const dotsWrap = rootEl.querySelector('[data-tech-dots]');
-        if(!story || !pin || !track || panels.length < 2) return () => {};
+  const setActive = (next) => {
+    const n = Math.max(0, Math.min(slides.length - 1, next));
+    idx = n;
 
-        await ensureGSAP();
-        if(!window.gsap || !window.ScrollTrigger) return () => {};
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+  };
 
-        // dots HUD
-        if(dotsWrap){
-          dotsWrap.innerHTML = panels.map((_, i) => `<span class="techStory__dot ${i===0?'is-active':''}" data-dot="${i}"></span>`).join('');
-        }
-        const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.techStory__dot')) : [];
-        const setActive = (idx) => dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+  const go = (dir) => {
+    if(locked) return;
+    const next = idx + dir;
+    if(next < 0 || next >= slides.length) return;
+    locked = true;
+    setActive(next);
+    window.setTimeout(() => { locked = false; }, 520);
+  };
 
-        const tween = window.gsap.to(track, {
-          xPercent: -100 * (panels.length - 1),
-          ease: "none",
-          scrollTrigger: {
-            trigger: story,
-            start: "top top",
-            end: () => "+=" + (window.innerWidth * panels.length),
-            scrub: 1,
-            pin: pin,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            snap: {
-              snapTo: 1 / (panels.length - 1),
-              duration: { min: 0.2, max: 0.6 },
-              delay: 0.05,
-              ease: "power1.inOut"
-            },
-            onUpdate: (self) => {
-              const idx = Math.round(self.progress * (panels.length - 1));
-              setActive(idx);
-            }
-          }
-        });
+  // Lock page scroll while this view is active
+  const prevHtmlOverflow = document.documentElement.style.overflow;
+  const prevBodyOverflow = document.body.style.overflow;
+  document.documentElement.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden';
 
-        const onResize = () => window.ScrollTrigger.refresh();
-        window.addEventListener('resize', onResize, { passive: true });
+  const onWheel = (e) => {
+    // Use wheel to navigate slides, prevent vertical scroll
+    e.preventDefault();
+    const dy = e.deltaY || 0;
+    const dx = e.deltaX || 0;
+    const main = Math.abs(dy) >= Math.abs(dx) ? dy : dx;
+    const threshold = 18;
+    if(Math.abs(main) < threshold) return;
+    go(main > 0 ? 1 : -1);
+  };
 
-        return () => {
-          window.removeEventListener('resize', onResize);
-          try{ tween.scrollTrigger && tween.scrollTrigger.kill(); }catch{}
-          try{ tween.kill(); }catch{}
-        };
-      };
+  const onTouchStart = (e) => {
+    if(!e.touches || !e.touches.length) return;
+    touchY = e.touches[0].clientY;
+  };
+
+  const onTouchMove = (e) => {
+    // Prevent page bounce while swiping
+    if(view) e.preventDefault();
+  };
+
+  const onTouchEnd = (e) => {
+    if(touchY == null) return;
+    const endY = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : touchY;
+    const delta = touchY - endY;
+    const threshold = 36;
+    if(Math.abs(delta) > threshold){
+      go(delta > 0 ? 1 : -1);
+    }
+    touchY = null;
+  };
+
+  const onKey = (e) => {
+    if(e.key === 'ArrowDown' || e.key === 'ArrowRight') go(1);
+    if(e.key === 'ArrowUp' || e.key === 'ArrowLeft') go(-1);
+    if(e.key === 'Escape'){
+      const back = rootEl.querySelector('[data-route="/"]');
+      if(back) back.click();
+    }
+  };
+
+  const onDotClick = (e) => {
+    const dot = e.target.closest('.techDeck__dot');
+    if(!dot) return;
+    const n = Number(dot.getAttribute('data-dot'));
+    if(Number.isFinite(n)) setActive(n);
+  };
+
+  deck.addEventListener('wheel', onWheel, { passive: false });
+  deck.addEventListener('touchstart', onTouchStart, { passive: true });
+  deck.addEventListener('touchmove', onTouchMove, { passive: false });
+  deck.addEventListener('touchend', onTouchEnd, { passive: true });
+  document.addEventListener('keydown', onKey);
+  if(dotsWrap) dotsWrap.addEventListener('click', onDotClick);
+
+  setActive(0);
+
+  return () => {
+    deck.removeEventListener('wheel', onWheel);
+    deck.removeEventListener('touchstart', onTouchStart);
+    deck.removeEventListener('touchmove', onTouchMove);
+    deck.removeEventListener('touchend', onTouchEnd);
+    document.removeEventListener('keydown', onKey);
+    if(dotsWrap) dotsWrap.removeEventListener('click', onDotClick);
+
+    document.documentElement.style.overflow = prevHtmlOverflow;
+    document.body.style.overflow = prevBodyOverflow;
+  };
+};
+
 
       // Lightbox instance
       let lightbox = null;
@@ -2235,7 +2317,7 @@
         smartMediaIn(viewShell);
 
         if(target === 'techniques'){
-          cleanupView = await initTechniquesStory(viewShell);
+          cleanupView = initTechniquesDeck(viewShell);
         }
 
         if(target === 'home'){
