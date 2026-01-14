@@ -2090,54 +2090,6 @@
           }
         }
       };
-        tryLoad();
-
-        const mountIframe = () => {
-          if(heroVideo.classList.contains('is-mounted')) return;
-
-          const reduce = prefersReducedMotion();
-          const start = 8;
-
-          const cover = document.createElement('div');
-          cover.className = 'heroVideo__cover';
-
-          const iframe = document.createElement('iframe');
-          iframe.title = "Italia nel Grande Formato - Presentazione Progetto";
-          iframe.loading = "eager";
-          iframe.allowFullscreen = false;
-          iframe.referrerPolicy = "strict-origin-when-cross-origin";
-          iframe.allow = "autoplay; encrypted-media; picture-in-picture; web-share";
-
-          const params = new URLSearchParams({
-            autoplay: reduce ? "0" : "1",
-            mute: "1",
-            playsinline: "1",
-            rel: "0",
-            modestbranding: "1",
-            controls: "0",
-            disablekb: "1",
-            fs: "0",
-            iv_load_policy: "3",
-            start: String(start),
-            loop: "1",
-            playlist: videoId
-          });
-
-          iframe.src = "https://www.youtube.com/embed/" + encodeURIComponent(videoId) + "?" + params.toString();
-
-          cover.appendChild(iframe);
-          mount.appendChild(cover);
-          heroVideo.classList.add('is-mounted');
-        };
-
-        const delayed = () => window.setTimeout(mountIframe, 260);
-        if('requestIdleCallback' in window){
-          window.requestIdleCallback(delayed, { timeout: 1200 });
-        } else {
-          delayed();
-        }
-      };
-
       const initHScroll = () => {
         const box = document.querySelector('[data-hscroll]');
         if(!box) return;
