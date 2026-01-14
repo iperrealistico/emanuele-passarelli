@@ -899,9 +899,24 @@
       overflow: hidden;
     }
     .techCard__media{
-      aspect-ratio: 4/3;
+      aspect-ratio: 16/10;
+      min-height: 240px;
       position: relative;
+      overflow: hidden;
     }
+    .techCard__media img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      transform: scale(1.02);
+      transition: transform .6s ease, filter .6s ease, opacity .4s ease;
+    }
+    .techCard:hover .techCard__media img{
+      transform: scale(1.06);
+      filter: contrast(1.03);
+    }
+
     .techCard__cap{
       padding: .9rem .9rem .95rem;
       display:flex;
@@ -923,11 +938,15 @@
 .techPage--full{
   height: 100vh;
   overflow: hidden;
+  padding: 0;
 }
 
 .techDeck{
   position: relative;
   height: 100vh;
+  width: 100vw;
+  touch-action: none;
+  overscroll-behavior: none;
   overflow: hidden;
   border-top: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
   border-bottom: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
@@ -1290,7 +1309,7 @@
 
             <div class="techStrip reveal" aria-label="Anteprima tecniche">
               <figure class="techCard">
-                <div class="techCard__media"><img src="\1" loading="lazy" decoding="async" alt="\2"></div>
+                <div class="techCard__media"><img src="img/EmanuelePassarelli01.jpg" loading="lazy" decoding="async" alt="Stampa fine art digitale"></div>
                 <figcaption class="techCard__cap">
                   <strong><span lang="it">Fine art digitale</span><span lang="en">Fine art digital</span></strong>
                   <span class="micro"><span lang="it">Precisione e controllo</span><span lang="en">Precision and control</span></span>
@@ -1298,7 +1317,7 @@
               </figure>
 
               <figure class="techCard">
-                <div class="techCard__media"><img src="\1" loading="lazy" decoding="async" alt="\2"></div>
+                <div class="techCard__media"><img src="img/EmanuelePassarelli02.jpg" loading="lazy" decoding="async" alt="Pellicola e stampa"></div>
                 <figcaption class="techCard__cap">
                   <strong><span lang="it">Pellicola</span><span lang="en">Film</span></strong>
                   <span class="micro"><span lang="it">Grana e risposta organica</span><span lang="en">Grain and organic response</span></span>
@@ -1306,7 +1325,7 @@
               </figure>
 
               <figure class="techCard">
-                <div class="techCard__media"><img src="\1" loading="lazy" decoding="async" alt="\2"></div>
+                <div class="techCard__media"><img src="img/EmanuelePassarelli03.jpg" loading="lazy" decoding="async" alt="Tecniche antiche su lastra"></div>
                 <figcaption class="techCard__cap">
                   <strong><span lang="it">Tecniche antiche</span><span lang="en">Historic processes</span></strong>
                   <span class="micro"><span lang="it">Vetro e metallo, pezzi unici</span><span lang="en">Glass and metal, one of a kind</span></span>
@@ -1565,7 +1584,7 @@
     <template id="tpl-techniques">
   <div data-view="techniques" data-techniques-view>
     <section class="techPage techPage--full" aria-label="Confronto tecniche">
-      \1
+      <div class="techDeck" data-tech-deck>
         <div class="techDeck__nav">
           <a class="icon-btn" href="./" data-route="/" aria-label="Home" title="Home"><i class="fa-solid fa-xmark"></i></a>
         </div>
