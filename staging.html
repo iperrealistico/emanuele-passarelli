@@ -2005,7 +2005,7 @@ const initTechniquesDeck = (scope) => {
           const src = img.getAttribute('data-src');
           if(!src) return;
 
-          const holder = img.closest('[]');
+          const holder = img.closest('[data-component="smart-media"]') || img.parentElement;
           const onLoad = () => holder && holder.classList.add('is-loaded');
           const onError = () => holder && holder.classList.add('has-error');
 
