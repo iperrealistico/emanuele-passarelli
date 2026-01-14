@@ -1071,22 +1071,24 @@
 }
 
 .techSlide__media{
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
   display:flex;
   align-items:center;
   justify-content:center;
+  padding: clamp(16px, 3vw, 44px);
+}
+.techFrame{
+  position: relative;
+  display: inline-block;
 }
 .techSlide__media img{
   display:block;
   width: auto;
   height: auto;
   max-width: min(92vw, 1100px);
-  max-height: min(82vh, 820px);
+  max-height: min(86vh, 860px);
   object-fit: contain;
-  transform: none;
-  filter: contrast(1.02);
 }
 
 .techMediaFrame{
@@ -1151,14 +1153,72 @@
   font-size: .95rem;
 }
 .techSlide__copy{
-  align-self: end;
-  max-width: 48ch;
+  position: absolute;
+  right: clamp(12px, 3vw, 44px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(440px, 34vw);
+  max-width: 92vw;
+  z-index: 7;
+}
+
+.tourSide{
   background: color-mix(in oklab, var(--bg) 72%, transparent);
   border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
   padding: 1rem 1rem 1.05rem;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 20px 60px color-mix(in oklab, #000 30%, transparent);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 60px color-mix(in oklab, #000 35%, transparent);
 }
+
+.tourSide__meta{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-bottom: .55rem;
+}
+.tourSide__tech{
+  font-family: var(--serif);
+  letter-spacing: .02em;
+}
+.tourSide__progress{
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.tourSide__title{
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+  margin: 0 0 .5rem;
+  letter-spacing: .02em;
+}
+.tourSide__text{
+  margin: 0 0 .9rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.tourSide__next{
+  width: 100%;
+}
+.tourSide__hint{
+  margin: .85rem 0 0;
+  color: var(--muted);
+}
+
+@media (max-width: 900px){
+  .techSlide__copy{
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: 16px;
+    transform: translateX(-50%);
+    width: min(520px, 92vw);
+  }
+  .techSlide__media img{
+    max-width: min(92vw, 1100px);
+    max-height: min(72vh, 760px);
+  }
+}
+
 .techSlide__title{
   font-family: var(--serif);
   font-size: clamp(1.35rem, 2.4vw, 2.1rem);
@@ -1681,102 +1741,165 @@
   <div data-view="techniques" data-techniques-view>
     <section class="techPage techPage--full" aria-label="Confronto tecniche">
       <div class="techDeck" data-tech-deck>
-        <div class="techDeck__nav">
-          <a class="icon-btn" href="./" data-route="/" aria-label="Home" title="Home"><i class="fa-solid fa-xmark"></i></a>
-        </div>
-        <div class="techDeck__hud" aria-hidden="true">
+<div class="techDeck__hud" aria-hidden="true">
           <div class="techDeck__dots" data-tech-dots></div>
-          <div class="micro techDeck__hint"><span lang="it">rotellina o swipe</span><span lang="en">wheel or swipe</span></div>
+          <div class="techDeck__counter micro" data-tech-counter>1/5</div>
+<div class="micro techDeck__hint"><span lang="it">rotellina o swipe</span><span lang="en">wheel or swipe</span></div>
         </div>
 
         <!-- Slides -->
         <article class="techSlide is-active" data-tech-slide data-title="Fine art digitale">
           <div class="techSlide__media">
-            <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" alt="Stampa fine art digitale">
+            <div class="techFrame" data-tech-frame>
+              <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" alt="Stampa fine art digitale">
+              <span class="tourPin" data-tour-pin aria-hidden="true"></span>
+            </div>
           </div>
           <div class="techSlide__copy">
-            <h2 class="techSlide__title"><span lang="it">Fine art digitale</span><span lang="en">Fine art digital</span></h2>
-            <p class="techSlide__text">
-              <span lang="it">Massimo controllo su tono e dettaglio. Carta e inchiostri pigmentati, stabilità e coerenza tra copie.</span>
-              <span lang="en">Maximum control over tone and detail. Pigment inks on fine art paper, stable and consistent across copies.</span>
-            </p>
-            <ul class="techSlide__bullets">
-              <li><span lang="it">Replicabile con coerenza</span><span lang="en">Repeatable and consistent</span></li>
-              <li><span lang="it">Neri profondi e micro-dettaglio</span><span lang="en">Deep blacks and micro-detail</span></li>
-              <li><span lang="it">Ideale per edizioni</span><span lang="en">Ideal for editions</span></li>
-            </ul>
+            <div class="tourSide" role="group" aria-label="Guided tour">
+              <div class="tourSide__meta">
+                <div class="tourSide__tech">
+                  <span lang="it">Fine art digitale</span><span lang="en">Fine art digital</span>
+                </div>
+                <div class="tourSide__progress" data-tour-progress>1/3</div>
+              </div>
+
+              <h3 class="tourSide__title" data-tour-title></h3>
+              <p class="tourSide__text" data-tour-text></p>
+
+              <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
+                <span lang="it">Avanti</span><span lang="en">Next</span>
+              </button>
+
+              <p class="micro tourSide__hint">
+                <span lang="it">Finito il tour, passi automaticamente alla tecnica successiva.</span>
+                <span lang="en">After the tour, it automatically moves to the next technique.</span>
+              </p>
+            </div>
           </div>
         </article>
 
         <article class="techSlide" data-tech-slide data-title="Pellicola">
           <div class="techSlide__media">
-            <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" alt="Pellicola e stampa">
+            <div class="techFrame" data-tech-frame>
+              <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" alt="Pellicola e stampa">
+              <span class="tourPin" data-tour-pin aria-hidden="true"></span>
+            </div>
           </div>
           <div class="techSlide__copy">
-            <h2 class="techSlide__title"><span lang="it">Pellicola</span><span lang="en">Film</span></h2>
-            <p class="techSlide__text">
-              <span lang="it">Grana, risposta organica alla luce, micro-imperfezioni. Ogni stampa ha carattere e presenza fisica.</span>
-              <span lang="en">Grain, organic response to light, micro-imperfections. Each print carries character and physical presence.</span>
-            </p>
-            <ul class="techSlide__bullets">
-              <li><span lang="it">Texture naturale</span><span lang="en">Natural texture</span></li>
-              <li><span lang="it">Transizioni morbide</span><span lang="en">Gentle tonal transitions</span></li>
-              <li><span lang="it">Feeling “analogico”</span><span lang="en">Analog feel</span></li>
-            </ul>
+            <div class="tourSide" role="group" aria-label="Guided tour">
+              <div class="tourSide__meta">
+                <div class="tourSide__tech">
+                  <span lang="it">Pellicola</span><span lang="en">Film</span>
+                </div>
+                <div class="tourSide__progress" data-tour-progress>1/3</div>
+              </div>
+
+              <h3 class="tourSide__title" data-tour-title></h3>
+              <p class="tourSide__text" data-tour-text></p>
+
+              <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
+                <span lang="it">Avanti</span><span lang="en">Next</span>
+              </button>
+
+              <p class="micro tourSide__hint">
+                <span lang="it">Finito il tour, passi automaticamente alla tecnica successiva.</span>
+                <span lang="en">After the tour, it automatically moves to the next technique.</span>
+              </p>
+            </div>
           </div>
         </article>
 
         <article class="techSlide" data-tech-slide data-title="FP-100">
           <div class="techSlide__media">
-            <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" alt="FP-100 peel apart">
+            <div class="techFrame" data-tech-frame>
+              <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" alt="FP-100 peel apart">
+              <span class="tourPin" data-tour-pin aria-hidden="true"></span>
+            </div>
           </div>
           <div class="techSlide__copy">
-            <h2 class="techSlide__title">FP-100</h2>
-            <p class="techSlide__text">
-              <span lang="it">Istantanea peel-apart: chimica visibile, bordi, difetti irripetibili. È un oggetto unico, non una replica.</span>
-              <span lang="en">Peel-apart instant: visible chemistry, borders, unrepeatable artifacts. A unique object, not a replica.</span>
-            </p>
-            <ul class="techSlide__bullets">
-              <li><span lang="it">Pezzo unico</span><span lang="en">One of a kind</span></li>
-              <li><span lang="it">Artefatti chimici</span><span lang="en">Chemical artifacts</span></li>
-              <li><span lang="it">Estetica “viva”</span><span lang="en">Living aesthetic</span></li>
-            </ul>
+            <div class="tourSide" role="group" aria-label="Guided tour">
+              <div class="tourSide__meta">
+                <div class="tourSide__tech">
+                  <span lang="it">FP-100</span><span lang="en">FP-100</span>
+                </div>
+                <div class="tourSide__progress" data-tour-progress>1/3</div>
+              </div>
+
+              <h3 class="tourSide__title" data-tour-title></h3>
+              <p class="tourSide__text" data-tour-text></p>
+
+              <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
+                <span lang="it">Avanti</span><span lang="en">Next</span>
+              </button>
+
+              <p class="micro tourSide__hint">
+                <span lang="it">Finito il tour, passi automaticamente alla tecnica successiva.</span>
+                <span lang="en">After the tour, it automatically moves to the next technique.</span>
+              </p>
+            </div>
           </div>
         </article>
 
         <article class="techSlide" data-tech-slide data-title="Tintype">
           <div class="techSlide__media">
-            <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" alt="Collodio Tintype su metallo">
+            <div class="techFrame" data-tech-frame>
+              <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" alt="Collodio Tintype su metallo">
+              <span class="tourPin" data-tour-pin aria-hidden="true"></span>
+            </div>
           </div>
           <div class="techSlide__copy">
-            <h2 class="techSlide__title">Collodio Tintype</h2>
-            <p class="techSlide__text">
-              <span lang="it">Collodio su metallo: profondità e materia. Un solo esemplare, fatto a mano, con segni del processo.</span>
-              <span lang="en">Collodion on metal: depth and materiality. A single handmade piece, with process marks.</span>
-            </p>
-            <ul class="techSlide__bullets">
-              <li><span lang="it">Metallo, tridimensionalità</span><span lang="en">Metal, dimensional look</span></li>
-              <li><span lang="it">Oggetto fisico</span><span lang="en">Physical object</span></li>
-              <li><span lang="it">Irreplicabile</span><span lang="en">Impossible to replicate</span></li>
-            </ul>
+            <div class="tourSide" role="group" aria-label="Guided tour">
+              <div class="tourSide__meta">
+                <div class="tourSide__tech">
+                  <span lang="it">Collodio Tintype</span><span lang="en">Collodion Tintype</span>
+                </div>
+                <div class="tourSide__progress" data-tour-progress>1/3</div>
+              </div>
+
+              <h3 class="tourSide__title" data-tour-title></h3>
+              <p class="tourSide__text" data-tour-text></p>
+
+              <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
+                <span lang="it">Avanti</span><span lang="en">Next</span>
+              </button>
+
+              <p class="micro tourSide__hint">
+                <span lang="it">Finito il tour, passi automaticamente alla tecnica successiva.</span>
+                <span lang="en">After the tour, it automatically moves to the next technique.</span>
+              </p>
+            </div>
           </div>
         </article>
 
         <article class="techSlide" data-tech-slide data-title="Ambrotype">
           <div class="techSlide__media">
-            <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" alt="Ambrotype su vetro">
+            <div class="techFrame" data-tech-frame>
+              <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" alt="Ambrotype su vetro">
+              <span class="tourPin" data-tour-pin aria-hidden="true"></span>
+            </div>
           </div>
           <div class="techSlide__copy">
-            <h2 class="techSlide__title">Ambrotype</h2>
-            <p class="techSlide__text">
-              <span lang="it">Collodio su vetro: luce interna e delicatezza. Un oggetto prezioso, impossibile da replicare identico.</span>
-              <span lang="en">Collodion on glass: inner light and delicacy. A precious object, impossible to replicate identically.</span>
-            </p>
-            <ul class="techSlide__bullets">
-              <li><span lang="it">Vetro, “luce interna”</span><span lang="en">Glass, “inner light”</span></li>
-              <li><span lang="it">Delicato e raro</span><span lang="en">Delicate and rare</span></li>
-              <li><span lang="it">Pezzo unico</span><span lang="en">One of a kind</span></li>
-            </ul>
+            <div class="tourSide" role="group" aria-label="Guided tour">
+              <div class="tourSide__meta">
+                <div class="tourSide__tech">
+                  <span lang="it">Ambrotype</span><span lang="en">Ambrotype</span>
+                </div>
+                <div class="tourSide__progress" data-tour-progress>1/3</div>
+              </div>
+
+              <h3 class="tourSide__title" data-tour-title></h3>
+              <p class="tourSide__text" data-tour-text></p>
+
+              <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
+                <span lang="it">Avanti</span><span lang="en">Next</span>
+              </button>
+
+              <p class="micro tourSide__hint">
+                <span lang="it">Finito il tour, passi automaticamente alla tecnica successiva.</span>
+                <span lang="en">After the tour, it automatically moves to the next technique.</span>
+              </p>
+            </div>
           </div>
         </article>
 
@@ -1832,83 +1955,88 @@ const initTechniquesDeck = (scope) => {
   if(!deck || slides.length < 1) return () => {};
 
   // 3 guided popups per process (positions are % over the image)
-  const STEPS = [
-    // Fine art digitale
-    [
-      { x: 65, y: 28,
-        it: { t: "Controllo totale", d: "Qui conta la precisione: tono, micro-dettaglio e coerenza tra copie." },
-        en: { t: "Total control", d: "Precision matters: tone, micro-detail, and consistency across copies." }
-      },
-      { x: 35, y: 55,
-        it: { t: "Carta e pigmenti", d: "La resa dipende da carta fine art e inchiostri pigmentati: profondità e stabilità." },
-        en: { t: "Paper and pigments", d: "The look comes from fine art papers and pigment inks: depth and stability." }
-      },
-      { x: 55, y: 78,
-        it: { t: "Edizioni", d: "Ideale per stampe in serie: stessa qualità, stesso risultato, stessa firma." },
-        en: { t: "Editions", d: "Ideal for editions: same quality, same result, same signature." }
-      }
-    ],
-    // Pellicola
-    [
-      { x: 62, y: 30,
-        it: { t: "Grana e micro-variabilità", d: "La pellicola reagisce alla luce in modo organico: ogni frame ha un carattere." },
-        en: { t: "Grain and variance", d: "Film responds to light organically: every frame has its own character." }
-      },
-      { x: 40, y: 58,
-        it: { t: "Transizioni morbide", d: "Le alte luci e i mezzitoni hanno una ‘pelle’ diversa, più morbida e naturale." },
-        en: { t: "Gentle transitions", d: "Highlights and midtones feel different, softer and more natural." }
-      },
-      { x: 58, y: 80,
-        it: { t: "Presenza fisica", d: "Tra negativo, scansione e stampa c’è materia: imperfezioni che diventano stile." },
-        en: { t: "Physical presence", d: "Between negative, scan and print there’s materiality: imperfections become style." }
-      }
-    ],
-    // FP-100
-    [
-      { x: 62, y: 26,
-        it: { t: "Chimica visibile", d: "Bordi, texture e ‘difetti’ raccontano il processo: non è replicabile uguale." },
-        en: { t: "Visible chemistry", d: "Edges, texture and artifacts reveal the process: impossible to replicate the same." }
-      },
-      { x: 35, y: 58,
-        it: { t: "Oggetto unico", d: "È una stampa/positivo fisico nato subito. Il tempo è parte del risultato." },
-        en: { t: "A unique object", d: "A physical positive created instantly. Time is part of the result." }
-      },
-      { x: 55, y: 82,
-        it: { t: "Colori e atmosfera", d: "Palette e contrasto sono distintivi: mood vintage, spesso onirico." },
-        en: { t: "Colors and mood", d: "Distinct palette and contrast: a vintage, often dreamy mood." }
-      }
-    ],
-    // Tintype
-    [
-      { x: 60, y: 28,
-        it: { t: "Metallo", d: "Qui la foto è sul metallo: riflessi e profondità cambiano con l’angolo di luce." },
-        en: { t: "Metal", d: "The image lives on metal: reflections and depth shift with the viewing angle." }
-      },
-      { x: 38, y: 56,
-        it: { t: "Segni del processo", d: "Polvere, micro-graffi, colature: tracce reali di una lavorazione manuale." },
-        en: { t: "Process marks", d: "Dust, micro-scratches, streaks: real traces of a handmade process." }
-      },
-      { x: 54, y: 80,
-        it: { t: "Pezzo unico", d: "Non esiste una ‘copia’: ogni tintype è un originale." },
-        en: { t: "One of a kind", d: "There is no true ‘copy’: every tintype is an original." }
-      }
-    ],
-    // Ambrotype
-    [
-      { x: 62, y: 26,
-        it: { t: "Vetro e luce interna", d: "Sul vetro la luce sembra ‘accendersi’ dentro l’immagine: effetto tridimensionale." },
-        en: { t: "Glass and inner light", d: "On glass, light feels like it turns on inside the image: a dimensional look." }
-      },
-      { x: 40, y: 56,
-        it: { t: "Delicato e raro", d: "È fragile e prezioso: richiede cura, ed è per questo speciale." },
-        en: { t: "Delicate and rare", d: "Fragile and precious: it demands care, and that’s what makes it special." }
-      },
-      { x: 56, y: 82,
-        it: { t: "Tempo e rituale", d: "Preparazione, posa, sviluppo: un piccolo rituale fotografico in ogni pezzo." },
-        en: { t: "Time and ritual", d: "Prep, exposure, development: a small photographic ritual in every piece." }
-      }
-    ]
-  ];
+  // 3 guided steps per process (pin positions are % over the image)
+const STEPS = [
+  // Fine art digitale
+  [
+    { x: 64, y: 26,
+      it: { t: "Controllo e coerenza", d: "Nel digitale fine art puoi scegliere con precisione tono, contrasto e micro-dettaglio. Questo significa che l’immagine può essere riprodotta in modo coerente, utile per edizioni e serie dove ogni suggerimento visivo deve rimanere identico." },
+      en: { t: "Control and consistency", d: "Fine art digital lets you precisely shape tone, contrast, and micro-detail. That means consistent reproduction, ideal for editions and series where the visual intent must stay the same across copies." }
+    },
+    { x: 38, y: 54,
+      it: { t: "Carta e inchiostri", d: "La resa finale dipende da carta e inchiostri pigmentati: texture, bianchi, e profondità dei neri cambiano tutto. Qui è dove si costruisce la “materia” della stampa, con superfici che vanno dal matte vellutato al baryta più brillante." },
+      en: { t: "Paper and inks", d: "The final look depends on paper and pigment inks: texture, paper whites, and black depth change everything. This is where the print’s material quality is built, from velvety matte surfaces to brighter baryta finishes." }
+    },
+    { x: 56, y: 78,
+      it: { t: "Precisione in stampa", d: "Dal monitor alla stampa serve calibrazione e prove, altrimenti i dettagli si perdono. Un buon flusso fine art mantiene fedeli pelle, cieli e ombre, evitando dominanti indesiderate e preservando le sfumature più sottili." },
+      en: { t: "Print accuracy", d: "From screen to paper you need calibration and test prints, or details get lost. A solid fine art workflow preserves skin tones, skies, and shadows, avoiding unwanted color casts and keeping subtle gradations intact." }
+    }
+  ],
+
+  // Pellicola
+  [
+    { x: 62, y: 28,
+      it: { t: "Grana e tridimensionalità", d: "La pellicola introduce grana e micro-irregolarità che danno corpo all’immagine. La transizione tra luci e ombre è spesso più morbida, e il risultato può sembrare più “profondo” anche senza essere più nitido." },
+      en: { t: "Grain and depth", d: "Film adds grain and micro-variation that gives the image a tactile presence. Highlight to shadow transitions can be gentler, and the result often feels deeper even when it isn’t sharper." }
+    },
+    { x: 40, y: 56,
+      it: { t: "Luce e esposizione", d: "Qui contano davvero le scelte in ripresa: come esponi, che lente usi, che tipo di luce c’è. La pellicola perdona in modo diverso, ma chiede disciplina: ogni scatto è una decisione, non una raffica." },
+      en: { t: "Light and exposure", d: "On film, decisions at capture matter: exposure, lens character, and the quality of light. Film forgives differently, but it asks for discipline: each frame is a decision, not a burst." }
+    },
+    { x: 54, y: 82,
+      it: { t: "Sviluppo e carattere", d: "Lo sviluppo è parte del look: tempi, chimica e scansione cambiano la resa. È un processo che lascia impronte sottili e un carattere riconoscibile, spesso più “umano” e meno perfetto." },
+      en: { t: "Development character", d: "Processing is part of the look: timing, chemistry, and scanning shape the result. It leaves subtle fingerprints and a recognizable character, often more human and less perfect." }
+    }
+  ],
+
+  // FP-100
+  [
+    { x: 66, y: 26,
+      it: { t: "Chimica visibile", d: "FP-100 è istantanea peel-apart: bordi, macchie, micro-difetti e sorprese fanno parte dell’opera. Non è un file “pulito”, è un oggetto con segni e incidenti controllati, e proprio per questo ha fascino." },
+      en: { t: "Visible chemistry", d: "FP-100 is peel-apart instant film: borders, stains, micro-defects, and surprises are part of the piece. It’s not a clean file, it’s an object with controlled accidents, and that’s exactly the charm." }
+    },
+    { x: 38, y: 56,
+      it: { t: "Unicità immediata", d: "Ogni scatto è unico e succede davanti a te: estrai, aspetti, separi. Il tempo di sviluppo e la temperatura cambiano colori e contrasto, quindi il risultato non è mai identico due volte." },
+      en: { t: "Instant uniqueness", d: "Each shot is unique and happens in front of you: pull, wait, peel. Development time and temperature shift color and contrast, so results are never identical twice." }
+    },
+    { x: 56, y: 82,
+      it: { t: "Oggetto e memoria", d: "L’istantanea è già “finita”: la puoi tenere in mano, graffia, invecchia, porta tracce. È fotografia come reliquia, con una presenza fisica che comunica subito che non è una riproduzione." },
+      en: { t: "Object and memory", d: "The instant is already finished: you can hold it, it scratches, it ages, it carries marks. It’s photography as a relic, with a physical presence that instantly reads as not just a reproduction." }
+    }
+  ],
+
+  // Tintype
+  [
+    { x: 60, y: 26,
+      it: { t: "Metallo e contrasto", d: "Il tintype è collodio su metallo: neri densi, luci dure e un look molto grafico. Cambia con l’angolo di luce e con il modo in cui lo guardi, come se l’immagine fosse scolpita sulla superficie." },
+      en: { t: "Metal and contrast", d: "Tintype is collodion on metal: dense blacks, punchy highlights, and a graphic look. It shifts with viewing angle and light, as if the image were carved into the surface." }
+    },
+    { x: 40, y: 56,
+      it: { t: "Pezzo unico", d: "Non esiste “la copia perfetta”: ogni lastra è una sola, e porta difetti, colature e segni del processo. È fotografia come oggetto irripetibile, più vicino alla scultura che alla stampa." },
+      en: { t: "One of a kind", d: "There is no perfect copy: each plate is singular and carries flaws, streaks, and process marks. It’s photography as an unrepeatable object, closer to sculpture than printing." }
+    },
+    { x: 56, y: 82,
+      it: { t: "Rituale e tempo", d: "Preparazione della lastra, sensibilizzazione, esposizione e sviluppo vanno fatti con tempi precisi. Questa urgenza crea un’energia particolare: tutto accade nel presente, e l’immagine nasce come evento." },
+      en: { t: "Ritual and timing", d: "Plate prep, sensitizing, exposure, and development must happen within strict timing. That urgency creates a special energy: everything happens in the present, and the image is born as an event." }
+    }
+  ],
+
+  // Ambrotype
+  [
+    { x: 62, y: 26,
+      it: { t: "Vetro e luce interna", d: "L’ambrotipo è collodio su vetro: sembra illuminarsi da dentro, con un effetto quasi tridimensionale. I mezzi toni possono apparire delicati e “lattei”, molto diversi dalla resa su carta." },
+      en: { t: "Glass and inner light", d: "Ambrotype is collodion on glass: it can look lit from within, almost dimensional. Midtones often feel delicate and milky, very different from paper-based prints." }
+    },
+    { x: 40, y: 56,
+      it: { t: "Fragile e prezioso", d: "Il supporto è delicato e richiede protezione, spesso con custodie e montaggi. Questa fragilità lo rende prezioso: non è pensato per essere “consumato”, ma conservato." },
+      en: { t: "Fragile and precious", d: "The support is delicate and often needs cases and careful mounting. That fragility makes it precious: it’s not meant to be consumed, but preserved." }
+    },
+    { x: 56, y: 82,
+      it: { t: "Impronta del processo", d: "Ogni ambrotipo porta tracce: piccoli difetti, bordi, variazioni chimiche e texture. È la firma del processo, un linguaggio visivo che racconta come l’immagine è stata fatta, non solo cosa mostra." },
+      en: { t: "Process fingerprint", d: "Every ambrotype carries traces: tiny defects, edges, chemical variation, and texture. It’s the process signature, a visual language that tells how the image was made, not only what it shows." }
+    }
+  ]
+];
 
   // Build dots
   if(dotsWrap){
@@ -1930,9 +2058,7 @@ const initTechniquesDeck = (scope) => {
     if(!slide) return {};
     return {
       frame: slide.querySelector('[data-tech-frame]'),
-      pin: slide.querySelector('[data-tour-pin]'),
-      bubble: slide.querySelector('[data-tour-bubble]'),
-      title: slide.querySelector('[data-tour-title]'),
+      pin: slide.querySelector('[data-tour-pin]'),      title: slide.querySelector('[data-tour-title]'),
       text: slide.querySelector('[data-tour-text]'),
       prog: slide.querySelector('[data-tour-progress]'),
       next: slide.querySelector('[data-tour-next]')
@@ -1941,8 +2067,8 @@ const initTechniquesDeck = (scope) => {
 
   const hideAllTours = () => {
     slides.forEach(sl => {
-      const b = sl.querySelector('[data-tour-bubble]');
-      if(b) b.classList.remove('is-visible');
+      const p = sl.querySelector('[data-tour-pin]');
+      if(p) p.style.opacity = '0';
     });
   };
 
@@ -1950,16 +2076,11 @@ const initTechniquesDeck = (scope) => {
     const s = STEPS[idx] || [];
     const step = s[stepIdx];
     const els = getTourEls(idx);
-    if(!step || !els.frame || !els.pin || !els.bubble) return;
+    if(!step || !els.frame || !els.pin) return;
 
     els.pin.style.left = step.x + '%';
     els.pin.style.top  = step.y + '%';
-
-    els.bubble.style.left = step.x + '%';
-    els.bubble.style.top  = step.y + '%';
-
-    const below = step.y < 22;
-    els.bubble.style.transform = below ? 'translate(-50%, 18%)' : 'translate(-50%, -112%)';
+    els.pin.style.opacity = '1';
 
     const L = lang();
     const payload = (step[L] || step.it);
