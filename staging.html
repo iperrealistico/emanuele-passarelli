@@ -975,131 +975,179 @@
   .techDeck{ min-height: 540px; }
 }
 
-.techDeck__hud{
-  position:absolute;
-  left: 50%;
-  bottom: 18px;
-  top: auto;
-  transform: translateX(-50%);
-  z-index: 10;
-  display:flex;
-  gap: .75rem;
-  align-items:center;
-  padding: .55rem .7rem;
-  background: color-mix(in oklab, var(--bg) 60%, transparent);
-  border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
-  backdrop-filter: blur(10px);
-}
-.techDeck__dots{ display:flex; gap: .45rem; align-items:center; }
 
-.techDeck__counter{
-  margin-left: .25rem;
-  padding: .15rem .45rem;
-  border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
-  background: color-mix(in oklab, var(--surface) 70%, transparent);
-}
-.techDeck__dot{
-  width: 10px;
-  height: 10px;
-  border: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
-  background: color-mix(in oklab, var(--surface) 70%, transparent);
-}
-.techDeck__dot.is-active{
-  background: color-mix(in oklab, var(--accent) 70%, var(--surface));
-  border-color: color-mix(in oklab, var(--accent) 65%, var(--border));
-}
-.techDeck__hint{ color: var(--muted); }
-.techDeck__nav{
-  position:absolute;
-  right: 18px;
-  top: 18px;
-  z-index: 6;
-}
-.techDeck__nav .icon-btn{
-  width: 42px;
-  height: 42px;
-  display:grid;
-  place-items:center;
+.techDeck__hud,
+.techDeck__dots,
+.techDeck__counter,
+.techDeck__hint{
+  display:none !important;
 }
 
-/* Hero background: click-to-play affordance (only when autoplay=0) */
-.heroVideo.is-clickable{
-  cursor: pointer;
-}
-.heroVideo.is-clickable::after{
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(500px 300px at 70% 30%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 55%);
-  pointer-events: none;
-}
-
-/* TECH TEASER: larger, no flicker */
-.techCard__media{
-  aspect-ratio: 16/10;
-  height: clamp(220px, 26vw, 360px);
-}
-.techCard__media img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display:block;
-}
-
-
+/* Slides layout: title (left) + image (center) + tutorial (right) */
 .techSlide{
   position: absolute;
   inset: 0;
+  display: grid;
+  grid-template-columns: clamp(220px, 18vw, 420px) 1fr min(360px, 30vw);
+  gap: clamp(14px, 2vw, 28px);
+  padding: clamp(18px, 3vw, 44px);
+  align-items: center;
+  justify-items: center;
   opacity: 0;
-  transform: translateY(10px) scale(1.01);
-  transition: opacity .35s ease, transform .55s ease;
+  transform: translateY(16px) scale(.985);
   pointer-events: none;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding: clamp(16px, 3vw, 44px);
+  transition: opacity .35s ease, transform .45s ease;
 }
+
 .techSlide.is-active{
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;
 }
 
-@media (max-width: 900px){
-  .techSlide{ grid-template-columns: 1fr; align-content: end; }
+.techSlide__bigTitle{
+  justify-self: start;
+  align-self: center;
+  width: 100%;
+  font-family: var(--serif);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  line-height: .95;
+  font-weight: 800;
+  font-size: clamp(2.2rem, 4.5vw, 5.2rem);
+  color: color-mix(in oklab, var(--fg) 85%, transparent);
+  opacity: .95;
+  text-wrap: balance;
 }
 
 .techSlide__media{
-  position: absolute;
-  inset: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding: clamp(16px, 3vw, 44px);
 }
+
 .techFrame{
   position: relative;
   display: inline-block;
-}
-.techSlide__media img{
-  display:block;
-  width: auto;
-  height: auto;
-  max-width: min(92vw, 1100px);
-  max-height: min(86vh, 860px);
-  object-fit: contain;
-}
-
-.techMediaFrame{
-  position: relative;
-  display: inline-block;
-  border: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
-  background: color-mix(in oklab, var(--surface) 80%, transparent);
   padding: 10px;
-  box-shadow: 0 24px 80px color-mix(in oklab, #000 32%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
+  background: color-mix(in oklab, var(--surface) 78%, transparent);
+  box-shadow: 0 24px 70px color-mix(in oklab, #000 40%, transparent);
 }
 
+.techFrame img{
+  display:block;
+  width:auto;
+  height:auto;
+  max-width: min(54vw, 880px);
+  max-height: 76vh;
+}
+
+/* Tutorial panel (right) */
+.tourSide{
+  justify-self: end;
+  align-self: center;
+  width: min(360px, 30vw);
+  max-width: 360px;
+  background: color-mix(in oklab, var(--bg) 72%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 60px color-mix(in oklab, #000 30%, transparent);
+  padding: 14px 14px 16px;
+  position: relative;
+  touch-action: pan-y;
+}
+
+.tourSide__grab{
+  height: 22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin: -6px -6px 8px;
+  cursor: grab;
+}
+.tourSide__grab::before{
+  content:"";
+  width: 48px;
+  height: 4px;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--border) 85%, transparent);
+  opacity: .9;
+}
+
+.tourSide.is-floating{
+  position: fixed;
+  z-index: 60;
+  left: 24px;
+  top: 24px;
+  width: min(380px, 36vw);
+  cursor: grab;
+}
+
+.tourSide.is-floating:active{
+  cursor: grabbing;
+}
+
+@media (max-width: 900px){
+  .techSlide{
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    align-content: start;
+    padding-top: 84px;
+  }
+  .techSlide__bigTitle{
+    justify-self: center;
+    text-align: center;
+    font-size: clamp(1.8rem, 8vw, 3.2rem);
+    margin-bottom: 6px;
+  }
+  .techFrame img{
+    max-width: min(92vw, 820px);
+    max-height: 60vh;
+  }
+  .tourSide{
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: auto;
+    max-width: none;
+    z-index: 70;
+    transform: translateY(0);
+    transition: transform .22s ease;
+    touch-action: none;
+  }
+  .tourSide.is-collapsed{
+    transform: translateY(calc(100% - 54px));
+  }
+}
+
+/* Magnifier lens */
+.magLens{
+  position: fixed;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 80;
+  border: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
+  box-shadow: 0 18px 60px color-mix(in oklab, #000 40%, transparent);
+  background-repeat: no-repeat;
+  background-color: color-mix(in oklab, var(--bg) 60%, transparent);
+  opacity: 0;
+  transform: scale(.92);
+  transition: opacity .14s ease, transform .14s ease;
+}
+.magLens.is-on{
+  opacity: 1;
+  transform: scale(1);
+}
+.techFrame.is-magnify{
+  cursor: none;
+}
 .tourPin{
   position: absolute;
   width: 12px;
@@ -1741,22 +1789,18 @@
   <div data-view="techniques" data-techniques-view>
     <section class="techPage techPage--full" aria-label="Confronto tecniche">
       <div class="techDeck" data-tech-deck>
-<div class="techDeck__hud" aria-hidden="true">
-          <div class="techDeck__dots" data-tech-dots></div>
-          <div class="techDeck__counter micro" data-tech-counter>1/5</div>
-<div class="micro techDeck__hint"><span lang="it">rotellina o swipe</span><span lang="en">wheel or swipe</span></div>
-        </div>
-
-        <!-- Slides -->
+<!-- Slides -->
         <article class="techSlide is-active" data-tech-slide data-title="Fine art digitale">
+          <div class="techSlide__bigTitle" data-tech-bigtitle></div>
           <div class="techSlide__media">
             <div class="techFrame" data-tech-frame>
               <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" alt="Stampa fine art digitale">
-              <span class="tourPin" data-tour-pin aria-hidden="true"></span>
-            </div>
+</div>
           </div>
           <div class="techSlide__copy">
             <div class="tourSide" role="group" aria-label="Guided tour">
+              <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
+              <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
               <div class="tourSide__meta">
                 <div class="tourSide__tech">
                   <span lang="it">Fine art digitale</span><span lang="en">Fine art digital</span>
@@ -1770,24 +1814,20 @@
               <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
                 <span lang="it">Avanti</span><span lang="en">Next</span>
               </button>
-
-              <p class="micro tourSide__hint">
-                <span lang="it">Finito il tour, passi automaticamente alla tecnica successiva.</span>
-                <span lang="en">After the tour, it automatically moves to the next technique.</span>
-              </p>
-            </div>
+</div>
           </div>
         </article>
 
         <article class="techSlide" data-tech-slide data-title="Pellicola">
+          <div class="techSlide__bigTitle" data-tech-bigtitle></div>
           <div class="techSlide__media">
             <div class="techFrame" data-tech-frame>
               <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" alt="Pellicola e stampa">
-              <span class="tourPin" data-tour-pin aria-hidden="true"></span>
-            </div>
+</div>
           </div>
           <div class="techSlide__copy">
             <div class="tourSide" role="group" aria-label="Guided tour">
+              <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
               <div class="tourSide__meta">
                 <div class="tourSide__tech">
                   <span lang="it">Pellicola</span><span lang="en">Film</span>
@@ -1801,24 +1841,20 @@
               <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
                 <span lang="it">Avanti</span><span lang="en">Next</span>
               </button>
-
-              <p class="micro tourSide__hint">
-                <span lang="it">Finito il tour, passi automaticamente alla tecnica successiva.</span>
-                <span lang="en">After the tour, it automatically moves to the next technique.</span>
-              </p>
-            </div>
+</div>
           </div>
         </article>
 
         <article class="techSlide" data-tech-slide data-title="FP-100">
+          <div class="techSlide__bigTitle" data-tech-bigtitle></div>
           <div class="techSlide__media">
             <div class="techFrame" data-tech-frame>
               <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" alt="FP-100 peel apart">
-              <span class="tourPin" data-tour-pin aria-hidden="true"></span>
-            </div>
+</div>
           </div>
           <div class="techSlide__copy">
             <div class="tourSide" role="group" aria-label="Guided tour">
+              <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
               <div class="tourSide__meta">
                 <div class="tourSide__tech">
                   <span lang="it">FP-100</span><span lang="en">FP-100</span>
@@ -1832,24 +1868,20 @@
               <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
                 <span lang="it">Avanti</span><span lang="en">Next</span>
               </button>
-
-              <p class="micro tourSide__hint">
-                <span lang="it">Finito il tour, passi automaticamente alla tecnica successiva.</span>
-                <span lang="en">After the tour, it automatically moves to the next technique.</span>
-              </p>
-            </div>
+</div>
           </div>
         </article>
 
         <article class="techSlide" data-tech-slide data-title="Tintype">
+          <div class="techSlide__bigTitle" data-tech-bigtitle></div>
           <div class="techSlide__media">
             <div class="techFrame" data-tech-frame>
               <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" alt="Collodio Tintype su metallo">
-              <span class="tourPin" data-tour-pin aria-hidden="true"></span>
-            </div>
+</div>
           </div>
           <div class="techSlide__copy">
             <div class="tourSide" role="group" aria-label="Guided tour">
+              <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
               <div class="tourSide__meta">
                 <div class="tourSide__tech">
                   <span lang="it">Collodio Tintype</span><span lang="en">Collodion Tintype</span>
@@ -1863,24 +1895,20 @@
               <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
                 <span lang="it">Avanti</span><span lang="en">Next</span>
               </button>
-
-              <p class="micro tourSide__hint">
-                <span lang="it">Finito il tour, passi automaticamente alla tecnica successiva.</span>
-                <span lang="en">After the tour, it automatically moves to the next technique.</span>
-              </p>
-            </div>
+</div>
           </div>
         </article>
 
         <article class="techSlide" data-tech-slide data-title="Ambrotype">
+          <div class="techSlide__bigTitle" data-tech-bigtitle></div>
           <div class="techSlide__media">
             <div class="techFrame" data-tech-frame>
               <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" alt="Ambrotype su vetro">
-              <span class="tourPin" data-tour-pin aria-hidden="true"></span>
-            </div>
+</div>
           </div>
           <div class="techSlide__copy">
             <div class="tourSide" role="group" aria-label="Guided tour">
+              <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
               <div class="tourSide__meta">
                 <div class="tourSide__tech">
                   <span lang="it">Ambrotype</span><span lang="en">Ambrotype</span>
@@ -1894,12 +1922,7 @@
               <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
                 <span lang="it">Avanti</span><span lang="en">Next</span>
               </button>
-
-              <p class="micro tourSide__hint">
-                <span lang="it">Finito il tour, passi automaticamente alla tecnica successiva.</span>
-                <span lang="en">After the tour, it automatically moves to the next technique.</span>
-              </p>
-            </div>
+</div>
           </div>
         </article>
 
@@ -1949,14 +1972,11 @@ const initTechniquesDeck = (scope) => {
   const rootEl = scope || document;
   const deck = rootEl.querySelector('[data-tech-deck]');
   const slides = Array.from(rootEl.querySelectorAll('[data-tech-slide]'));
-  const dotsWrap = rootEl.querySelector('[data-tech-dots]');
-  const counterEl = rootEl.querySelector('[data-tech-counter]');
 
   if(!deck || slides.length < 1) return () => {};
 
-  // 3 guided popups per process (positions are % over the image)
-  // 3 guided steps per process (pin positions are % over the image)
-const STEPS = [
+  // Guided steps (3 per technique). x/y are kept for future hotspot use, but we don't render pins.
+  const STEPS = [
   // Fine art digitale
   [
     { x: 64, y: 26,
@@ -2038,113 +2058,318 @@ const STEPS = [
   ]
 ];
 
-  // Build dots
-  if(dotsWrap){
-    dotsWrap.innerHTML = slides.map((_, i) =>
-      `<span class="techDeck__dot ${i===0?'is-active':''}" data-dot="${i}"></span>`
-    ).join('');
-  }
-  const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.techDeck__dot')) : [];
-
   let idx = 0;
-  let locked = false;
-  let touchY = null;
   let stepIdx = 0;
+  let locked = false;
 
   const lang = () => (root.getAttribute('data-language') === 'en' ? 'en' : 'it');
 
-  const getTourEls = (i) => {
+  const getEls = (i) => {
     const slide = slides[i];
     if(!slide) return {};
     return {
+      big: slide.querySelector('[data-tech-bigtitle]'),
       frame: slide.querySelector('[data-tech-frame]'),
-      pin: slide.querySelector('[data-tour-pin]'),      title: slide.querySelector('[data-tour-title]'),
+      img: slide.querySelector('img'),
+      side: slide.querySelector('.tourSide'),
+      grab: slide.querySelector('[data-tour-grab]'),
+      title: slide.querySelector('[data-tour-title]'),
       text: slide.querySelector('[data-tour-text]'),
       prog: slide.querySelector('[data-tour-progress]'),
       next: slide.querySelector('[data-tour-next]')
     };
   };
 
-  const hideAllTours = () => {
-    slides.forEach(sl => {
-      const p = sl.querySelector('[data-tour-pin]');
-      if(p) p.style.opacity = '0';
+  const setBigTitle = (i) => {
+    const s = slides[i];
+    const t = (s && (s.getAttribute('data-title') || s.dataset.title)) ? (s.getAttribute('data-title') || s.dataset.title) : '';
+    slides.forEach((sl, n) => {
+      const { big } = getEls(n);
+      if(big) big.textContent = t && n === i ? t : (sl.getAttribute('data-title') || sl.dataset.title || '');
     });
   };
 
-  const placeTour = () => {
-    const s = STEPS[idx] || [];
-    const step = s[stepIdx];
-    const els = getTourEls(idx);
-    if(!step || !els.frame || !els.pin) return;
-
-    els.pin.style.left = step.x + '%';
-    els.pin.style.top  = step.y + '%';
-    els.pin.style.opacity = '1';
+  const renderStep = () => {
+    const steps = STEPS[idx] || [];
+    const step = steps[stepIdx];
+    const els = getEls(idx);
+    if(!step) return;
 
     const L = lang();
-    const payload = (step[L] || step.it);
-    if(els.title) els.title.textContent = payload.t;
-    if(els.text)  els.text.textContent  = payload.d;
+    const payload = (step[L] || step.it || {});
+    if(els.title) els.title.textContent = payload.t || '';
+    if(els.text)  els.text.textContent  = payload.d || '';
     if(els.prog)  els.prog.textContent  = `${stepIdx + 1}/3`;
-
-    if(els.next){
-      if(idx === slides.length - 1 && stepIdx === 2){
-        els.next.disabled = true;
-        els.next.textContent = 'Done';
-      } else {
-        els.next.disabled = false;
-        els.next.textContent = 'Next';
-      }
-    }
-
-    els.bubble.classList.add('is-visible');
   };
 
-  const setActive = (next) => {
-    const n = Math.max(0, Math.min(slides.length - 1, next));
+  const setActive = (nextIdx, nextStep = 0) => {
+    const n = Math.max(0, Math.min(slides.length - 1, nextIdx));
     idx = n;
-    stepIdx = 0;
+    stepIdx = Math.max(0, Math.min(2, nextStep));
 
     slides.forEach((s, i) => s.classList.toggle('is-active', i === idx));
-    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
-    if(counterEl) counterEl.textContent = `${idx + 1}/${slides.length}`;
+    setBigTitle(idx);
+    renderStep();
 
-    hideAllTours();
-    requestAnimationFrame(placeTour);
-  };
-
-  const go = (dir) => {
-    if(locked) return;
-    const next = idx + dir;
-    if(next < 0 || next >= slides.length) return;
-    locked = true;
-    setActive(next);
-    window.setTimeout(() => { locked = false; }, 520);
+    // When slide changes, reset side panel position unless user already made it floating
+    const els = getEls(idx);
+    if(els.side && els.side.classList.contains('is-floating')) {
+      // keep user's placement
+    } else {
+      if(els.side) {
+        els.side.style.left = '';
+        els.side.style.top = '';
+      }
+    }
   };
 
   const nextStep = () => {
     const steps = STEPS[idx] || [];
-    if(stepIdx < steps.length - 1){
+    if(stepIdx < Math.min(2, steps.length - 1)) {
       stepIdx += 1;
-      placeTour();
+      renderStep();
       return;
     }
-    if(idx < slides.length - 1){
-      go(1);
+    if(idx < slides.length - 1) {
+      goTechnique(1);
     }
   };
 
+  const prevStep = () => {
+    if(stepIdx > 0) {
+      stepIdx -= 1;
+      renderStep();
+      return;
+    }
+    if(idx > 0) {
+      goTechnique(-1, 2);
+    }
+  };
+
+  const goTechnique = (dir, landingStep = 0) => {
+    if(locked) return;
+    const next = idx + dir;
+    if(next < 0 || next >= slides.length) return;
+    locked = true;
+    setActive(next, landingStep);
+    window.setTimeout(() => { locked = false; }, 420);
+  };
+
+  // Button: Next
   const onNextClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
     nextStep();
   };
-
-  // Bind next buttons (one per slide)
   slides.forEach((_, i) => {
-    const { next } = getTourEls(i);
+    const { next } = getEls(i);
     if(next) next.addEventListener('click', onNextClick);
+  });
+
+  // Wheel: advances step (and then technique)
+  let wheelAcc = 0;
+  const onWheel = (e) => {
+    e.preventDefault();
+    const dy = e.deltaY || 0;
+    wheelAcc += dy;
+
+    const threshold = 70;
+    if(Math.abs(wheelAcc) < threshold) return;
+
+    const dir = wheelAcc > 0 ? 1 : -1;
+    wheelAcc = 0;
+
+    if(dir > 0) nextStep();
+    else prevStep();
+  };
+
+  // Keyboard arrows
+  const onKeyDown = (e) => {
+    if(e.key === 'ArrowRight') {
+      e.preventDefault();
+      nextStep();
+      return;
+    }
+    if(e.key === 'ArrowLeft') {
+      e.preventDefault();
+      prevStep();
+      return;
+    }
+  };
+
+  // Touch swipe (vertical)
+  let touchY = null;
+  const onTouchStart = (e) => {
+    if(!e.touches || !e.touches.length) return;
+    touchY = e.touches[0].clientY;
+  };
+  const onTouchMove = (e) => {
+    // prevent page scroll while interacting
+    if(touchY !== null) e.preventDefault();
+  };
+  const onTouchEnd = (e) => {
+    if(touchY === null) return;
+    const endY = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : touchY;
+    const delta = touchY - endY;
+    touchY = null;
+    const threshold = 42;
+    if(Math.abs(delta) < threshold) return;
+    if(delta > 0) nextStep();
+    else prevStep();
+  };
+
+  // Mobile: bottom sheet drag (collapse / expand)
+  const mqMobile = window.matchMedia('(max-width: 900px)');
+  let sheetStartY = null;
+  let sheetStartCollapsed = false;
+
+  const attachSheet = () => {
+    slides.forEach((_, i) => {
+      const { side, grab } = getEls(i);
+      if(!side || !grab) return;
+
+      const onDown = (ev) => {
+        if(!mqMobile.matches) return;
+        sheetStartY = (ev.touches && ev.touches[0]) ? ev.touches[0].clientY : ev.clientY;
+        sheetStartCollapsed = side.classList.contains('is-collapsed');
+      };
+
+      const onMove = (ev) => {
+        if(!mqMobile.matches) return;
+        if(sheetStartY === null) return;
+        const y = (ev.touches && ev.touches[0]) ? ev.touches[0].clientY : ev.clientY;
+        const dy = y - sheetStartY;
+
+        // gesture: pull down to collapse, pull up to expand
+        if(!sheetStartCollapsed && dy > 10) {
+          side.classList.add('is-collapsed');
+        }
+        if(sheetStartCollapsed && dy < -10) {
+          side.classList.remove('is-collapsed');
+        }
+
+        ev.preventDefault();
+      };
+
+      const onUp = () => {
+        sheetStartY = null;
+      };
+
+      grab.addEventListener('touchstart', onDown, { passive: true });
+      grab.addEventListener('touchmove', onMove, { passive: false });
+      grab.addEventListener('touchend', onUp, { passive: true });
+    });
+  };
+
+  attachSheet();
+
+  // Desktop: draggable floating window
+  const mqDesktop = window.matchMedia('(hover: hover) and (pointer: fine)');
+  let drag = null;
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  const onDragMove = (ev) => {
+    if(!drag) return;
+    const x = ev.clientX;
+    const y = ev.clientY;
+
+    const nx = clamp(x - drag.offX, 10, window.innerWidth - drag.w - 10);
+    const ny = clamp(y - drag.offY, 10, window.innerHeight - drag.h - 10);
+
+    drag.el.style.left = nx + 'px';
+    drag.el.style.top = ny + 'px';
+  };
+
+  const onDragUp = () => {
+    drag = null;
+  };
+
+  const attachDrag = () => {
+    slides.forEach((_, i) => {
+      const { side, grab } = getEls(i);
+      if(!side || !grab) return;
+
+      const onDown = (ev) => {
+        if(!mqDesktop.matches) return;
+        // only left click
+        if(ev.button !== 0) return;
+
+        const r = side.getBoundingClientRect();
+
+        side.classList.add('is-floating');
+        // keep current position (avoid jump)
+        side.style.left = r.left + 'px';
+        side.style.top  = r.top  + 'px';
+        const offX = ev.clientX - r.left;
+        const offY = ev.clientY - r.top;
+
+        drag = { el: side, offX, offY, w: r.width, h: r.height };
+        ev.preventDefault();
+      };
+
+      grab.addEventListener('mousedown', onDown);
+    });
+  };
+
+  attachDrag();
+  window.addEventListener('mousemove', onDragMove);
+  window.addEventListener('mouseup', onDragUp);
+
+  // Magnifier (desktop only)
+  const lens = document.createElement('div');
+  lens.className = 'magLens';
+  document.body.appendChild(lens);
+
+  const zoom = 2.2;
+
+  const lensOn = (frame, img) => {
+    if(!mqDesktop.matches) return;
+    if(!img || !img.currentSrc) return;
+
+    lens.style.backgroundImage = `url("${img.currentSrc}")`;
+    lens.classList.add('is-on');
+    frame.classList.add('is-magnify');
+  };
+
+  const lensOff = (frame) => {
+    lens.classList.remove('is-on');
+    if(frame) frame.classList.remove('is-magnify');
+  };
+
+  const lensMove = (ev, frame, img) => {
+    if(!lens.classList.contains('is-on')) return;
+    const rect = img.getBoundingClientRect();
+    const x = ev.clientX;
+    const y = ev.clientY;
+
+    // lens position
+    const size = 240;
+    lens.style.left = (x - size/2) + 'px';
+    lens.style.top  = (y - size/2) + 'px';
+
+    // background position relative to image
+    const relX = clamp((x - rect.left) / rect.width, 0, 1);
+    const relY = clamp((y - rect.top) / rect.height, 0, 1);
+
+    const bgW = rect.width * zoom;
+    const bgH = rect.height * zoom;
+
+    const bgX = -(relX * bgW - size/2);
+    const bgY = -(relY * bgH - size/2);
+
+    lens.style.backgroundSize = `${bgW}px ${bgH}px`;
+    lens.style.backgroundPosition = `${bgX}px ${bgY}px`;
+  };
+
+  // Attach magnifier events to every slide frame
+  slides.forEach((_, i) => {
+    const { frame, img } = getEls(i);
+    if(!frame || !img) return;
+
+    frame.addEventListener('mouseenter', (ev) => lensOn(frame, img));
+    frame.addEventListener('mouseleave', () => lensOff(frame));
+    frame.addEventListener('mousemove', (ev) => lensMove(ev, frame, img));
   });
 
   // Lock page scroll while this view is active
@@ -2153,55 +2378,24 @@ const STEPS = [
   document.documentElement.style.overflow = 'hidden';
   document.body.style.overflow = 'hidden';
 
-  const onWheel = (e) => {
-    e.preventDefault();
-    const dy = e.deltaY || 0;
-    const dx = e.deltaX || 0;
-    const main = Math.abs(dy) >= Math.abs(dx) ? dy : dx;
-    const threshold = 18;
-    if(Math.abs(main) < threshold) return;
-    go(main > 0 ? 1 : -1);
-  };
-
-  const onTouchStart = (e) => {
-    if(!e.touches || !e.touches.length) return;
-    touchY = e.touches[0].clientY;
-  };
-
-  const onTouchMove = (e) => { e.preventDefault(); };
-
-  const onTouchEnd = (e) => {
-    if(touchY == null) return;
-    const endY = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : touchY;
-    const delta = touchY - endY;
-    touchY = null;
-    const threshold = 42;
-    if(Math.abs(delta) < threshold) return;
-    go(delta > 0 ? 1 : -1);
-  };
-
-  const onDotClick = (e) => {
-    const dot = e.target.closest('.techDeck__dot');
-    if(!dot) return;
-    const n = Number(dot.getAttribute('data-dot'));
-    if(Number.isFinite(n)) setActive(n);
-  };
-
-  // Re-render tour text after language toggle
-  const onLangChange = () => placeTour();
-  rootEl.addEventListener('languagechange', onLangChange);
-
+  // Bind inputs
   deck.addEventListener('wheel', onWheel, { passive: false });
   deck.addEventListener('touchstart', onTouchStart, { passive: true });
   deck.addEventListener('touchmove', onTouchMove, { passive: false });
   deck.addEventListener('touchend', onTouchEnd, { passive: true });
-  if(dotsWrap) dotsWrap.addEventListener('click', onDotClick);
+  window.addEventListener('keydown', onKeyDown);
 
-  setActive(0);
+  // Re-render tour text after language toggle
+  const onLangChange = () => renderStep();
+  rootEl.addEventListener('languagechange', onLangChange);
 
+  // Initial
+  setActive(0, 0);
+
+  // Cleanup
   return () => {
     slides.forEach((_, i) => {
-      const { next } = getTourEls(i);
+      const { next } = getEls(i);
       if(next) next.removeEventListener('click', onNextClick);
     });
 
@@ -2211,12 +2405,17 @@ const STEPS = [
     deck.removeEventListener('touchstart', onTouchStart);
     deck.removeEventListener('touchmove', onTouchMove);
     deck.removeEventListener('touchend', onTouchEnd);
-    if(dotsWrap) dotsWrap.removeEventListener('click', onDotClick);
+    window.removeEventListener('keydown', onKeyDown);
+
+    window.removeEventListener('mousemove', onDragMove);
+    window.removeEventListener('mouseup', onDragUp);
+
+    try{ lens.remove(); }catch{}
 
     document.documentElement.style.overflow = prevHtmlOverflow;
     document.body.style.overflow = prevBodyOverflow;
   };
-};
+};;
 
 
       // Lightbox instance
