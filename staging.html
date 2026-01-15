@@ -1107,11 +1107,12 @@
 @media (max-width: 900px){
   .techSlide{
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    /* media deve prendere solo l'altezza della foto, niente spazio "elastico" */
+    grid-template-rows: auto auto;
     align-content: start;
-    /* meno spazio sopra: guadagniamo viewport per la foto */
+    /* titolo resta dove è, ma riduciamo lo spazio sprecato tra titolo e foto */
     padding: 60px 14px 14px;
-    gap: 10px;
+    gap: 4px;
   }
 
   .techSlide__bigTitle{
@@ -1130,7 +1131,9 @@
     align-self: start;
     align-items: flex-start;
     height: auto;
-    margin-top: 0;
+
+    /* porta la foto più vicina al titolo */
+    margin-top: -4px;
     margin-bottom: 92px; /* spazio per pannello collassato */
     padding: 0;
   }
@@ -1140,7 +1143,8 @@
     width: calc(100vw - 28px);
     max-width: 520px;
     box-sizing: border-box;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
     padding: 8px;
   }
 
@@ -1316,8 +1320,12 @@
     width: min(520px, 92vw);
   }
   .techSlide__media img{
-    max-width: min(92vw, 1100px);
-    max-height: min(72vh, 760px);
+    /* mobile: l'immagine NON deve mai sbordare dal frame o dalla viewport */
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 46vh;
+    object-fit: contain;
   }
 }
 
