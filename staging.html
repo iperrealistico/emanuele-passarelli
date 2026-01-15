@@ -1029,35 +1029,45 @@
   opacity: .95;
   text-wrap: balance;
 }
-  .techSlide__media{
+    .techSlide__media{
     width: 100%;
     display: flex;
     justify-content: center;
     align-self: start;
-    /* evita che la foto resti centrata verticalmente dentro una cella alta */
     align-items: flex-start;
     height: auto;
-    margin-top: 0;
-    margin-bottom: 92px; /* spazio per pannello collassato */
+    margin-top: -4px; /* fa salire la foto senza muovere il titolo */
+    margin-bottom: 82px; /* spazio per pannello collassato */
     padding: 0;
   }
 
-.techFrame{
-  position: relative;
-  display: inline-block;
-  padding: 10px;
-  border: 1px solid color-mix(in oklab, var(--border) 75%, transparent);
-  background: color-mix(in oklab, var(--surface) 78%, transparent);
-  box-shadow: 0 24px 70px color-mix(in oklab, #000 40%, transparent);
-}
+.techSlide__media{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    padding: 0;
+    margin: 0;
+  }
 
-.techFrame img{
-  display:block;
-  width:auto;
-  height:auto;
-  max-width: min(54vw, 880px);
-  max-height: 76vh;
-}
+  .techFrame{
+    display: inline-block;
+    width: auto;                 /* il frame si adatta alla foto */
+    max-width: calc(100vw - 28px);
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 8px;
+  }
+
+  .techFrame img{
+    display: block;
+    width: auto;                 /* rispetta aspect ratio */
+    height: auto;
+    max-width: calc(100vw - 44px); /* 28px viewport padding + 16px frame padding */
+    max-height: 54vh;            /* più grande ma resta nel viewport */
+    object-fit: contain;
+  }
 
 /* Tutorial panel (right) */
 .tourSide{
