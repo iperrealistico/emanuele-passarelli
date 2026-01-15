@@ -1114,9 +1114,13 @@
     font-size: clamp(1.8rem, 8vw, 3.2rem);
     margin-bottom: 6px;
   }
+  .techFrame{
+    max-width: calc(100vw - 28px);
+    margin: 0 auto;
+  }
   .techFrame img{
-    max-width: min(92vw, 820px);
-    max-height: 60vh;
+    max-width: calc(100vw - 56px);
+    max-height: 58vh;
   }
   .tourSide{
     position: fixed;
@@ -1133,7 +1137,16 @@
   .tourSide.is-collapsed{
     transform: translateY(calc(100% - 54px));
   }
+  .tourSide.is-collapsed .tourSide__grab::before{
+    animation: tourHint 2.6s ease-in-out infinite;
+  }
 }
+
+@keyframes tourHint{
+  0%, 70%, 100%{ transform: translateY(0); }
+  85%{ transform: translateY(-4px); }
+}
+
 
 /* Magnifier lens */
 .magLens{
@@ -2289,6 +2302,17 @@ const initTechniquesDeck = (scope) => {
 
   attachSheet();
 
+  // Mobile: start with the tutorial sheet collapsed so it doesn't cover the image
+  const collapseSheetIfMobile = () => {
+    if(!mqMobile.matches) return;
+    slides.forEach((_, i) => {
+      const { side } = getEls(i);
+      if(side) side.classList.add('is-collapsed');
+    });
+  };
+  collapseSheetIfMobile();
+  try{ mqMobile.addEventListener('change', collapseSheetIfMobile); }catch{}
+
   // Magnifier (desktop only)
   const lens = document.createElement('div');
   lens.className = 'magLens';
@@ -2323,8 +2347,10 @@ const initTechniquesDeck = (scope) => {
     lens.style.top  = (y - size/2) + 'px';
 
     // background position relative to image
-    const relX = clamp((x - rect.left) / rect.width, 0, 1);
-    const relY = clamp((y - rect.top) / rect.height, 0, 1);
+    const clamp01 = (v) => Math.min(1, Math.max(0, v));
+
+    const relX = clamp01((x - rect.left) / rect.width);
+    const relY = clamp01((y - rect.top) / rect.height);
 
     const bgW = rect.width * zoom;
     const bgH = rect.height * zoom;
