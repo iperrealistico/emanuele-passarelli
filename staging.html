@@ -1366,7 +1366,59 @@
 /* Header: mostra Home solo fuori dalla home */
 body.is-home-route .headerHomeBtn{ display:none !important; }
 body.is-home-route .headerPill{ justify-content:flex-start; }
-  </style>
+  
+
+/* === Tech image sizing overrides (v20) === */
+@media (max-width: 900px){
+  /* più spazio utile per la foto */
+  .techSlide{ padding-top: 56px !important; gap: 4px !important; }
+
+  /* niente "centro verticale" che crea vuoto, la foto sta subito sotto al titolo */
+  .techSlide__media{
+    margin-top: 0 !important;
+    margin-bottom: 82px !important; /* spazio per pannello collassato */
+    align-items: flex-start !important;
+    align-self: start !important;
+    height: auto !important;
+  }
+
+  /* frame e foto riempiono orizzontalmente con margine simmetrico */
+  .techFrame{
+    display: block !important;
+    width: calc(100vw - 24px) !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+  }
+  .techFrame img{
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 56vh !important;
+    object-fit: contain !important;
+  }
+}
+
+@media (min-width: 901px){
+  /* su desktop torna centrata verticalmente e cresce in altezza */
+  .techSlide__media{
+    align-items: center !important;
+    align-self: center !important;
+    margin: 0 !important;
+    height: auto !important;
+  }
+  .techFrame{ display: inline-block !important; width: auto !important; }
+  .techFrame img{
+    width: auto !important;
+    max-width: min(52vw, 980px) !important;
+    max-height: calc(100vh - 150px) !important;
+    object-fit: contain !important;
+  }
+}
+
+</style>
 
   
 
