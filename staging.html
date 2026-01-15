@@ -1106,21 +1106,31 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
     align-content: start;
-    padding-top: 84px;
+    padding: 72px 14px 14px;
+  }
+  .techSlide__media{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-self: start;
+    margin-top: 6px;
+    margin-bottom: 74px; /* spazio per il pannello collassato */
   }
   .techSlide__bigTitle{
     justify-self: center;
     text-align: center;
-    font-size: clamp(1.8rem, 8vw, 3.2rem);
-    margin-bottom: 6px;
+    font-size: clamp(1.45rem, 7.2vw, 2.55rem);
+    margin-bottom: 10px;
   }
   .techFrame{
     max-width: calc(100vw - 28px);
+    box-sizing: border-box;
     margin: 0 auto;
   }
   .techFrame img{
-    max-width: calc(100vw - 56px);
-    max-height: 58vh;
+    max-width: 100%;
+    height: auto;
+    max-height: 52vh;
   }
   .tourSide{
     position: fixed;
@@ -1134,17 +1144,16 @@
     transition: transform .22s ease;
     touch-action: none;
   }
+  .tourSide{ --tourCollapsedY: calc(100% - 54px); }
   .tourSide.is-collapsed{
-    transform: translateY(calc(100% - 54px));
-  }
-  .tourSide.is-collapsed .tourSide__grab::before{
+    transform: translateY(var(--tourCollapsedY));
     animation: tourHint 2.6s ease-in-out infinite;
   }
 }
 
 @keyframes tourHint{
-  0%, 70%, 100%{ transform: translateY(0); }
-  85%{ transform: translateY(-4px); }
+  0%, 70%, 100%{ transform: translateY(var(--tourCollapsedY, 0px)); }
+  85%{ transform: translateY(calc(var(--tourCollapsedY, 0px) - 6px)); }
 }
 
 
