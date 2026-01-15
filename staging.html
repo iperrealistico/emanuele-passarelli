@@ -1106,32 +1106,49 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
     align-content: start;
-    padding: 72px 14px 14px;
+    /* meno spazio sopra: guadagniamo viewport per la foto */
+    padding: 60px 14px 14px;
+    gap: 10px;
   }
+
+  .techSlide__bigTitle{
+    justify-self: center;
+    text-align: center;
+    /* titolo più piccolo su mobile */
+    font-size: clamp(1.05rem, 5.8vw, 1.9rem);
+    line-height: .92;
+    margin-bottom: 4px; /* meno spazio titolo->foto */
+  }
+
   .techSlide__media{
     width: 100%;
     display: flex;
     justify-content: center;
     align-self: start;
-    margin-top: 6px;
-    margin-bottom: 74px; /* spazio per il pannello collassato */
+    margin-top: 0;
+    margin-bottom: 92px; /* spazio per pannello collassato */
+    padding: 0;
   }
-  .techSlide__bigTitle{
-    justify-self: center;
-    text-align: center;
-    font-size: clamp(1.45rem, 7.2vw, 2.55rem);
-    margin-bottom: 10px;
-  }
+
+  /* Frame perfettamente centrato e contenuto nella viewport */
   .techFrame{
-    max-width: calc(100vw - 28px);
+    width: calc(100vw - 28px);
+    max-width: 520px;
     box-sizing: border-box;
     margin: 0 auto;
+    padding: 8px;
   }
+
+  /* L'immagine NON deve mai sbordare dal frame */
   .techFrame img{
-    max-width: 100%;
+    display: block;
+    width: 100%;
     height: auto;
-    max-height: 52vh;
+    max-width: 100%;
+    max-height: 46vh;
+    object-fit: contain;
   }
+
   .tourSide{
     position: fixed;
     left: 10px;
