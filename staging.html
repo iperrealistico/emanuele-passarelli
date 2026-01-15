@@ -2,7 +2,7 @@
 <html lang="it" dir="ltr" data-theme="dark" data-language="it">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 
   <title>Emanuele Passarelli | Artigiano del Ritratto</title>
   <link rel="icon" href="favicon.jpg">
@@ -179,6 +179,9 @@
 
     :root[data-language="it"] [lang="en"]{ display:none !important; }
     :root[data-language="en"] [lang="it"]{ display:none !important; }
+
+    /* Disable pinch/double-tap zoom (mobile) */
+    html, body{ touch-action: manipulation; }
 
     .kicker{
       margin: 0 0 var(--s-2);
@@ -1821,7 +1824,7 @@ body.is-home-route .headerPill{ justify-content:flex-start; }
               <p class="tourSide__text" data-tour-text></p>
 
               <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
-                Next
+                <span lang="it">Avanti</span><span lang="en">Next</span>
               </button>
 </div>
           </div>
@@ -2292,6 +2295,7 @@ const initTechniquesDeck = (scope) => {
   document.body.appendChild(lens);
 
   const zoom = 2.2;
+  const mqDesktop = window.matchMedia('(min-width: 901px)');
 
   const lensOn = (frame, img) => {
     if(!mqDesktop.matches) return;
@@ -3089,6 +3093,25 @@ const initTechniquesDeck = (scope) => {
       } else {
         init();
       }
+    })();
+  </script>
+
+  <script>
+    // Mobile: disable pinch & double-tap zoom site-wide
+    (function(){
+      const prevent = (e) => { e.preventDefault(); };
+      document.addEventListener('gesturestart', prevent, { passive: false });
+      document.addEventListener('gesturechange', prevent, { passive: false });
+      document.addEventListener('gestureend', prevent, { passive: false });
+
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if(now - lastTouchEnd <= 300){
+          e.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, { passive: false });
     })();
   </script>
 </body>
