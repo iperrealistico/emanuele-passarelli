@@ -230,6 +230,8 @@
       transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), backdrop-filter var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), padding var(--dur-2) var(--ease-out);
     }
 
+    .headerHomeBtn{ margin-left:auto; }
+
     .site-header.is-scrolled .headerPill{
       padding: .35rem;
       backdrop-filter: blur(14px);
@@ -858,7 +860,7 @@
 
 
     /* UI corners: niente squircle (come la galleria) */
-    .icon-btn,
+.icon-btn,
     .chip-btn,
     .btn,
     .btnBadge,
@@ -866,7 +868,12 @@
     .popMenu,
     .scrollCue__arrow,
     .dot,
-    .footer__links a{
+.stat__icon,
+.contactCard,
+.contactCard__right,
+.contactCard__left,
+    .footer__links a
+{
       border-radius: var(--r-ui) !important;
     }
 
@@ -1328,6 +1335,10 @@
             <span class="chip-label" data-lang-label>IT</span>
           </button>
         </div>
+
+        <a class="icon-btn headerHomeBtn" href="./" data-route="/" aria-label="Home" title="Home">
+          <i class="fa-solid fa-house"></i>
+        </a>
       </div>
     </div>
   </header>
@@ -1772,11 +1783,6 @@
                   <i class="fa-brands fa-instagram"></i>
                   <span>Instagram</span>
                 </a>
-
-                <a class="btn btn--ghost" href="./" data-route="/">
-                  <i class="fa-solid fa-house"></i>
-                  <span lang="it">Torna alla home</span><span lang="en">Back to home</span>
-                </a>
               </div>
             </div>
           </div>
@@ -1800,7 +1806,6 @@
           <div class="techSlide__copy">
             <div class="tourSide" role="group" aria-label="Guided tour">
               <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
-              <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
               <div class="tourSide__meta">
                 <div class="tourSide__tech">
                   <span lang="it">Fine art digitale</span><span lang="en">Fine art digital</span>
@@ -1812,7 +1817,7 @@
               <p class="tourSide__text" data-tour-text></p>
 
               <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
-                <span lang="it">Avanti</span><span lang="en">Next</span>
+                Next
               </button>
 </div>
           </div>
@@ -2111,18 +2116,6 @@ const initTechniquesDeck = (scope) => {
     setBigTitle(idx);
     renderStep();
 
-    // When slide changes, reset side panel position unless user already made it floating
-    const els = getEls(idx);
-    if(els.side && els.side.classList.contains('is-floating')) {
-      // keep user's placement
-    } else {
-      if(els.side) {
-        els.side.style.left = '';
-        els.side.style.top = '';
-      }
-    }
-  };
-
   const nextStep = () => {
     const steps = STEPS[idx] || [];
     if(stepIdx < Math.min(2, steps.length - 1)) {
@@ -2130,9 +2123,8 @@ const initTechniquesDeck = (scope) => {
       renderStep();
       return;
     }
-    if(idx < slides.length - 1) {
-      goTechnique(1);
-    }
+    // step finiti: passa alla tecnica successiva (loop)
+    goTechnique(1, 0);
   };
 
   const prevStep = () => {
@@ -2141,15 +2133,17 @@ const initTechniquesDeck = (scope) => {
       renderStep();
       return;
     }
-    if(idx > 0) {
-      goTechnique(-1, 2);
-    }
+    // step iniziale: vai alla tecnica precedente (loop) e atterra sull’ultimo step
+    goTechnique(-1, 2);
   };
 
   const goTechnique = (dir, landingStep = 0) => {
     if(locked) return;
-    const next = idx + dir;
-    if(next < 0 || next >= slides.length) return;
+
+    let next = idx + dir;
+    if(next < 0) next = slides.length - 1;
+    if(next >= slides.length) next = 0;
+
     locked = true;
     setActive(next, landingStep);
     window.setTimeout(() => { locked = false; }, 420);
@@ -2185,37 +2179,61 @@ const initTechniquesDeck = (scope) => {
 
   // Keyboard arrows
   const onKeyDown = (e) => {
-    if(e.key === 'ArrowRight') {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault();
       nextStep();
       return;
     }
-    if(e.key === 'ArrowLeft') {
+    if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
       e.preventDefault();
       prevStep();
       return;
     }
   };
 
-  // Touch swipe (vertical)
+    // Clicking/tapping the photo advances the tutorial step
+  slides.forEach((sl) => {
+    const frame = sl.querySelector('[data-tech-frame]');
+    const img = sl.querySelector('img');
+    const handler = (ev) => { ev.preventDefault(); nextStep(); };
+    if(frame) frame.addEventListener('click', handler);
+    if(img) img.addEventListener('click', handler);
+  });
+
+// Touch swipe (horizontal)
+  let touchX = null;
   let touchY = null;
+
   const onTouchStart = (e) => {
     if(!e.touches || !e.touches.length) return;
+    touchX = e.touches[0].clientX;
     touchY = e.touches[0].clientY;
   };
+
   const onTouchMove = (e) => {
     // prevent page scroll while interacting
-    if(touchY !== null) e.preventDefault();
+    if(touchX !== null) e.preventDefault();
   };
+
   const onTouchEnd = (e) => {
-    if(touchY === null) return;
+    if(touchX === null) return;
+    const endX = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : touchX;
     const endY = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : touchY;
-    const delta = touchY - endY;
+
+    const dx = endX - touchX;
+    const dy = endY - touchY;
+
+    touchX = null;
     touchY = null;
-    const threshold = 42;
-    if(Math.abs(delta) < threshold) return;
-    if(delta > 0) nextStep();
-    else prevStep();
+
+    // ignore mostly-vertical gestures (let the sheet gesture handle those)
+    if(Math.abs(dy) > Math.abs(dx)) return;
+
+    const threshold = 36;
+    if(Math.abs(dx) < threshold) return;
+
+    if(dx < 0) nextStep(); // swipe left
+    else prevStep();       // swipe right
   };
 
   // Mobile: bottom sheet drag (collapse / expand)
@@ -2262,59 +2280,6 @@ const initTechniquesDeck = (scope) => {
   };
 
   attachSheet();
-
-  // Desktop: draggable floating window
-  const mqDesktop = window.matchMedia('(hover: hover) and (pointer: fine)');
-  let drag = null;
-
-  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-
-  const onDragMove = (ev) => {
-    if(!drag) return;
-    const x = ev.clientX;
-    const y = ev.clientY;
-
-    const nx = clamp(x - drag.offX, 10, window.innerWidth - drag.w - 10);
-    const ny = clamp(y - drag.offY, 10, window.innerHeight - drag.h - 10);
-
-    drag.el.style.left = nx + 'px';
-    drag.el.style.top = ny + 'px';
-  };
-
-  const onDragUp = () => {
-    drag = null;
-  };
-
-  const attachDrag = () => {
-    slides.forEach((_, i) => {
-      const { side, grab } = getEls(i);
-      if(!side || !grab) return;
-
-      const onDown = (ev) => {
-        if(!mqDesktop.matches) return;
-        // only left click
-        if(ev.button !== 0) return;
-
-        const r = side.getBoundingClientRect();
-
-        side.classList.add('is-floating');
-        // keep current position (avoid jump)
-        side.style.left = r.left + 'px';
-        side.style.top  = r.top  + 'px';
-        const offX = ev.clientX - r.left;
-        const offY = ev.clientY - r.top;
-
-        drag = { el: side, offX, offY, w: r.width, h: r.height };
-        ev.preventDefault();
-      };
-
-      grab.addEventListener('mousedown', onDown);
-    });
-  };
-
-  attachDrag();
-  window.addEventListener('mousemove', onDragMove);
-  window.addEventListener('mouseup', onDragUp);
 
   // Magnifier (desktop only)
   const lens = document.createElement('div');
@@ -2406,9 +2371,6 @@ const initTechniquesDeck = (scope) => {
     deck.removeEventListener('touchmove', onTouchMove);
     deck.removeEventListener('touchend', onTouchEnd);
     window.removeEventListener('keydown', onKeyDown);
-
-    window.removeEventListener('mousemove', onDragMove);
-    window.removeEventListener('mouseup', onDragUp);
 
     try{ lens.remove(); }catch{}
 
