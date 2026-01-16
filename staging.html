@@ -51,7 +51,35 @@
     .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
     .skip-link{ position:absolute; left:-9999px; top:0; padding:.75rem 1rem; background:#111; border:1px solid #333; border-radius:.75rem; z-index:9999; }
     .skip-link:focus{ left:.75rem; top:.75rem; }
-  </style>
+  
+
+/* TECH STACK (normal scroll page) */
+.techStack{ padding-top: calc(var(--s-6) + 30px); }
+.techStack__head{ padding: var(--s-5) 0 var(--s-4); }
+.techStack__sections{ display:flex; flex-direction:column; gap: var(--s-6); padding-bottom: var(--s-6); }
+
+.techSection{ border-top: 1px solid color-mix(in oklab, var(--border) 75%, transparent); padding-top: var(--s-5); }
+.techSection__grid{ display:grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); align-items: start; }
+.techSection__grid--flip .techSection__media{ order: 2; }
+.techSection__grid--flip .techSection__copy{ order: 1; }
+
+@media (max-width: 900px){
+  .techSection__grid{ grid-template-columns: 1fr; gap: var(--s-3); }
+  .techSection__grid--flip .techSection__media,
+  .techSection__grid--flip .techSection__copy{ order: initial; }
+}
+
+.techMedia{ border: 1px solid color-mix(in oklab, var(--border) 75%, transparent); overflow:hidden; background: color-mix(in oklab, var(--surface) 82%, transparent); }
+.techMedia img{ width:100%; height:auto; display:block; }
+
+.techSection__title{ font-family: var(--serif); letter-spacing: .02em; margin: 0 0 .8rem; font-size: clamp(1.4rem, 2.2vw, 2.1rem); }
+.techSection__p{ margin: 0 0 .9rem; color: var(--muted); line-height: 1.6; max-width: 68ch; }
+
+/* Scroll reveal (strong & visible, but clean) */
+.techAnim{ opacity: 0; transform: translateY(56px); filter: blur(10px); transition: opacity .9s ease, transform .95s cubic-bezier(.2,.9,.2,1), filter .9s ease; will-change: transform, opacity, filter; }
+.techSection__media.techAnim{ transform: translateY(56px) scale(.98); }
+.techAnim.is-in{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+</style>
 
   <style>
     :root{
@@ -1914,143 +1942,137 @@ body.is-home-route .headerPill{ justify-content:flex-start; }
 
     <template id="tpl-techniques">
   <div data-view="techniques" data-techniques-view>
-    <section class="techPage techPage--full" aria-label="Confronto tecniche">
-      <div class="techDeck" data-tech-deck>
-<!-- Slides -->
-        <article class="techSlide is-active" data-tech-slide data-title="Fine art digitale">
-          <div class="techSlide__bigTitle" data-tech-bigtitle></div>
-          <div class="techSlide__media">
-            <div class="techFrame" data-tech-frame>
-              <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" alt="Stampa fine art digitale">
-</div>
-          </div>
-          <div class="techSlide__copy">
-            <div class="tourSide" role="group" aria-label="Guided tour">
-              <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
-              <div class="tourSide__meta">
-                <div class="tourSide__tech">
-                  <span lang="it">Fine art digitale</span><span lang="en">Fine art digital</span>
-                </div>
-                <div class="tourSide__progress" data-tour-progress>1/3</div>
+    <section class="techStack" aria-label="Techniques">
+      <div class="wrap">
+        <div class="techStack__head">
+          <p class="kicker techAnim" data-tech-anim>
+            <span lang="it">Tecniche</span><span lang="en">Techniques</span>
+          </p>
+          <h1 class="h2 techAnim" data-tech-anim>
+            <span lang="it">Differenze reali, senza effetti</span><span lang="en">Real differences, no effects</span>
+          </h1>
+          <p class="lead techAnim" data-tech-anim style="max-width:72ch;">
+            <span lang="it">Queste tecniche non cambiano solo l'estetica: cambiano il modo in cui la fotografia nasce, la materia che rimane e il tipo di esperienza che hai in mano.</span>
+            <span lang="en">These techniques don’t just change the look: they change how the photograph is made, the material that remains, and the kind of object you end up holding.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="techStack__sections">
+
+        <!-- Fine art digitale -->
+        <section class="techSection" id="fine-art">
+          <div class="wrap techSection__grid">
+            <div class="techSection__media techAnim" data-tech-anim>
+              <div class="techMedia" data-component="smart-media">
+                <div class="media__ph"></div>
+                <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n1.jpg" alt="Fine art digitale">
               </div>
-
-              <h3 class="tourSide__title" data-tour-title></h3>
-              <p class="tourSide__text" data-tour-text></p>
-
-              <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
-                <span lang="it">Avanti</span><span lang="en">Next</span>
-              </button>
-</div>
+            </div>
+            <div class="techSection__copy">
+              <h2 class="techSection__title techAnim" data-tech-anim>
+                <span lang="it">Fine art digitale</span><span lang="en">Fine art digital</span>
+              </h2>
+              <p class="techSection__p techAnim" data-tech-anim>
+                <span lang="it">Qui la fotografia diventa un processo di controllo: tono, micro-contrasto e dettaglio vengono rifiniti con precisione, fino ad arrivare alla versione definitiva dell’immagine.</span>
+                <span lang="en">Here photography becomes a process of control: tone, micro-contrast, and detail are refined precisely until the image reaches its final version.</span>
+              </p>
+              <p class="techSection__p techAnim" data-tech-anim>
+                <span lang="it">La materia nasce in stampa: carta e inchiostri pigmentati determinano texture, profondità dei neri e presenza dei bianchi. È una scelta estetica, ma anche di durata.</span>
+                <span lang="en">Materiality happens in the print: fine papers and pigment inks shape texture, black depth, and paper whites. It’s an aesthetic choice and a longevity choice.</span>
+              </p>
+              <p class="techSection__p techAnim" data-tech-anim>
+                <span lang="it">Il vantaggio è la coerenza: se vuoi una serie o un’edizione, puoi ottenere copie allineate, mantenendo la stessa intenzione visiva nel tempo.</span>
+                <span lang="en">The advantage is consistency: for a series or edition, you can keep copies aligned and preserve the same visual intent over time.</span>
+              </p>
+            </div>
           </div>
-        </article>
+        </section>
 
-        <article class="techSlide" data-tech-slide data-title="Pellicola">
-          <div class="techSlide__bigTitle" data-tech-bigtitle></div>
-          <div class="techSlide__media">
-            <div class="techFrame" data-tech-frame>
-              <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" alt="Pellicola e stampa">
-</div>
-          </div>
-          <div class="techSlide__copy">
-            <div class="tourSide" role="group" aria-label="Guided tour">
-              <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
-              <div class="tourSide__meta">
-                <div class="tourSide__tech">
-                  <span lang="it">Pellicola</span><span lang="en">Film</span>
-                </div>
-                <div class="tourSide__progress" data-tour-progress>1/3</div>
+        <!-- Pellicola -->
+        <section class="techSection" id="film">
+          <div class="wrap techSection__grid techSection__grid--flip">
+            <div class="techSection__media techAnim" data-tech-anim>
+              <div class="techMedia" data-component="smart-media">
+                <div class="media__ph"></div>
+                <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n3.jpg" alt="Pellicola">
               </div>
-
-              <h3 class="tourSide__title" data-tour-title></h3>
-              <p class="tourSide__text" data-tour-text></p>
-
-              <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
-                <span lang="it">Avanti</span><span lang="en">Next</span>
-              </button>
-</div>
+            </div>
+            <div class="techSection__copy">
+              <h2 class="techSection__title techAnim" data-tech-anim>
+                <span lang="it">Pellicola</span><span lang="en">Film</span>
+              </h2>
+              <p class="techSection__p techAnim" data-tech-anim>
+                <span lang="it">La pellicola introduce grana, micro-variazioni e una risposta alla luce che spesso risulta più “organica”. Le transizioni tra luci e ombre possono diventare morbide e profonde.</span>
+                <span lang="en">Film introduces grain, micro-variation, and a light response that often feels more organic. Highlight-to-shadow transitions can become softer and deeper.</span>
+              </p>
+              <p class="techSection__p techAnim" data-tech-anim>
+                <span lang="it">Qui contano davvero le decisioni in ripresa: esposizione, lente, tipo di luce, sviluppo. Ogni fotogramma è una scelta, non una raffica.</span>
+                <span lang="en">This is where capture decisions matter: exposure, lens character, light quality, and development. Each frame is a choice, not a burst.</span>
+              </p>
+              <p class="techSection__p techAnim" data-tech-anim>
+                <span lang="it">Il risultato porta un carattere riconoscibile: piccole imperfezioni e variazioni diventano parte del linguaggio, rendendo l’immagine meno sterile e più “umana”.</span>
+                <span lang="en">The result carries a recognizable character: small imperfections and variations become part of the language, making the image less sterile and more human.</span>
+              </p>
+            </div>
           </div>
-        </article>
+        </section>
 
-        <article class="techSlide" data-tech-slide data-title="FP-100">
-          <div class="techSlide__bigTitle" data-tech-bigtitle></div>
-          <div class="techSlide__media">
-            <div class="techFrame" data-tech-frame>
-              <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" alt="FP-100 peel apart">
-</div>
-          </div>
-          <div class="techSlide__copy">
-            <div class="tourSide" role="group" aria-label="Guided tour">
-              <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
-              <div class="tourSide__meta">
-                <div class="tourSide__tech">
-                  <span lang="it">FP-100</span><span lang="en">FP-100</span>
-                </div>
-                <div class="tourSide__progress" data-tour-progress>1/3</div>
+        <!-- FP-100 -->
+        <section class="techSection" id="fp100">
+          <div class="wrap techSection__grid">
+            <div class="techSection__media techAnim" data-tech-anim>
+              <div class="techMedia" data-component="smart-media">
+                <div class="media__ph"></div>
+                <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n5.jpg" alt="FP-100">
               </div>
-
-              <h3 class="tourSide__title" data-tour-title></h3>
-              <p class="tourSide__text" data-tour-text></p>
-
-              <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
-                <span lang="it">Avanti</span><span lang="en">Next</span>
-              </button>
-</div>
+            </div>
+            <div class="techSection__copy">
+              <h2 class="techSection__title techAnim" data-tech-anim>FP-100</h2>
+              <p class="techSection__p techAnim" data-tech-anim>
+                <span lang="it">FP-100 è una istantanea peel-apart: l’immagine nasce come oggetto, con bordi, segni e chimica visibile. Non è un “render pulito”, è materia.</span>
+                <span lang="en">FP-100 is peel-apart instant film: the image is born as an object, with borders, marks, and visible chemistry. It’s not a clean render, it’s material.</span>
+              </p>
+              <p class="techSection__p techAnim" data-tech-anim>
+                <span lang="it">Il tempo e la temperatura incidono sul risultato: colori e contrasto possono cambiare da uno scatto all’altro. È una fotografia che accetta l’imprevisto.</span>
+                <span lang="en">Time and temperature affect the outcome: color and contrast can shift from shot to shot. It’s a photography that embraces unpredictability.</span>
+              </p>
+              <p class="techSection__p techAnim" data-tech-anim>
+                <span lang="it">Proprio perché unica e fisica, comunica subito che non è riproduzione: è una piccola reliquia, che invecchia e si segna, e porta memoria.</span>
+                <span lang="en">Because it’s unique and physical, it reads immediately as not a reproduction: it’s a small relic that ages, carries marks, and holds memory.</span>
+              </p>
+            </div>
           </div>
-        </article>
+        </section>
 
-        <article class="techSlide" data-tech-slide data-title="Tintype">
-          <div class="techSlide__bigTitle" data-tech-bigtitle></div>
-          <div class="techSlide__media">
-            <div class="techFrame" data-tech-frame>
-              <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n9.jpg" alt="Collodio Tintype su metallo">
-</div>
-          </div>
-          <div class="techSlide__copy">
-            <div class="tourSide" role="group" aria-label="Guided tour">
-              <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
-              <div class="tourSide__meta">
-                <div class="tourSide__tech">
-                  <span lang="it">Collodio Tintype</span><span lang="en">Collodion Tintype</span>
-                </div>
-                <div class="tourSide__progress" data-tour-progress>1/3</div>
+        <!-- Wet plate collodion (Tintype + Ambrotype) -->
+        <section class="techSection" id="wet-plate">
+          <div class="wrap techSection__grid techSection__grid--flip">
+            <div class="techSection__media techAnim" data-tech-anim>
+              <div class="techMedia" data-component="smart-media">
+                <div class="media__ph"></div>
+                <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" alt="Wet plate collodion">
               </div>
-
-              <h3 class="tourSide__title" data-tour-title></h3>
-              <p class="tourSide__text" data-tour-text></p>
-
-              <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
-                <span lang="it">Avanti</span><span lang="en">Next</span>
-              </button>
-</div>
+            </div>
+            <div class="techSection__copy">
+              <h2 class="techSection__title techAnim" data-tech-anim>
+                <span lang="it">Wet plate collodion</span><span lang="en">Wet plate collodion</span>
+              </h2>
+              <p class="techSection__p techAnim" data-tech-anim>
+                <span lang="it">Tintype e ambrotype fanno parte della stessa famiglia: il collodio umido. La lastra viene preparata, sensibilizzata, esposta e sviluppata in una finestra di tempo breve. È fotografia come rito.</span>
+                <span lang="en">Tintype and ambrotype belong to the same family: wet plate collodion. The plate is prepared, sensitized, exposed, and developed within a short time window. It’s photography as ritual.</span>
+              </p>
+              <p class="techSection__p techAnim" data-tech-anim>
+                <span lang="it">La differenza è il supporto: metallo per il tintype, vetro per l’ambrotipo. In entrambi i casi l’immagine è un pezzo unico, con segni e imperfezioni che diventano firma del processo.</span>
+                <span lang="en">The difference is the support: metal for tintype, glass for ambrotype. In both cases the image is one of a kind, with marks and imperfections that become the process signature.</span>
+              </p>
+              <p class="techSection__p techAnim" data-tech-anim>
+                <span lang="it">Il look è difficile da imitare: profondità, micro-contrasto, bordi, colature e variazioni chimiche creano una presenza fisica e un senso di “originale” immediato.</span>
+                <span lang="en">The look is hard to fake: depth, micro-contrast, edges, streaks, and chemical variation create physical presence and an immediate sense of originality.</span>
+              </p>
+            </div>
           </div>
-        </article>
-
-        <article class="techSlide" data-tech-slide data-title="Ambrotype">
-          <div class="techSlide__bigTitle" data-tech-bigtitle></div>
-          <div class="techSlide__media">
-            <div class="techFrame" data-tech-frame>
-              <img data-src="img/EmanuelePassarelli_ItalianelGrandeFormato_2018_n10.jpg" alt="Ambrotype su vetro">
-</div>
-          </div>
-          <div class="techSlide__copy">
-            <div class="tourSide" role="group" aria-label="Guided tour">
-              <div class="tourSide__grab" data-tour-grab aria-hidden="true"></div>
-              <div class="tourSide__meta">
-                <div class="tourSide__tech">
-                  <span lang="it">Ambrotype</span><span lang="en">Ambrotype</span>
-                </div>
-                <div class="tourSide__progress" data-tour-progress>1/3</div>
-              </div>
-
-              <h3 class="tourSide__title" data-tour-title></h3>
-              <p class="tourSide__text" data-tour-text></p>
-
-              <button class="btn btn--primary tourSide__next" type="button" data-tour-next>
-                <span lang="it">Avanti</span><span lang="en">Next</span>
-              </button>
-</div>
-          </div>
-        </article>
+        </section>
 
       </div>
     </section>
@@ -2096,422 +2118,23 @@ body.is-home-route .headerPill{ justify-content:flex-start; }
 
 const initTechniquesDeck = (scope) => {
   const rootEl = scope || document;
-  const deck = rootEl.querySelector('[data-tech-deck]');
-  const slides = Array.from(rootEl.querySelectorAll('[data-tech-slide]'));
+  const items = Array.from(rootEl.querySelectorAll('[data-tech-anim]'));
+  if(items.length === 0) return () => {};
 
-  if(!deck || slides.length < 1) return () => {};
-
-  // Guided steps (3 per technique). x/y are kept for future hotspot use, but we don't render pins.
-  const STEPS = [
-  // Fine art digitale
-  [
-    { x: 64, y: 26,
-      it: { t: "Controllo e coerenza", d: "Nel digitale fine art puoi scegliere con precisione tono, contrasto e micro-dettaglio. Questo significa che l’immagine può essere riprodotta in modo coerente, utile per edizioni e serie dove ogni suggerimento visivo deve rimanere identico." },
-      en: { t: "Control and consistency", d: "Fine art digital lets you precisely shape tone, contrast, and micro-detail. That means consistent reproduction, ideal for editions and series where the visual intent must stay the same across copies." }
-    },
-    { x: 38, y: 54,
-      it: { t: "Carta e inchiostri", d: "La resa finale dipende da carta e inchiostri pigmentati: texture, bianchi, e profondità dei neri cambiano tutto. Qui è dove si costruisce la “materia” della stampa, con superfici che vanno dal matte vellutato al baryta più brillante." },
-      en: { t: "Paper and inks", d: "The final look depends on paper and pigment inks: texture, paper whites, and black depth change everything. This is where the print’s material quality is built, from velvety matte surfaces to brighter baryta finishes." }
-    },
-    { x: 56, y: 78,
-      it: { t: "Precisione in stampa", d: "Dal monitor alla stampa serve calibrazione e prove, altrimenti i dettagli si perdono. Un buon flusso fine art mantiene fedeli pelle, cieli e ombre, evitando dominanti indesiderate e preservando le sfumature più sottili." },
-      en: { t: "Print accuracy", d: "From screen to paper you need calibration and test prints, or details get lost. A solid fine art workflow preserves skin tones, skies, and shadows, avoiding unwanted color casts and keeping subtle gradations intact." }
-    }
-  ],
-
-  // Pellicola
-  [
-    { x: 62, y: 28,
-      it: { t: "Grana e tridimensionalità", d: "La pellicola introduce grana e micro-irregolarità che danno corpo all’immagine. La transizione tra luci e ombre è spesso più morbida, e il risultato può sembrare più “profondo” anche senza essere più nitido." },
-      en: { t: "Grain and depth", d: "Film adds grain and micro-variation that gives the image a tactile presence. Highlight to shadow transitions can be gentler, and the result often feels deeper even when it isn’t sharper." }
-    },
-    { x: 40, y: 56,
-      it: { t: "Luce e esposizione", d: "Qui contano davvero le scelte in ripresa: come esponi, che lente usi, che tipo di luce c’è. La pellicola perdona in modo diverso, ma chiede disciplina: ogni scatto è una decisione, non una raffica." },
-      en: { t: "Light and exposure", d: "On film, decisions at capture matter: exposure, lens character, and the quality of light. Film forgives differently, but it asks for discipline: each frame is a decision, not a burst." }
-    },
-    { x: 54, y: 82,
-      it: { t: "Sviluppo e carattere", d: "Lo sviluppo è parte del look: tempi, chimica e scansione cambiano la resa. È un processo che lascia impronte sottili e un carattere riconoscibile, spesso più “umano” e meno perfetto." },
-      en: { t: "Development character", d: "Processing is part of the look: timing, chemistry, and scanning shape the result. It leaves subtle fingerprints and a recognizable character, often more human and less perfect." }
-    }
-  ],
-
-  // FP-100
-  [
-    { x: 66, y: 26,
-      it: { t: "Chimica visibile", d: "FP-100 è istantanea peel-apart: bordi, macchie, micro-difetti e sorprese fanno parte dell’opera. Non è un file “pulito”, è un oggetto con segni e incidenti controllati, e proprio per questo ha fascino." },
-      en: { t: "Visible chemistry", d: "FP-100 is peel-apart instant film: borders, stains, micro-defects, and surprises are part of the piece. It’s not a clean file, it’s an object with controlled accidents, and that’s exactly the charm." }
-    },
-    { x: 38, y: 56,
-      it: { t: "Unicità immediata", d: "Ogni scatto è unico e succede davanti a te: estrai, aspetti, separi. Il tempo di sviluppo e la temperatura cambiano colori e contrasto, quindi il risultato non è mai identico due volte." },
-      en: { t: "Instant uniqueness", d: "Each shot is unique and happens in front of you: pull, wait, peel. Development time and temperature shift color and contrast, so results are never identical twice." }
-    },
-    { x: 56, y: 82,
-      it: { t: "Oggetto e memoria", d: "L’istantanea è già “finita”: la puoi tenere in mano, graffia, invecchia, porta tracce. È fotografia come reliquia, con una presenza fisica che comunica subito che non è una riproduzione." },
-      en: { t: "Object and memory", d: "The instant is already finished: you can hold it, it scratches, it ages, it carries marks. It’s photography as a relic, with a physical presence that instantly reads as not just a reproduction." }
-    }
-  ],
-
-  // Tintype
-  [
-    { x: 60, y: 26,
-      it: { t: "Metallo e contrasto", d: "Il tintype è collodio su metallo: neri densi, luci dure e un look molto grafico. Cambia con l’angolo di luce e con il modo in cui lo guardi, come se l’immagine fosse scolpita sulla superficie." },
-      en: { t: "Metal and contrast", d: "Tintype is collodion on metal: dense blacks, punchy highlights, and a graphic look. It shifts with viewing angle and light, as if the image were carved into the surface." }
-    },
-    { x: 40, y: 56,
-      it: { t: "Pezzo unico", d: "Non esiste “la copia perfetta”: ogni lastra è una sola, e porta difetti, colature e segni del processo. È fotografia come oggetto irripetibile, più vicino alla scultura che alla stampa." },
-      en: { t: "One of a kind", d: "There is no perfect copy: each plate is singular and carries flaws, streaks, and process marks. It’s photography as an unrepeatable object, closer to sculpture than printing." }
-    },
-    { x: 56, y: 82,
-      it: { t: "Rituale e tempo", d: "Preparazione della lastra, sensibilizzazione, esposizione e sviluppo vanno fatti con tempi precisi. Questa urgenza crea un’energia particolare: tutto accade nel presente, e l’immagine nasce come evento." },
-      en: { t: "Ritual and timing", d: "Plate prep, sensitizing, exposure, and development must happen within strict timing. That urgency creates a special energy: everything happens in the present, and the image is born as an event." }
-    }
-  ],
-
-  // Ambrotype
-  [
-    { x: 62, y: 26,
-      it: { t: "Vetro e luce interna", d: "L’ambrotipo è collodio su vetro: sembra illuminarsi da dentro, con un effetto quasi tridimensionale. I mezzi toni possono apparire delicati e “lattei”, molto diversi dalla resa su carta." },
-      en: { t: "Glass and inner light", d: "Ambrotype is collodion on glass: it can look lit from within, almost dimensional. Midtones often feel delicate and milky, very different from paper-based prints." }
-    },
-    { x: 40, y: 56,
-      it: { t: "Fragile e prezioso", d: "Il supporto è delicato e richiede protezione, spesso con custodie e montaggi. Questa fragilità lo rende prezioso: non è pensato per essere “consumato”, ma conservato." },
-      en: { t: "Fragile and precious", d: "The support is delicate and often needs cases and careful mounting. That fragility makes it precious: it’s not meant to be consumed, but preserved." }
-    },
-    { x: 56, y: 82,
-      it: { t: "Impronta del processo", d: "Ogni ambrotipo porta tracce: piccoli difetti, bordi, variazioni chimiche e texture. È la firma del processo, un linguaggio visivo che racconta come l’immagine è stata fatta, non solo cosa mostra." },
-      en: { t: "Process fingerprint", d: "Every ambrotype carries traces: tiny defects, edges, chemical variation, and texture. It’s the process signature, a visual language that tells how the image was made, not only what it shows." }
-    }
-  ]
-];
-
-  let idx = 0;
-  let stepIdx = 0;
-  let locked = false;
-
-  const lang = () => (root.getAttribute('data-language') === 'en' ? 'en' : 'it');
-
-  const getEls = (i) => {
-    const slide = slides[i];
-    if(!slide) return {};
-    return {
-      big: slide.querySelector('[data-tech-bigtitle]'),
-      frame: slide.querySelector('[data-tech-frame]'),
-      img: slide.querySelector('img'),
-      side: slide.querySelector('.tourSide'),
-      grab: slide.querySelector('[data-tour-grab]'),
-      title: slide.querySelector('[data-tour-title]'),
-      text: slide.querySelector('[data-tour-text]'),
-      prog: slide.querySelector('[data-tour-progress]'),
-      next: slide.querySelector('[data-tour-next]')
-    };
-  };
-
-  const setBigTitle = (i) => {
-    const s = slides[i];
-    const t = (s && (s.getAttribute('data-title') || s.dataset.title)) ? (s.getAttribute('data-title') || s.dataset.title) : '';
-    slides.forEach((sl, n) => {
-      const { big } = getEls(n);
-      if(big) big.textContent = t && n === i ? t : (sl.getAttribute('data-title') || sl.dataset.title || '');
+  // Strong, sleek reveal animations while scrolling
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if(e.isIntersecting){
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
     });
-  };
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
 
-  const renderStep = () => {
-    const steps = STEPS[idx] || [];
-    const step = steps[stepIdx];
-    const els = getEls(idx);
-    if(!step) return;
+  items.forEach((el) => io.observe(el));
 
-    const L = lang();
-    const payload = (step[L] || step.it || {});
-    if(els.title) els.title.textContent = payload.t || '';
-    if(els.text)  els.text.textContent  = payload.d || '';
-    if(els.prog)  els.prog.textContent  = `${stepIdx + 1}/3`;
-  };
-
-  const setActive = (nextIdx, nextStepIdx = 0) => {
-    const n = Math.max(0, Math.min(slides.length - 1, nextIdx));
-    idx = n;
-    stepIdx = Math.max(0, Math.min(2, nextStepIdx));
-
-    slides.forEach((s, i) => s.classList.toggle('is-active', i === idx));
-    setBigTitle(idx);
-    renderStep();
-  };
-
-  const nextStep = () => {
-    const steps = STEPS[idx] || [];
-    if(stepIdx < Math.min(2, steps.length - 1)) {
-      stepIdx += 1;
-      renderStep();
-      return;
-    }
-    // step finiti: passa alla tecnica successiva (loop)
-    goTechnique(1, 0);
-  };
-
-  const prevStep = () => {
-    if(stepIdx > 0) {
-      stepIdx -= 1;
-      renderStep();
-      return;
-    }
-    // step iniziale: vai alla tecnica precedente (loop) e atterra sull’ultimo step
-    goTechnique(-1, 2);
-  };
-
-  const goTechnique = (dir, landingStep = 0) => {
-    if(locked) return;
-
-    let next = idx + dir;
-    if(next < 0) next = slides.length - 1;
-    if(next >= slides.length) next = 0;
-
-    locked = true;
-    setActive(next, landingStep);
-    window.setTimeout(() => { locked = false; }, 420);
-  };
-
-  // Button: Next
-  const onNextClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    nextStep();
-  };
-  slides.forEach((_, i) => {
-    const { next } = getEls(i);
-    if(next) next.addEventListener('click', onNextClick);
-  });
-
-  // Wheel: advances step (and then technique)
-  let wheelAcc = 0;
-  const onWheel = (e) => {
-    e.preventDefault();
-    const dy = e.deltaY || 0;
-    wheelAcc += dy;
-
-    const threshold = 70;
-    if(Math.abs(wheelAcc) < threshold) return;
-
-    const dir = wheelAcc > 0 ? 1 : -1;
-    wheelAcc = 0;
-
-    if(dir > 0) nextStep();
-    else prevStep();
-  };
-
-  // Keyboard arrows
-  const onKeyDown = (e) => {
-    if(e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-      e.preventDefault();
-      nextStep();
-      return;
-    }
-    if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-      e.preventDefault();
-      prevStep();
-      return;
-    }
-  };
-
-    // Clicking/tapping the photo advances the tutorial step
-  slides.forEach((sl) => {
-    const frame = sl.querySelector('[data-tech-frame]');
-    const img = sl.querySelector('img');
-    const handler = (ev) => { ev.preventDefault(); nextStep(); };
-    if(frame) frame.addEventListener('click', handler);
-    if(img) img.addEventListener('click', handler);
-  });
-
-// Touch swipe (horizontal)
-  let touchX = null;
-  let touchY = null;
-
-  const onTouchStart = (e) => {
-    if(!e.touches || !e.touches.length) return;
-    touchX = e.touches[0].clientX;
-    touchY = e.touches[0].clientY;
-  };
-
-  const onTouchMove = (e) => {
-    // prevent page scroll while interacting
-    if(touchX !== null) e.preventDefault();
-  };
-
-  const onTouchEnd = (e) => {
-    if(touchX === null) return;
-    const endX = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : touchX;
-    const endY = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : touchY;
-
-    const dx = endX - touchX;
-    const dy = endY - touchY;
-
-    touchX = null;
-    touchY = null;
-
-    // ignore mostly-vertical gestures (let the sheet gesture handle those)
-    if(Math.abs(dy) > Math.abs(dx)) return;
-
-    const threshold = 36;
-    if(Math.abs(dx) < threshold) return;
-
-    if(dx < 0) nextStep(); // swipe left
-    else prevStep();       // swipe right
-  };
-
-  // Mobile: bottom sheet drag (collapse / expand)
-  const mqMobile = window.matchMedia('(max-width: 900px)');
-  let sheetStartY = null;
-  let sheetStartCollapsed = false;
-
-  const attachSheet = () => {
-    slides.forEach((_, i) => {
-      const { side, grab } = getEls(i);
-      if(!side || !grab) return;
-
-      const onDown = (ev) => {
-        if(!mqMobile.matches) return;
-        sheetStartY = (ev.touches && ev.touches[0]) ? ev.touches[0].clientY : ev.clientY;
-        sheetStartCollapsed = side.classList.contains('is-collapsed');
-      };
-
-      const onMove = (ev) => {
-        if(!mqMobile.matches) return;
-        if(sheetStartY === null) return;
-        const y = (ev.touches && ev.touches[0]) ? ev.touches[0].clientY : ev.clientY;
-        const dy = y - sheetStartY;
-
-        // gesture: pull down to collapse, pull up to expand
-        if(!sheetStartCollapsed && dy > 10) {
-          side.classList.add('is-collapsed');
-        }
-        if(sheetStartCollapsed && dy < -10) {
-          side.classList.remove('is-collapsed');
-        }
-
-        ev.preventDefault();
-      };
-
-      const onUp = () => {
-        sheetStartY = null;
-      };
-
-      grab.addEventListener('touchstart', onDown, { passive: true });
-      grab.addEventListener('touchmove', onMove, { passive: false });
-      grab.addEventListener('touchend', onUp, { passive: true });
-    });
-  };
-
-  attachSheet();
-
-  // Mobile: start with the tutorial sheet collapsed so it doesn't cover the image
-  const collapseSheetIfMobile = () => {
-    if(!mqMobile.matches) return;
-    slides.forEach((_, i) => {
-      const { side } = getEls(i);
-      if(side) side.classList.add('is-collapsed');
-    });
-  };
-  collapseSheetIfMobile();
-  try{ mqMobile.addEventListener('change', collapseSheetIfMobile); }catch{}
-
-  // Magnifier (desktop only)
-  const lens = document.createElement('div');
-  lens.className = 'magLens';
-  document.body.appendChild(lens);
-
-  const zoom = 2.2;
-  const mqDesktop = window.matchMedia('(min-width: 901px)');
-
-  const lensOn = (frame, img) => {
-    if(!mqDesktop.matches) return;
-    if(!img || !img.currentSrc) return;
-
-    lens.style.backgroundImage = `url("${img.currentSrc}")`;
-    lens.classList.add('is-on');
-    frame.classList.add('is-magnify');
-  };
-
-  const lensOff = (frame) => {
-    lens.classList.remove('is-on');
-    if(frame) frame.classList.remove('is-magnify');
-  };
-
-  const lensMove = (ev, frame, img) => {
-    if(!lens.classList.contains('is-on')) return;
-    const rect = img.getBoundingClientRect();
-    const x = ev.clientX;
-    const y = ev.clientY;
-
-    // lens position
-    const size = 240;
-    lens.style.left = (x - size/2) + 'px';
-    lens.style.top  = (y - size/2) + 'px';
-
-    // background position relative to image
-    const clamp01 = (v) => Math.min(1, Math.max(0, v));
-
-    const relX = clamp01((x - rect.left) / rect.width);
-    const relY = clamp01((y - rect.top) / rect.height);
-
-    const bgW = rect.width * zoom;
-    const bgH = rect.height * zoom;
-
-    const bgX = -(relX * bgW - size/2);
-    const bgY = -(relY * bgH - size/2);
-
-    lens.style.backgroundSize = `${bgW}px ${bgH}px`;
-    lens.style.backgroundPosition = `${bgX}px ${bgY}px`;
-  };
-
-  // Attach magnifier events to every slide frame
-  slides.forEach((_, i) => {
-    const { frame, img } = getEls(i);
-    if(!frame || !img) return;
-
-    frame.addEventListener('mouseenter', (ev) => lensOn(frame, img));
-    frame.addEventListener('mouseleave', () => lensOff(frame));
-    frame.addEventListener('mousemove', (ev) => lensMove(ev, frame, img));
-  });
-
-  // Lock page scroll while this view is active
-  const prevHtmlOverflow = document.documentElement.style.overflow;
-  const prevBodyOverflow = document.body.style.overflow;
-  document.documentElement.style.overflow = 'hidden';
-  document.body.style.overflow = 'hidden';
-
-  // Bind inputs
-  deck.addEventListener('wheel', onWheel, { passive: false });
-  deck.addEventListener('touchstart', onTouchStart, { passive: true });
-  deck.addEventListener('touchmove', onTouchMove, { passive: false });
-  deck.addEventListener('touchend', onTouchEnd, { passive: true });
-  window.addEventListener('keydown', onKeyDown);
-
-  // Re-render tour text after language toggle
-  const onLangChange = () => renderStep();
-  rootEl.addEventListener('languagechange', onLangChange);
-
-  // Initial
-  setActive(0, 0);
-
-  // Cleanup
   return () => {
-    slides.forEach((_, i) => {
-      const { next } = getEls(i);
-      if(next) next.removeEventListener('click', onNextClick);
-    });
-
-    rootEl.removeEventListener('languagechange', onLangChange);
-
-    deck.removeEventListener('wheel', onWheel);
-    deck.removeEventListener('touchstart', onTouchStart);
-    deck.removeEventListener('touchmove', onTouchMove);
-    deck.removeEventListener('touchend', onTouchEnd);
-    window.removeEventListener('keydown', onKeyDown);
-
-    try{ lens.remove(); }catch{}
-
-    document.documentElement.style.overflow = prevHtmlOverflow;
-    document.body.style.overflow = prevBodyOverflow;
+    try{ io.disconnect(); }catch{}
   };
 };;
 
